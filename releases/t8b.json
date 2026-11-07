@@ -1,0 +1,18 @@
+{
+  "id": "t8b",
+  "title": "Project descriptions",
+  "changelog": [
+    "Add a description when you create a project. It shows at the top of the project page."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "projectDescription"
+      ],
+      "from": false,
+      "to": true
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "id": "t4",
+  "title": "A fresh look for Tallyfox",
+  "changelog": [
+    "New teal accent colour, rounder corners and more breathing room across the app."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "brand"
+      ],
+      "from": "#ea580c",
+      "to": "#0d9488"
+    },
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "brandHover"
+      ],
+      "from": "#c2410c",
+      "to": "#0f766e"
+    },
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "radius"
+      ],
+      "from": "10px",
+      "to": "16px"
+    },
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "pagePadding"
+      ],
+      "from": "2rem",
+      "to": "2.75rem"
+    },
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "cardPadding"
+      ],
+      "from": "1.25rem",
+      "to": "1.75rem"
+    }
+  ]
+}

@@ -1,0 +1,1084 @@
+{
+  "product": "Tallyfox",
+  "version": "1.0.0",
+  "auth_mode": "none",
+  "base_url": "https://clevera-ai.github.io/tallyfox-sandbox/",
+  "app_path": "/app/",
+  "demo_account": {
+    "email": "demo@tallyfox.test",
+    "password": "TallyfoxDemo!2026",
+    "code_password_code": "424242",
+    "totp_key": "JBSWY3DPEHPK3PXP"
+  },
+  "flow_count": 25,
+  "by_difficulty": {
+    "easy": 8,
+    "medium": 10,
+    "hard": 7
+  },
+  "unavailable": [
+    {
+      "id": "sign-in",
+      "reason": "Sign-in is switched off (auth mode \"none\")."
+    }
+  ],
+  "flows": [
+    {
+      "id": "dashboard-tour",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Tour the dashboard",
+      "start_path": "/app/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Take the tour"
+        },
+        {
+          "action": "click",
+          "label": "Next"
+        },
+        {
+          "action": "click",
+          "label": "Next"
+        },
+        {
+          "action": "click",
+          "label": "Next"
+        },
+        {
+          "action": "click",
+          "label": "Done"
+        }
+      ]
+    },
+    {
+      "id": "command-palette",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Jump to a page or action with the command palette",
+      "start_path": "/app/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Search or jump to…"
+        },
+        {
+          "action": "type",
+          "label": "Search commands",
+          "value": "invoice"
+        },
+        {
+          "action": "click",
+          "label": "New invoice"
+        }
+      ]
+    },
+    {
+      "id": "onboarding-wizard",
+      "area": "Getting started",
+      "difficulty": "hard",
+      "title": "Set up your workspace with the 5-step wizard (branches on solo or team)",
+      "start_path": "/app/onboarding",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Start setup"
+        }
+      ],
+      "steps": [
+        {
+          "action": "type",
+          "label": "Workspace name",
+          "value": "Fernhill Creative"
+        },
+        {
+          "action": "click",
+          "label": "Solo",
+          "branch": "solo"
+        },
+        {
+          "action": "click",
+          "label": "Team",
+          "branch": "team"
+        },
+        {
+          "action": "click",
+          "label": "Continue"
+        },
+        {
+          "action": "select",
+          "label": "Currency",
+          "value": "USD"
+        },
+        {
+          "action": "type",
+          "label": "Default hourly rate",
+          "value": "90"
+        },
+        {
+          "action": "click",
+          "label": "Continue"
+        },
+        {
+          "action": "type",
+          "label": "Project name",
+          "value": "Website redesign",
+          "branch": "solo"
+        },
+        {
+          "action": "type",
+          "label": "Teammate email",
+          "value": "new@fernhill.test",
+          "branch": "team"
+        },
+        {
+          "action": "select",
+          "label": "Role",
+          "value": "Member",
+          "branch": "team"
+        },
+        {
+          "action": "click",
+          "label": "Add",
+          "branch": "team"
+        },
+        {
+          "action": "click",
+          "label": "Continue"
+        },
+        {
+          "action": "type",
+          "label": "Client name",
+          "value": "Northwind Studio"
+        },
+        {
+          "action": "click",
+          "label": "Continue"
+        },
+        {
+          "action": "click",
+          "label": "Finish setup"
+        }
+      ],
+      "steps_total": 5,
+      "notes": "Steps tagged with a branch only apply to that choice (Solo or Team). \"Skip for now\" is offered on the project/teammates and client steps."
+    },
+    {
+      "id": "client-add",
+      "area": "Clients",
+      "difficulty": "easy",
+      "title": "Add a client",
+      "start_path": "/app/clients",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Clients"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Add client"
+        },
+        {
+          "action": "type",
+          "label": "Name",
+          "value": "Alder & Finch"
+        },
+        {
+          "action": "type",
+          "label": "Email",
+          "value": "billing@alderfinch.test"
+        },
+        {
+          "action": "click",
+          "label": "Save client"
+        }
+      ]
+    },
+    {
+      "id": "client-edit",
+      "area": "Clients",
+      "difficulty": "medium",
+      "title": "Edit a client",
+      "start_path": "/app/clients",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Clients"
+        }
+      ],
+      "steps": [
+        {
+          "action": "hover",
+          "label": "Northwind Studio"
+        },
+        {
+          "action": "click",
+          "label": "Edit Northwind Studio"
+        },
+        {
+          "action": "type",
+          "label": "Name",
+          "value": "Northwind Studio Ltd"
+        },
+        {
+          "action": "type",
+          "label": "Hourly rate (USD)",
+          "value": "100"
+        },
+        {
+          "action": "click",
+          "label": "Save client"
+        }
+      ]
+    },
+    {
+      "id": "client-archive-restore",
+      "area": "Clients",
+      "difficulty": "medium",
+      "title": "Archive and restore a client",
+      "start_path": "/app/clients",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Clients"
+        }
+      ],
+      "steps": [
+        {
+          "action": "hover",
+          "label": "Bluebird Coffee"
+        },
+        {
+          "action": "click",
+          "label": "Archive Bluebird Coffee"
+        },
+        {
+          "action": "check",
+          "label": "Show archived"
+        },
+        {
+          "action": "hover",
+          "label": "Bluebird Coffee"
+        },
+        {
+          "action": "click",
+          "label": "Restore Bluebird Coffee"
+        }
+      ]
+    },
+    {
+      "id": "clients-import-csv",
+      "area": "Clients",
+      "difficulty": "hard",
+      "title": "Import clients from a CSV file with column mapping and row errors",
+      "start_path": "/app/clients/import",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Clients"
+        },
+        {
+          "action": "click",
+          "label": "Import clients"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Use sample data"
+        },
+        {
+          "action": "click",
+          "label": "Continue to mapping"
+        },
+        {
+          "action": "select",
+          "label": "Map column Company name",
+          "value": "Name"
+        },
+        {
+          "action": "select",
+          "label": "Map column Contact email",
+          "value": "Email"
+        },
+        {
+          "action": "select",
+          "label": "Map column Main contact",
+          "value": "Contact"
+        },
+        {
+          "action": "select",
+          "label": "Map column Rate (USD/h)",
+          "value": "Hourly rate"
+        },
+        {
+          "action": "click",
+          "label": "Review rows"
+        },
+        {
+          "action": "check",
+          "label": "Skip rows with problems"
+        },
+        {
+          "action": "click",
+          "label": "Import valid rows"
+        }
+      ],
+      "notes": "The sample CSV can also be downloaded with \"Download sample CSV\". The review step flags rows with a missing name, a bad email, a non-numeric rate or a name that already exists."
+    },
+    {
+      "id": "project-create",
+      "area": "Projects",
+      "difficulty": "medium",
+      "title": "Create a project with a budget and a client",
+      "start_path": "/app/projects",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Projects"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "New project"
+        },
+        {
+          "action": "type",
+          "label": "Project name",
+          "value": "Spring campaign"
+        },
+        {
+          "action": "select",
+          "label": "Client",
+          "value": "Bluebird Coffee"
+        },
+        {
+          "action": "type",
+          "label": "Budget (USD)",
+          "value": "5000"
+        },
+        {
+          "action": "click",
+          "label": "Create project"
+        }
+      ]
+    },
+    {
+      "id": "project-board",
+      "area": "Projects",
+      "difficulty": "hard",
+      "title": "Move projects across the drag-and-drop stage board",
+      "start_path": "/app/projects?view=board",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Projects"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Board"
+        },
+        {
+          "action": "drag",
+          "label": "Website redesign card",
+          "to": "Review column"
+        }
+      ],
+      "notes": "Keyboard alternative: focus the card, press Space, use the arrow keys, press Space again."
+    },
+    {
+      "id": "timer-start-stop",
+      "area": "Time",
+      "difficulty": "easy",
+      "title": "Start and stop the timer",
+      "start_path": "/app/time",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "type",
+          "label": "What are you working on?",
+          "value": "Homepage review"
+        },
+        {
+          "action": "select",
+          "label": "Project",
+          "value": "Website redesign"
+        },
+        {
+          "action": "click",
+          "label": "Start timer"
+        },
+        {
+          "action": "wait",
+          "label": "a few seconds"
+        },
+        {
+          "action": "click",
+          "label": "Stop timer"
+        }
+      ]
+    },
+    {
+      "id": "time-edit-entry",
+      "area": "Time",
+      "difficulty": "medium",
+      "title": "Edit a time entry",
+      "start_path": "/app/time",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "hover",
+          "label": "Homepage wireframes"
+        },
+        {
+          "action": "click",
+          "label": "Edit entry Homepage wireframes"
+        },
+        {
+          "action": "type",
+          "label": "Duration",
+          "value": "3:00"
+        },
+        {
+          "action": "type",
+          "label": "Note",
+          "value": "Homepage wireframes, round 2"
+        },
+        {
+          "action": "click",
+          "label": "Save entry"
+        }
+      ]
+    },
+    {
+      "id": "weekly-timesheet",
+      "area": "Time",
+      "difficulty": "medium",
+      "title": "Fill in the weekly timesheet",
+      "start_path": "/app/time?tab=timesheet",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Weekly timesheet"
+        },
+        {
+          "action": "type",
+          "label": "Website redesign, Friday",
+          "value": "2"
+        },
+        {
+          "action": "type",
+          "label": "Mobile app MVP, Friday",
+          "value": "1.5"
+        },
+        {
+          "action": "click",
+          "label": "Save timesheet"
+        }
+      ]
+    },
+    {
+      "id": "time-bulk-edit",
+      "area": "Time",
+      "difficulty": "hard",
+      "title": "Bulk-edit entries from a multi-select table",
+      "start_path": "/app/time",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "check",
+          "label": "Select Homepage wireframes"
+        },
+        {
+          "action": "check",
+          "label": "Select Homepage visual design"
+        },
+        {
+          "action": "click",
+          "label": "Bulk edit"
+        },
+        {
+          "action": "select",
+          "label": "Project",
+          "value": "Brand refresh"
+        },
+        {
+          "action": "select",
+          "label": "Billable",
+          "value": "Non-billable"
+        },
+        {
+          "action": "click",
+          "label": "Apply changes"
+        }
+      ]
+    },
+    {
+      "id": "invoice-create-send",
+      "area": "Invoices",
+      "difficulty": "medium",
+      "title": "Create an invoice from tracked time, add line items and tax, preview and send",
+      "start_path": "/app/invoices/new",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Invoices"
+        },
+        {
+          "action": "click",
+          "label": "New invoice"
+        }
+      ],
+      "steps": [
+        {
+          "action": "select",
+          "label": "Client",
+          "value": "Northwind Studio"
+        },
+        {
+          "action": "check",
+          "label": "Include Homepage wireframes"
+        },
+        {
+          "action": "check",
+          "label": "Include Homepage visual design"
+        },
+        {
+          "action": "click",
+          "label": "Add selected time"
+        },
+        {
+          "action": "click",
+          "label": "Add line item"
+        },
+        {
+          "action": "type",
+          "label": "Line 3 description",
+          "value": "Hosting setup"
+        },
+        {
+          "action": "type",
+          "label": "Line 3 quantity",
+          "value": "1"
+        },
+        {
+          "action": "type",
+          "label": "Line 3 rate",
+          "value": "150"
+        },
+        {
+          "action": "select",
+          "label": "Tax rate",
+          "value": "8%"
+        },
+        {
+          "action": "click",
+          "label": "Preview invoice"
+        },
+        {
+          "action": "click",
+          "label": "Send invoice"
+        }
+      ]
+    },
+    {
+      "id": "invoice-recurring",
+      "area": "Invoices",
+      "difficulty": "hard",
+      "title": "Set up a recurring invoice schedule with a date picker and a preview of the next 3",
+      "start_path": "/app/invoices/recurring",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Invoices"
+        },
+        {
+          "action": "click",
+          "label": "Recurring"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "New schedule"
+        },
+        {
+          "action": "select",
+          "label": "Client",
+          "value": "Bluebird Coffee"
+        },
+        {
+          "action": "type",
+          "label": "Title",
+          "value": "Monthly social media management"
+        },
+        {
+          "action": "type",
+          "label": "Amount (USD)",
+          "value": "1800"
+        },
+        {
+          "action": "select",
+          "label": "Frequency",
+          "value": "Every month"
+        },
+        {
+          "action": "click",
+          "label": "Start date"
+        },
+        {
+          "action": "click",
+          "label": "Next month"
+        },
+        {
+          "action": "click",
+          "label": "1"
+        },
+        {
+          "action": "click",
+          "label": "Save schedule"
+        }
+      ],
+      "notes": "In the date picker the day buttons show the day number; \"1\" picks the first of the month shown."
+    },
+    {
+      "id": "reports-filter-export",
+      "area": "Reports",
+      "difficulty": "medium",
+      "title": "Filter a report by client and date range, export CSV",
+      "start_path": "/app/reports",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Reports"
+        }
+      ],
+      "steps": [
+        {
+          "action": "select",
+          "label": "Client",
+          "value": "Northwind Studio"
+        },
+        {
+          "action": "type",
+          "label": "From",
+          "value": "2026-11-01"
+        },
+        {
+          "action": "type",
+          "label": "To",
+          "value": "2026-11-30"
+        },
+        {
+          "action": "click",
+          "label": "Export CSV"
+        }
+      ]
+    },
+    {
+      "id": "automation-rule",
+      "area": "Automations",
+      "difficulty": "hard",
+      "title": "Build an automation rule: when, if (nested conditions), then",
+      "start_path": "/app/automations/new",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Automations"
+        },
+        {
+          "action": "click",
+          "label": "New rule"
+        }
+      ],
+      "steps": [
+        {
+          "action": "type",
+          "label": "Rule name",
+          "value": "Alert on risky retainers"
+        },
+        {
+          "action": "select",
+          "label": "Trigger",
+          "value": "A project goes over budget"
+        },
+        {
+          "action": "click",
+          "label": "Add condition"
+        },
+        {
+          "action": "select",
+          "label": "Conditions condition 1 field",
+          "value": "Budget used"
+        },
+        {
+          "action": "select",
+          "label": "Conditions condition 1 operator",
+          "value": "is more than"
+        },
+        {
+          "action": "type",
+          "label": "Conditions condition 1 value",
+          "value": "90%"
+        },
+        {
+          "action": "click",
+          "label": "Add group"
+        },
+        {
+          "action": "select",
+          "label": "Nested group 1: match",
+          "value": "any"
+        },
+        {
+          "action": "select",
+          "label": "Nested group 1 condition 1 field",
+          "value": "Client"
+        },
+        {
+          "action": "select",
+          "label": "Nested group 1 condition 1 operator",
+          "value": "is"
+        },
+        {
+          "action": "type",
+          "label": "Nested group 1 condition 1 value",
+          "value": "Kestrel Labs"
+        },
+        {
+          "action": "click",
+          "label": "Add condition to nested group 1"
+        },
+        {
+          "action": "select",
+          "label": "Nested group 1 condition 2 field",
+          "value": "Hours logged"
+        },
+        {
+          "action": "select",
+          "label": "Nested group 1 condition 2 operator",
+          "value": "is more than"
+        },
+        {
+          "action": "type",
+          "label": "Nested group 1 condition 2 value",
+          "value": "100"
+        },
+        {
+          "action": "select",
+          "label": "Action 1 type",
+          "value": "Send email"
+        },
+        {
+          "action": "type",
+          "label": "Action 1 detail",
+          "value": "Project manager"
+        },
+        {
+          "action": "click",
+          "label": "Add action"
+        },
+        {
+          "action": "select",
+          "label": "Action 2 type",
+          "value": "Notify in Slack"
+        },
+        {
+          "action": "type",
+          "label": "Action 2 detail",
+          "value": "#agency-ops"
+        },
+        {
+          "action": "click",
+          "label": "Save rule"
+        }
+      ]
+    },
+    {
+      "id": "team-invite",
+      "area": "Team",
+      "difficulty": "medium",
+      "title": "Invite a teammate with a role",
+      "start_path": "/app/team",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Team"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Invite teammate"
+        },
+        {
+          "action": "type",
+          "label": "Email address",
+          "value": "jordan@fernhill.test"
+        },
+        {
+          "action": "select",
+          "label": "Role",
+          "value": "Manager"
+        },
+        {
+          "action": "click",
+          "label": "Send invitation"
+        }
+      ]
+    },
+    {
+      "id": "team-permissions",
+      "area": "Team",
+      "difficulty": "hard",
+      "title": "Set permissions per role in the permissions matrix",
+      "start_path": "/app/team/permissions",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Team"
+        },
+        {
+          "action": "click",
+          "label": "Permissions"
+        }
+      ],
+      "steps": [
+        {
+          "action": "check",
+          "label": "Manager: Manage billing"
+        },
+        {
+          "action": "check",
+          "label": "Member: Create invoices"
+        },
+        {
+          "action": "uncheck",
+          "label": "Viewer: View reports"
+        },
+        {
+          "action": "click",
+          "label": "Save permissions"
+        }
+      ],
+      "notes": "Viewer starts with View reports ticked, so that box is cleared."
+    },
+    {
+      "id": "settings-profile",
+      "area": "Settings",
+      "difficulty": "easy",
+      "title": "Update your profile",
+      "start_path": "/app/settings/profile",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        }
+      ],
+      "steps": [
+        {
+          "action": "type",
+          "label": "Full name",
+          "value": "Dana Whitfield-Reyes"
+        },
+        {
+          "action": "type",
+          "label": "Job title",
+          "value": "Founder"
+        },
+        {
+          "action": "select",
+          "label": "Time zone",
+          "value": "Europe/London"
+        },
+        {
+          "action": "click",
+          "label": "Save profile"
+        }
+      ]
+    },
+    {
+      "id": "settings-notifications",
+      "area": "Settings",
+      "difficulty": "easy",
+      "title": "Change notification toggles",
+      "start_path": "/app/settings/notifications",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        },
+        {
+          "action": "click",
+          "label": "Notifications"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Weekly summary email"
+        },
+        {
+          "action": "click",
+          "label": "Timer left running"
+        },
+        {
+          "action": "click",
+          "label": "Save notifications"
+        }
+      ]
+    },
+    {
+      "id": "settings-currency",
+      "area": "Settings",
+      "difficulty": "easy",
+      "title": "Change the currency",
+      "start_path": "/app/settings/currency",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        },
+        {
+          "action": "click",
+          "label": "Currency"
+        }
+      ],
+      "steps": [
+        {
+          "action": "select",
+          "label": "Currency",
+          "value": "EUR"
+        },
+        {
+          "action": "type",
+          "label": "Default hourly rate",
+          "value": "85"
+        },
+        {
+          "action": "click",
+          "label": "Save currency"
+        }
+      ]
+    },
+    {
+      "id": "email-template-editor",
+      "area": "Settings",
+      "difficulty": "medium",
+      "title": "Edit an email template with variables",
+      "start_path": "/app/settings/templates",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        },
+        {
+          "action": "click",
+          "label": "Email templates"
+        }
+      ],
+      "steps": [
+        {
+          "action": "select",
+          "label": "Template",
+          "value": "Payment reminder"
+        },
+        {
+          "action": "type",
+          "label": "Subject",
+          "value": "Reminder: invoice {{invoice.number}} is due soon"
+        },
+        {
+          "action": "click",
+          "label": "Message"
+        },
+        {
+          "action": "click",
+          "label": "Bold"
+        },
+        {
+          "action": "click",
+          "label": "Insert variable ▾"
+        },
+        {
+          "action": "click",
+          "label": "{{client.name}}"
+        },
+        {
+          "action": "click",
+          "label": "Save template"
+        }
+      ]
+    },
+    {
+      "id": "billing-view-plan",
+      "area": "Billing",
+      "difficulty": "easy",
+      "title": "View your plan",
+      "start_path": "/app/billing",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Billing"
+        }
+      ]
+    },
+    {
+      "id": "billing-change-plan",
+      "area": "Billing",
+      "difficulty": "medium",
+      "title": "Change plan",
+      "start_path": "/app/billing/plans",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Billing"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Change plan"
+        },
+        {
+          "action": "click",
+          "label": "Upgrade to Agency"
+        },
+        {
+          "action": "click",
+          "label": "Confirm switch"
+        }
+      ]
+    }
+  ]
+}

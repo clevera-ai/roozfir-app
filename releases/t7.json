@@ -1,0 +1,22 @@
+{
+  "id": "t7",
+  "title": "CSV export retired from Reports",
+  "changelog": [
+    "The \"Export CSV\" button has been removed from Reports. Reports can still be filtered by client and date range."
+  ],
+  "revertTitle": "CSV export is back in Reports",
+  "revertChangelog": [
+    "The \"Export CSV\" button returns to Reports."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "reportsExportCsv"
+      ],
+      "from": true,
+      "to": false
+    }
+  ]
+}

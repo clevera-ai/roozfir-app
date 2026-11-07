@@ -1,0 +1,22 @@
+{
+  "id": "t10",
+  "title": "Faster app loading",
+  "changelog": [
+    "The app now loads its navigation on demand for a quicker first paint."
+  ],
+  "revertTitle": "Fix: app not loading after sign-in",
+  "revertChangelog": [
+    "Fixed an issue that could leave the app blank after signing in."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "brokenDeploy"
+      ],
+      "from": false,
+      "to": true
+    }
+  ]
+}

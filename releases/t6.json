@@ -1,0 +1,48 @@
+{
+  "id": "t6",
+  "title": "Tags, saved views, dark mode and keyboard shortcuts",
+  "changelog": [
+    "Tag time entries and filter the time table by tag.",
+    "Save a filtered view of the time table and come back to it later from \"Saved views\".",
+    "Dark mode: choose Appearance in Settings > Profile.",
+    "Keyboard shortcuts: press ? anywhere in the app to see them."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "tags"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "savedViews"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "darkMode"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "keyboardShortcuts"
+      ],
+      "from": false,
+      "to": true
+    }
+  ]
+}

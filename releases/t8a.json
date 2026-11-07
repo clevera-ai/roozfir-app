@@ -1,0 +1,18 @@
+{
+  "id": "t8a",
+  "title": "Timesheet reminders",
+  "changelog": [
+    "New \"Timesheet reminders\" toggle in Settings > Notifications sends you a nudge on Friday afternoon."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "timesheetReminders"
+      ],
+      "from": false,
+      "to": true
+    }
+  ]
+}

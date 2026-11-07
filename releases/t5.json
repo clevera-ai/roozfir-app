@@ -1,0 +1,23 @@
+{
+  "id": "t5",
+  "title": "Internal cleanup of the money helpers",
+  "release": false,
+  "changelog": [
+    "Renamed an internal money helper. No user-facing change."
+  ],
+  "ops": [
+    {
+      "type": "text",
+      "file": "src/lib/money.ts",
+      "from": "// Money helpers.",
+      "to": "// Money helpers (internal; shared by invoices and reports)."
+    },
+    {
+      "type": "text",
+      "file": "src/lib/money.ts",
+      "from": "toCents",
+      "to": "amountToCents",
+      "all": true
+    }
+  ]
+}

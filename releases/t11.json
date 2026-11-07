@@ -1,0 +1,18 @@
+{
+  "id": "t11",
+  "title": "Brand your invoices during setup",
+  "changelog": [
+    "The setup wizard has a new step, \"Brand your invoices\", where you choose an invoice prefix and an accent colour. Setup is now 6 steps."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "wizardBrandStep"
+      ],
+      "from": false,
+      "to": true
+    }
+  ]
+}

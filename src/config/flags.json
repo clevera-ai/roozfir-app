@@ -1,0 +1,13 @@
+{
+  "expenses": false,
+  "contactsMenu": false,
+  "tags": false,
+  "savedViews": false,
+  "darkMode": false,
+  "keyboardShortcuts": false,
+  "reportsExportCsv": true,
+  "wizardBrandStep": false,
+  "timesheetReminders": false,
+  "projectDescription": false,
+  "brokenDeploy": false
+}

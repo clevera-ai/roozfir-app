@@ -1,0 +1,8 @@
+{
+  "id": "t9",
+  "title": "CSV export is back in Reports",
+  "changelog": [
+    "The \"Export CSV\" button returns to Reports, so you can download any filtered report again."
+  ],
+  "revertOf": "t7"
+}

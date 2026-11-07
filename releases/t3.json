@@ -1,0 +1,86 @@
+{
+  "id": "t3",
+  "title": "Clearer button labels",
+  "changelog": [
+    "\"Start timer\" and \"Stop timer\" are now \"Start tracking\" and \"Stop tracking\".",
+    "\"New invoice\" is now \"Create invoice\", and \"Send invoice\" is now \"Send to client\".",
+    "\"New project\" is now \"Add project\".",
+    "\"Invite teammate\" is now \"Invite someone\".",
+    "\"Save profile\" is now \"Save changes\".",
+    "\"Change plan\" is now \"Switch plan\"."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "time.start"
+      ],
+      "from": "Start timer",
+      "to": "Start tracking"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "time.stop"
+      ],
+      "from": "Stop timer",
+      "to": "Stop tracking"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "invoices.create"
+      ],
+      "from": "New invoice",
+      "to": "Create invoice"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "invoices.send"
+      ],
+      "from": "Send invoice",
+      "to": "Send to client"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "projects.create"
+      ],
+      "from": "New project",
+      "to": "Add project"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "team.invite"
+      ],
+      "from": "Invite teammate",
+      "to": "Invite someone"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "settings.save"
+      ],
+      "from": "Save profile",
+      "to": "Save changes"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "billing.change"
+      ],
+      "from": "Change plan",
+      "to": "Switch plan"
+    }
+  ]
+}

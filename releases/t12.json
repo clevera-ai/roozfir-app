@@ -1,0 +1,18 @@
+{
+  "id": "t12",
+  "title": "A clearer title on the Reports page",
+  "changelog": [
+    "The Reports page heading now reads \"Profitability reports\"."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "reports.heading"
+      ],
+      "from": "Reports",
+      "to": "Profitability reports"
+    }
+  ]
+}

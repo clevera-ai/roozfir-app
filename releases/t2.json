@@ -1,0 +1,64 @@
+{
+  "id": "t2",
+  "title": "Clients are now Customers, under Contacts",
+  "changelog": [
+    "\"Clients\" is now called \"Customers\" everywhere in Tallyfox, including buttons, forms and reports.",
+    "Customers moved into a new \"Contacts\" menu in the sidebar."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "contactsMenu"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "nav.clients"
+      ],
+      "from": "Clients",
+      "to": "Customers"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "label.client"
+      ],
+      "from": "Client",
+      "to": "Customer"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "clients.heading"
+      ],
+      "from": "Clients",
+      "to": "Customers"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "clients.add"
+      ],
+      "from": "Add client",
+      "to": "Add customer"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "clients.import"
+      ],
+      "from": "Import clients",
+      "to": "Import customers"
+    }
+  ]
+}

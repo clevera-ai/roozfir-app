@@ -1,0 +1,18 @@
+{
+  "id": "t1",
+  "title": "Track expenses on projects",
+  "changelog": [
+    "Projects now have an Expenses section. Add an expense with a description, amount and date, and mark it billable to the client."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "expenses"
+      ],
+      "from": false,
+      "to": true
+    }
+  ]
+}
