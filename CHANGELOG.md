@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7 - 2026-11-07
+
+CSV export is back in Reports
+
+- The "Export CSV" button returns to Reports, so you can download any filtered report again.
+
 ## v1.6 - 2026-11-07
 
 CSV export retired from Reports

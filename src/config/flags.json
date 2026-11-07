@@ -5,7 +5,7 @@
   "savedViews": true,
   "darkMode": true,
   "keyboardShortcuts": true,
-  "reportsExportCsv": false,
+  "reportsExportCsv": true,
   "wizardBrandStep": false,
   "timesheetReminders": false,
   "projectDescription": false,
