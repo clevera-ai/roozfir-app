@@ -46,7 +46,7 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
         <div>
           <button aria-expanded={contactsOpen || inContacts} aria-controls="contacts-menu" onClick={() => setContactsOpen(!(contactsOpen || inContacts))}
             className={cx('flex w-full items-center justify-between rounded-ui px-3 py-2 text-left text-sm font-medium hover:bg-soft', inContacts ? 'text-brand' : 'text-muted hover:text-ink')}>
-            {t('nav.contacts')}<span aria-hidden>{contactsOpen || inContacts ? '▾' : '▸'}</span>
+            {t('nav.contacts')}<span aria-hidden className={cx('text-xs', contactsOpen || inContacts ? "after:content-['▾']" : "after:content-['▸']")} />
           </button>
           {(contactsOpen || inContacts) && <div id="contacts-menu" className="ml-3 mt-1 space-y-1 border-l border-line pl-2">{show(clients)}</div>}
         </div>

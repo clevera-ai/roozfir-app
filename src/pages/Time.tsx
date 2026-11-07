@@ -219,7 +219,7 @@ export default function Time() {
       {bulk && <BulkDialog ids={visibleSelected} onClose={() => { setBulk(false); setSelected([]) }} />}
       {saveView && (
         <Modal title="Save view" onClose={() => setSaveView(false)} onSubmit={(e) => { e.preventDefault(); if (!viewName.trim()) return; update((s) => { s.savedViews.push({ id: uid('v'), name: viewName.trim(), project: fProject, billable: fBillable, tag: fTag }) }); toast(`Saved view ${viewName.trim()}`); setViewName(''); setSaveView(false) }}
-          footer={<><Button onClick={() => setSaveView(false)}>Cancel</Button><Button type="submit" variant="primary">Save view</Button></>}>
+          footer={<><Button onClick={() => setSaveView(false)}>Cancel</Button><Button type="submit" variant="primary">Save</Button></>}>
           <TextField label="View name" value={viewName} onChange={(e) => setViewName(e.target.value)} />
           <p className="text-sm text-muted">Saves the current project, billing and tag filters.</p>
         </Modal>)}

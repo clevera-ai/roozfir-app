@@ -94,7 +94,7 @@ export function buildManifest() {
     [check('Select Homepage wireframes'), check('Select Homepage visual design'), click('Bulk edit'), select('Project', 'Brand refresh'), select('Billable', 'Non-billable'), click('Apply changes')])
   if (flags.tags) add('time-tags', 'Time', 'easy', 'Filter time entries by tag', '/app/time', nav('nav.time'), [select('Filter by tag', 'design')])
   if (flags.savedViews) add('time-saved-views', 'Time', 'medium', 'Save a filtered view of the time table', '/app/time', nav('nav.time'),
-    [select('Filter by project', 'Website redesign'), select('Filter by billing', 'Billable only'), click('Save view'), type('View name', 'Website billable'), click('Save view'), select('Saved views', 'Website billable')])
+    [select('Filter by project', 'Website redesign'), select('Filter by billing', 'Billable only'), click('Save view'), type('View name', 'Website billable'), click('Save'), select('Saved views', 'Website billable')])
 
   // ---- Invoices ----
   add('invoice-create-send', 'Invoices', 'medium', 'Create an invoice from tracked time, add line items and tax, preview and send', '/app/invoices/new', [...nav('nav.invoices'), click(c('invoices.create'))],
