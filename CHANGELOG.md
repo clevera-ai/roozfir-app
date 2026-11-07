@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.12 - 2026-11-07
+
+A clearer title on the Reports page
+
+- The Reports page heading now reads "Profitability reports".
+
 ## v1.11 - 2026-11-07
 
 Brand your invoices during setup

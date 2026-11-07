@@ -1,6 +1,6 @@
 {
   "product": "Roozfir",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
