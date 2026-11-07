@@ -6,7 +6,7 @@
   "darkMode": true,
   "keyboardShortcuts": true,
   "reportsExportCsv": true,
-  "wizardBrandStep": false,
+  "wizardBrandStep": true,
   "timesheetReminders": true,
   "projectDescription": true,
   "brokenDeploy": true

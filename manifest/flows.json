@@ -1,6 +1,6 @@
 {
   "product": "Roozfir",
-  "version": "1.9.0",
+  "version": "1.10.0",
   "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
@@ -99,7 +99,7 @@
       "id": "onboarding-wizard",
       "area": "Getting started",
       "difficulty": "hard",
-      "title": "Set up your workspace with the 5-step wizard (branches on solo or team)",
+      "title": "Set up your workspace with the 6-step wizard (branches on solo or team)",
       "start_path": "/onboarding",
       "entry_steps": [
         {
@@ -178,11 +178,25 @@
           "label": "Continue"
         },
         {
+          "action": "type",
+          "label": "Invoice prefix",
+          "value": "FH"
+        },
+        {
+          "action": "select",
+          "label": "Accent colour",
+          "value": "Teal"
+        },
+        {
+          "action": "click",
+          "label": "Continue"
+        },
+        {
           "action": "click",
           "label": "Finish setup"
         }
       ],
-      "steps_total": 5,
+      "steps_total": 6,
       "notes": "Steps tagged with a branch only apply to that choice (Solo or Team). \"Skip for now\" is offered on the project/teammates and client steps."
     },
     {

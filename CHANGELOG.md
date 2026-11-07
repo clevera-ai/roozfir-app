@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.11 - 2026-11-07
+
+Brand your invoices during setup
+
+- The setup wizard has a new step, "Brand your invoices", where you choose an invoice prefix and an accent colour. Setup is now 6 steps.
+
 ## v1.10 - 2026-11-07
 
 Faster app loading
