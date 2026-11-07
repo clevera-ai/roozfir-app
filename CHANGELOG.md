@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.6 - 2026-11-07
+
+CSV export retired from Reports
+
+- The "Export CSV" button has been removed from Reports. Reports can still be filtered by client and date range.
+
 ## v1.5 - 2026-11-07
 
 Tags, saved views, dark mode and keyboard shortcuts
