@@ -35,7 +35,7 @@ function ProjectDialog({ onClose }: { onClose: () => void }) {
         <select value={clientId} onChange={(e) => setClientId(e.target.value)} className="w-full rounded-ui border border-line bg-surface px-3 py-2 text-sm">
           <option value="">Choose…</option>{active.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
         {errors.client && <span role="alert" className="mt-1 block text-xs text-red-600">{errors.client}</span>}</label>
-      <TextField label={`Budget (${currency})`} inputMode="decimal" value={budget} onChange={(e) => setBudget(e.target.value)} error={errors.budget} hint="Optional. Tallyfox warns you as the budget runs out." />
+      <TextField label={`Budget (${currency})`} inputMode="decimal" value={budget} onChange={(e) => setBudget(e.target.value)} error={errors.budget} hint="Optional. Roozfir warns you as the budget runs out." />
       {flags.projectDescription && <TextArea label="Project description" value={description} onChange={(e) => setDescription(e.target.value)} />}
     </Modal>
   )
@@ -81,7 +81,7 @@ function Board() {
                     className={cx('cursor-grab rounded-lg border bg-surface p-3 text-sm shadow-sm active:cursor-grabbing focus-visible:outline-2 focus-visible:outline-brand', held === p.id ? 'border-brand ring-2 ring-brand' : 'border-line')}>
                     <p className="font-medium"><span aria-hidden className="mr-2 inline-block h-2 w-2 rounded-full" style={{ background: p.color }} />{p.name}</p>
                     <p className="mt-1 text-xs text-muted">{clients.find((c) => c.id === p.clientId)?.name ?? 'No client'}</p>
-                    <Link to={`/app/projects/${p.id}`} draggable={false} className="mt-2 inline-block text-xs font-medium text-brand hover:underline" onKeyDown={(e) => e.stopPropagation()}>Open</Link>
+                    <Link to={`/projects/${p.id}`} draggable={false} className="mt-2 inline-block text-xs font-medium text-brand hover:underline" onKeyDown={(e) => e.stopPropagation()}>Open</Link>
                   </div>
                 </li>
               ))}
@@ -117,7 +117,7 @@ export function Projects() {
               const pct = p.budget ? Math.min(100, Math.round((spent(p.id) / p.budget) * 100)) : 0
               return (
                 <tr key={p.id} className="border-b border-line last:border-0 hover:bg-soft">
-                  <td className="px-4 py-3 font-medium"><Link to={`/app/projects/${p.id}`} className="hover:text-brand hover:underline">{p.name}</Link></td>
+                  <td className="px-4 py-3 font-medium"><Link to={`/projects/${p.id}`} className="hover:text-brand hover:underline">{p.name}</Link></td>
                   <td className="px-4 py-3">{clientName(p.clientId)}</td>
                   <td className="px-4 py-3"><Badge tone={p.stage === 'done' ? 'green' : p.stage === 'review' ? 'amber' : p.stage === 'active' ? 'blue' : 'gray'}>{STAGES.find((x) => x.id === p.stage)!.label}</Badge></td>
                   <td className="px-4 py-3">{p.budget ? <span>{pct}% of {money(p.budget, currency)}</span> : <span className="text-muted">No budget</span>}</td>
@@ -136,7 +136,7 @@ export function ProjectDetail() {
   const { projects, clients, entries, currency } = useStore()
   const p = projects.find((x) => x.id === id)
   const [expDialog, setExpDialog] = useState(false)
-  if (!p) return <Empty>That project does not exist. <Link to="/app/projects" className="font-medium text-brand">Back to projects</Link></Empty>
+  if (!p) return <Empty>That project does not exist. <Link to="/projects" className="font-medium text-brand">Back to projects</Link></Empty>
   const client = clients.find((c) => c.id === p.clientId)
   const mine = entries.filter((e) => e.projectId === p.id)
   const mins = mine.reduce((n, e) => n + e.minutes, 0)
@@ -145,7 +145,7 @@ export function ProjectDetail() {
   return (
     <>
       <PageHeader title={p.name} sub={client ? `${t('label.client')}: ${client.name}` : undefined}
-        actions={<>{flags.expenses && <Button variant="primary" onClick={() => setExpDialog(true)}>Add expense</Button>}<Link to="/app/projects" className="text-sm font-medium text-brand hover:underline">All projects</Link></>} />
+        actions={<>{flags.expenses && <Button variant="primary" onClick={() => setExpDialog(true)}>Add expense</Button>}<Link to="/projects" className="text-sm font-medium text-brand hover:underline">All projects</Link></>} />
       {flags.projectDescription && p.description && <p className="mb-4 max-w-2xl text-sm text-muted">{p.description}</p>}
       <div className="grid gap-4 md:grid-cols-3">
         <Card><p className="text-sm text-muted">Stage</p><p className="mt-1 text-xl font-semibold">{STAGES.find((x) => x.id === p.stage)!.label}</p></Card>

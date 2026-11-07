@@ -14,7 +14,7 @@ export function Automations() {
   const { rules } = useStore()
   return (
     <>
-      <PageHeader title="Automations" actions={<Link to="/app/automations/new" className="rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">New rule</Link>} />
+      <PageHeader title="Automations" actions={<Link to="/automations/new" className="rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">New rule</Link>} />
       {rules.length === 0 ? <Empty>No rules yet.</Empty> : (
         <ul className="space-y-3">{rules.map((r) => (
           <li key={r.id} className="group"><Card className="flex flex-wrap items-center justify-between gap-3">
@@ -71,11 +71,11 @@ export function RuleBuilder() {
     if (!name.trim()) return setError('Name the rule.')
     if (actions.some((a) => !a.target.trim())) return setError('Every action needs a recipient or detail.')
     update((s) => { s.rules.push({ id: uid('r'), name: name.trim(), trigger, group, actions, enabled: true }) })
-    toast(`Rule "${name.trim()}" saved and switched on`); navigate('/app/automations')
+    toast(`Rule "${name.trim()}" saved and switched on`); navigate('/automations')
   }
   return (
     <>
-      <PageHeader title="New automation rule" actions={<Link to="/app/automations" className="text-sm font-medium text-brand hover:underline">Back to automations</Link>} />
+      <PageHeader title="New automation rule" actions={<Link to="/automations" className="text-sm font-medium text-brand hover:underline">Back to automations</Link>} />
       <div className="max-w-3xl space-y-6">
         <TextField label="Rule name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Warn when a retainer project is over budget" />
         <section aria-label="When"><h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-brand">When</h2>

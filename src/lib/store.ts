@@ -1,8 +1,8 @@
 import { useSyncExternalStore } from 'react'
 import { seed, type AppState } from './seed'
 
-const DATA_KEY = 'tallyfox:data:v1'
-const SESSION_KEY = 'tallyfox:session:v1'
+const DATA_KEY = 'roozfir:data:v1'
+const SESSION_KEY = 'roozfir:session:v1'
 
 function safeGet(key: string): string | null { try { return localStorage.getItem(key) } catch { return null } }
 function safeSet(key: string, value: string | null): void {

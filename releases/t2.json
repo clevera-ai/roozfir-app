@@ -2,7 +2,7 @@
   "id": "t2",
   "title": "Clients are now Customers, under Contacts",
   "changelog": [
-    "\"Clients\" is now called \"Customers\" everywhere in Tallyfox, including buttons, forms and reports.",
+    "\"Clients\" is now called \"Customers\" everywhere in Roozfir, including buttons, forms and reports.",
     "Customers moved into a new \"Contacts\" menu in the sidebar."
   ],
   "ops": [

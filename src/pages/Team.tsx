@@ -5,7 +5,7 @@ import { Badge, Button, Checkbox, Modal, PageHeader, RowActions, SelectField, Ta
 import { EMAIL_RE, uid } from '../lib/util'
 import { PERMISSIONS, ROLES, type Role } from '../lib/seed'
 
-const tabs = [{ to: '/app/team', label: 'Members', end: true }, { to: '/app/team/permissions', label: 'Permissions' }]
+const tabs = [{ to: '/team', label: 'Members', end: true }, { to: '/team/permissions', label: 'Permissions' }]
 
 export function Team() {
   const { members } = useStore()

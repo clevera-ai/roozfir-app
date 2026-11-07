@@ -49,7 +49,7 @@ export function Clients() {
   return (
     <>
       <PageHeader title={t('clients.heading')}
-        actions={<><Link to="/app/clients/import" className="rounded-ui border border-line bg-surface px-4 py-2 text-sm font-medium hover:bg-soft">{t('clients.import')}</Link>
+        actions={<><Link to="/clients/import" className="rounded-ui border border-line bg-surface px-4 py-2 text-sm font-medium hover:bg-soft">{t('clients.import')}</Link>
           <Button variant="primary" onClick={() => setDialog({})}>{t('clients.add')}</Button></>} />
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <input aria-label={`Search ${t('clients.heading').toLowerCase()}`} placeholder={`Search ${t('clients.heading').toLowerCase()}`} value={q} onChange={(e) => setQ(e.target.value)}
@@ -88,7 +88,7 @@ export function Clients() {
 // ---- CSV import: paste/upload -> map columns -> review row errors -> import ----
 const TARGETS = ['Ignore', 'Name', 'Email', 'Contact', 'Hourly rate'] as const
 type Target = (typeof TARGETS)[number]
-const SAMPLE_URL = `${import.meta.env.BASE_URL}sample-clients.csv`
+const SAMPLE_URL = `/sample-clients.csv`
 
 export function ClientImport() {
   const { clients } = useStore()
@@ -139,7 +139,7 @@ export function ClientImport() {
 
   return (
     <>
-      <PageHeader title={t('clients.import')} sub={`Step ${stepNo} of 3`} actions={<Link to="/app/clients" className="text-sm font-medium text-brand hover:underline">Back to {t('clients.heading').toLowerCase()}</Link>} />
+      <PageHeader title={t('clients.import')} sub={`Step ${stepNo} of 3`} actions={<Link to="/clients" className="text-sm font-medium text-brand hover:underline">Back to {t('clients.heading').toLowerCase()}</Link>} />
       {step === 'upload' && (
         <div className="max-w-2xl space-y-4">
           <p className="text-sm text-muted">Upload a CSV file or paste its contents. The first row must be the column names.</p>
@@ -152,7 +152,7 @@ export function ClientImport() {
             <textarea rows={9} value={text} onChange={(e) => setText(e.target.value)} placeholder="Company name,Contact email,..." className="w-full rounded-ui border border-line bg-surface px-3 py-2 font-mono text-xs" /></label>
           <div className="flex flex-wrap items-center gap-3">
             <Button onClick={loadSample}>Use sample data</Button>
-            <a href={SAMPLE_URL} download="tallyfox-sample-clients.csv" className="text-sm font-medium text-brand hover:underline">Download sample CSV</a>
+            <a href={SAMPLE_URL} download="roozfir-sample-clients.csv" className="text-sm font-medium text-brand hover:underline">Download sample CSV</a>
           </div>
           {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
           <Button variant="primary" onClick={toMapping}>Continue to mapping</Button>
@@ -160,7 +160,7 @@ export function ClientImport() {
       )}
       {step === 'map' && (
         <div className="max-w-3xl space-y-4">
-          <p className="text-sm text-muted">Tell Tallyfox what each column holds. Columns set to Ignore are skipped.</p>
+          <p className="text-sm text-muted">Tell Roozfir what each column holds. Columns set to Ignore are skipped.</p>
           <div className="overflow-x-auto rounded-xl border border-line bg-surface">
             <table className="w-full text-sm">
               <thead className="border-b border-line bg-soft text-left text-xs uppercase text-muted"><tr><th className="px-4 py-3">Column in your file</th><th className="px-4 py-3">First rows</th><th className="px-4 py-3">Maps to</th></tr></thead>
@@ -197,7 +197,7 @@ export function ClientImport() {
       )}
       {step === 'done' && (
         <div className="max-w-lg space-y-4"><p className="text-lg font-medium">Imported {imported} {imported === 1 ? 'client' : 'clients'}.</p>
-          <Link to="/app/clients" className="inline-block rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white">View {t('clients.heading').toLowerCase()}</Link></div>
+          <Link to="/clients" className="inline-block rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white">View {t('clients.heading').toLowerCase()}</Link></div>
       )}
     </>
   )

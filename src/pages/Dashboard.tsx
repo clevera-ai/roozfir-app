@@ -8,7 +8,7 @@ import { invoiceTotals } from '../lib/money'
 
 const TOUR = [
   ['Your week at a glance', 'These cards show the hours you tracked this week, what is waiting to be billed, and what clients still owe you.'],
-  ['Track time in one click', 'Open Time and press the timer button. Tallyfox keeps counting while you work on something else.'],
+  ['Track time in one click', 'Open Time and press the timer button. Roozfir keeps counting while you work on something else.'],
   ['Jump anywhere with the search bar', 'Press the search bar at the top, or use the keyboard, to open any page or start common tasks.'],
   ['Turn hours into invoices', 'When the week is done, create an invoice from your unbilled time and send it from the preview.'],
 ]
@@ -34,8 +34,8 @@ export default function Dashboard() {
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <Card>
           <h2 className="font-semibold">Set up your workspace</h2>
-          <p className="mt-1 text-sm text-muted">{s.workspace.onboarded ? 'Your workspace is set up. You can run the guided setup again at any time.' : 'Answer a few questions and Tallyfox sets up rates, your first project and your team.'}</p>
-          <Link to="/app/onboarding" className="mt-4 inline-block rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">{s.workspace.onboarded ? 'Run setup again' : 'Start setup'}</Link>
+          <p className="mt-1 text-sm text-muted">{s.workspace.onboarded ? 'Your workspace is set up. You can run the guided setup again at any time.' : 'Answer a few questions and Roozfir sets up rates, your first project and your team.'}</p>
+          <Link to="/onboarding" className="mt-4 inline-block rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">{s.workspace.onboarded ? 'Run setup again' : 'Start setup'}</Link>
         </Card>
         <Card>
           <h2 className="mb-2 font-semibold">Latest time entries</h2>
@@ -44,7 +44,7 @@ export default function Dashboard() {
               <li key={e.id} className="flex justify-between py-2"><span>{e.note}</span><span className="text-muted">{formatDuration(e.minutes)}</span></li>
             ))}
           </ul>
-          <Link to="/app/time" className="mt-3 inline-block text-sm font-medium text-brand hover:underline">Open {t('nav.time')}</Link>
+          <Link to="/time" className="mt-3 inline-block text-sm font-medium text-brand hover:underline">Open {t('nav.time')}</Link>
         </Card>
       </div>
       {step !== null && (

@@ -19,7 +19,7 @@ export default function Reports() {
   const total = rows.reduce((n, e) => n + e.minutes, 0)
   const billable = rows.filter((e) => e.billable).reduce((n, e) => n + e.minutes, 0)
   const exportCsv = () => {
-    download('tallyfox-report.csv', toCsv([['Date', t('label.client'), 'Project', 'Note', 'Hours', 'Billable', 'Amount'],
+    download('roozfir-report.csv', toCsv([['Date', t('label.client'), 'Project', 'Note', 'Hours', 'Billable', 'Amount'],
       ...rows.map((e) => [e.date, info(e.projectId).client?.name ?? '', info(e.projectId).project, e.note, (e.minutes / 60).toFixed(2), e.billable ? 'Yes' : 'No', amount(e).toFixed(2)])]))
     toast('Report exported')
   }

@@ -10,7 +10,7 @@ export function SettingsLayout() {
   return (
     <>
       <PageHeader title={t('nav.settings')} />
-      <Tabs items={[{ to: '/app/settings/profile', label: 'Profile' }, { to: '/app/settings/notifications', label: 'Notifications' }, { to: '/app/settings/currency', label: 'Currency' }, { to: '/app/settings/templates', label: 'Email templates' }]} />
+      <Tabs items={[{ to: '/settings/profile', label: 'Profile' }, { to: '/settings/notifications', label: 'Notifications' }, { to: '/settings/currency', label: 'Currency' }, { to: '/settings/templates', label: 'Email templates' }]} />
       <Outlet />
     </>
   )
@@ -47,7 +47,7 @@ export function Notifications() {
     ['weeklySummary', 'Weekly summary email', 'Hours, billable amount and unbilled time, every Monday.'],
     ['invoicePaid', 'Invoice paid', 'Tell me when a client pays an invoice.'],
     ['timerRunning', 'Timer left running', 'Remind me when a timer has been running for over 4 hours.'],
-    ['productNews', 'Product news', 'Occasional emails about new Tallyfox features.'],
+    ['productNews', 'Product news', 'Occasional emails about new Roozfir features.'],
     ...(flags.timesheetReminders ? [['timesheetReminders', 'Timesheet reminders', 'Remind me on Friday afternoon to fill in my timesheet.'] as [string, string, string]] : []),
   ]
   return (

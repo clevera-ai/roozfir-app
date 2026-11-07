@@ -2,7 +2,7 @@
 
 ## v1.0 - 2026-11-07
 
-Tallyfox 1.0
+Roozfir 1.0
 
 - Track time with a one-click timer, weekly timesheets and bulk edits.
 - Create invoices from tracked time, or set up recurring invoice schedules.

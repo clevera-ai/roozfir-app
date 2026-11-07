@@ -10,11 +10,14 @@
 // release:
 //   true (default)  version bump, CHANGELOG.md entry, commit, tag, push, `gh release create`
 //   false           commit + push only (no version bump, tag, changelog or GitHub release)
-//   "site"          CHANGELOG.md entry only (the /changelog/ page), commit + push; no version, tag or GitHub release
+//   "site"          changelog entry in the site repo only (the /changelog/ page); the app repo is not touched
 // revertOf: "t7" -> the set is the inverse of another set.
+// A real release also writes its entry into the site repo (../roozfir-site/CHANGELOG.md) and commits + pushes it there,
+// so https://roozfir.online/changelog/ shows it as soon as the site deploys.
 // manifest/flows.json is regenerated for every commit so it always describes the new state of the app.
 import { readFileSync, writeFileSync } from 'node:fs'
-import { exists, git, ensureClean, p, push, readJson, run, writeJson } from './lib.mjs'
+import { exists, git, ensureClean, ensureSiteClean, p, push, pushSite, readJson, run, SITE_DIR, siteGit, writeJson } from './lib.mjs'
+import { join } from 'node:path'
 import { writeManifest } from './manifest.mjs'
 
 const args = process.argv.slice(2)
@@ -71,8 +74,7 @@ function bumpVersion() {
   return { version: next, tag: `v${major}.${minor + 1}` }
 }
 
-function prependChangelog(heading, title, bullets) {
-  const file = p('CHANGELOG.md')
+function prependChangelog(heading, title, bullets, file = p('CHANGELOG.md')) {
   const text = readFileSync(file, 'utf8')
   const entry = `## ${heading}\n\n${title}\n\n${bullets.map((b) => `- ${b}`).join('\n')}\n\n`
   const idx = text.indexOf('\n## ')
@@ -82,6 +84,9 @@ function prependChangelog(heading, title, bullets) {
 
 try {
   ensureClean()
+  const set0 = loadSet(id)
+  const needsSite = (set0.revertOf ? loadSet(set0.revertOf) : set0).release !== false
+  if (needsSite) ensureSiteClean()
   const set = loadSet(id)
   const { ops, inverse: baseInverse } = resolve(set)
   const inverse = revert ? !baseInverse : baseInverse
@@ -104,24 +109,29 @@ try {
     else console.log('--no-push: not pushed.')
   } else if (mode === 'site') {
     const date = new Date().toISOString().slice(0, 10)
-    prependChangelog(`News - ${date}`, title, bullets)
-    git('add', '-A')
-    git('commit', '-m', `Site: ${title}\n\nRelease set: ${set.id}${revert ? ' (reverted)' : ''}. Changelog page entry only; no version, tag or GitHub release.`)
-    console.log(`Committed changelog entry (no version/tag/release): ${title}`)
-    if (!noPush) push()
+    prependChangelog(`News - ${date}`, title, bullets, join(SITE_DIR, 'CHANGELOG.md'))
+    siteGit('add', '-A')
+    siteGit('commit', '-m', `Changelog: ${title}\n\nRelease set: ${set.id}${revert ? ' (reverted)' : ''}. Changelog page entry only; no app version, tag or GitHub release.`)
+    if (git('status', '--porcelain').trim()) { git('add', '-A'); git('commit', '-m', `Manifest refresh (${set.id})`) }
+    console.log(`Committed changelog entry in the site repo (no version/tag/release): ${title}`)
+    if (!noPush) pushSite()
     else console.log('--no-push: not pushed.')
   } else {
     const { version, tag } = bumpVersion()
     const date = new Date().toISOString().slice(0, 10)
     const notes = prependChangelog(`${tag} - ${date}`, title, bullets)
+    prependChangelog(`${tag} - ${date}`, title, bullets, join(SITE_DIR, 'CHANGELOG.md'))
+    siteGit('add', '-A')
+    siteGit('commit', '-m', `Changelog ${tag}: ${title}`)
     git('add', '-A')
     git('commit', '-m', `Release ${tag}: ${title}\n\nRelease set: ${set.id}${revert ? ' (reverted)' : ''}. Version ${version}.`)
     git('tag', '-a', tag, '-m', `${tag}: ${title}`)
     console.log(`Committed and tagged ${tag} (${version}): ${title}`)
     if (!noPush) {
       push(tag)
+      pushSite()
       run('gh', ['release', 'create', tag, '--title', `${tag}: ${title}`, '--notes', notes], { inherit: true })
-    } else console.log('--no-push: not pushed, no GitHub release.')
+    } else console.log('--no-push: nothing pushed (app or site), no GitHub release.')
   }
 } catch (e) {
   console.error(`Release failed: ${e.message}`)

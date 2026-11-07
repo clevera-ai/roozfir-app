@@ -3,9 +3,9 @@ import { signIn } from '../lib/store'
 import { DEMO_EMAIL } from '../lib/util'
 import { Button, TextField } from '../components/ui'
 import { verifyTotp } from '../lib/totp'
-import { Logo } from '../components/Marketing'
+import { Logo } from '../components/Logo'
 
-const PASSWORD = 'TallyfoxDemo!2026'
+const PASSWORD = 'RoozfirDemo!2026'
 const CODE = '424242'
 
 export default function Login({ mode }: { mode: 'password' | 'password_code' | 'password_totp' }) {
@@ -36,7 +36,7 @@ export default function Login({ mode }: { mode: 'password' | 'password_code' | '
         {step === 'credentials' ? (
           <form onSubmit={submitCredentials} noValidate className="space-y-4">
             <div>
-              <h1 className="text-xl font-semibold">Sign in to Tallyfox</h1>
+              <h1 className="text-xl font-semibold">Sign in to Roozfir</h1>
               <p className="mt-1 text-sm text-muted">Welcome back. Enter your details to continue.</p>
             </div>
             <TextField label="Email" type="email" autoComplete="username" value={email} autoFocus onChange={(e) => setEmail(e.target.value)} />
@@ -49,7 +49,7 @@ export default function Login({ mode }: { mode: 'password' | 'password_code' | '
             <div>
               <h1 className="text-xl font-semibold">Enter your verification code</h1>
               <p className="mt-1 text-sm text-muted">
-                {mode === 'password_totp' ? 'Open your authenticator app and enter the 6-digit code for Tallyfox.' : `We sent a 6-digit code to ${DEMO_EMAIL}.`}
+                {mode === 'password_totp' ? 'Open your authenticator app and enter the 6-digit code for Roozfir.' : `We sent a 6-digit code to ${DEMO_EMAIL}.`}
               </p>
             </div>
             <TextField label="6-digit code" inputMode="numeric" autoComplete="one-time-code" maxLength={6} value={code} autoFocus onChange={(e) => setCode(e.target.value)} />
@@ -58,7 +58,7 @@ export default function Login({ mode }: { mode: 'password' | 'password_code' | '
             <button type="button" className="w-full text-center text-sm text-muted hover:text-ink" onClick={() => { setStep('credentials'); setCode(''); setError('') }}>Back to sign in</button>
           </form>
         )}
-        <p className="mt-6 text-center text-xs text-muted">Tallyfox is a fictional demo product made for testing.</p>
+        <p className="mt-6 text-center text-xs text-muted">Roozfir is a fictional demo product made for testing.</p>
       </div>
     </div>
   )

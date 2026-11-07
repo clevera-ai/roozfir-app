@@ -1,5 +1,5 @@
 // Date and formatting helpers.
-export const DEMO_EMAIL = 'demo@tallyfox.test'
+export const DEMO_EMAIL = 'demo@roozfir.online'
 
 export const uid = (p = 'id') => `${p}-${Math.random().toString(36).slice(2, 9)}`
 export const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('') || '?'

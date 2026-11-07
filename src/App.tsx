@@ -5,7 +5,7 @@ import flags from './config/flags.json'
 import { t } from './lib/copy'
 import { signOut, useSession, useStore } from './lib/store'
 import { Avatar, Button, Modal, cx } from './components/ui'
-import { Changelog, Home, Logo, MarketingLayout, Pricing } from './components/Marketing'
+import { Logo } from './components/Logo'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Onboarding from './pages/Onboarding'
@@ -21,12 +21,12 @@ import { Billing, Plans } from './pages/Billing'
 
 interface NavItem { to: string; label: string }
 function navItems() {
-  const core: NavItem[] = [{ to: '/app', label: t('nav.dashboard') }]
-  const clients: NavItem = { to: '/app/clients', label: t('nav.clients') }
+  const core: NavItem[] = [{ to: '/', label: t('nav.dashboard') }]
+  const clients: NavItem = { to: '/clients', label: t('nav.clients') }
   const rest: NavItem[] = [
-    { to: '/app/projects', label: t('nav.projects') }, { to: '/app/time', label: t('nav.time') }, { to: '/app/invoices', label: t('nav.invoices') },
-    { to: '/app/reports', label: t('nav.reports') }, { to: '/app/automations', label: t('nav.automations') }, { to: '/app/team', label: t('nav.team') },
-    { to: '/app/billing', label: t('nav.billing') }, { to: '/app/settings', label: t('nav.settings') },
+    { to: '/projects', label: t('nav.projects') }, { to: '/time', label: t('nav.time') }, { to: '/invoices', label: t('nav.invoices') },
+    { to: '/reports', label: t('nav.reports') }, { to: '/automations', label: t('nav.automations') }, { to: '/team', label: t('nav.team') },
+    { to: '/billing', label: t('nav.billing') }, { to: '/settings', label: t('nav.settings') },
   ]
   return { core, clients, rest }
 }
@@ -37,8 +37,8 @@ function NavList({ onNavigate }: { onNavigate?: () => void }) {
   const [contactsOpen, setContactsOpen] = useState(false)
   const link = ({ isActive }: { isActive: boolean }) =>
     cx('block rounded-ui px-3 py-2 text-sm font-medium', isActive ? 'bg-soft text-brand' : 'text-muted hover:bg-soft hover:text-ink')
-  const show = (n: NavItem) => <NavLink key={n.to} to={n.to} end={n.to === '/app'} className={link} onClick={onNavigate}>{n.label}</NavLink>
-  const inContacts = pathname.startsWith('/app/clients')
+  const show = (n: NavItem) => <NavLink key={n.to} to={n.to} end={n.to === '/'} className={link} onClick={onNavigate}>{n.label}</NavLink>
+  const inContacts = pathname.startsWith('/clients')
   return (
     <nav aria-label="Main" className="space-y-1">
       {core.map(show)}
@@ -76,8 +76,8 @@ function UserMenu() {
         <div role="menu" className="absolute right-0 z-40 mt-2 w-64 rounded-xl border border-line bg-surface p-1 shadow-xl">
           <div className="px-3 py-2"><p className="text-sm font-medium">{profile.name}</p><p className="text-xs text-muted">{profile.email}</p></div>
           <div className="my-1 border-t border-line" />
-          <Link role="menuitem" to="/app/settings/profile" onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2 text-sm hover:bg-soft">Profile settings</Link>
-          <Link role="menuitem" to="/" onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2 text-sm hover:bg-soft">Back to tallyfox site</Link>
+          <Link role="menuitem" to="/settings/profile" onClick={() => setOpen(false)} className="block rounded-lg px-3 py-2 text-sm hover:bg-soft">Profile settings</Link>
+          <a role="menuitem" href="https://roozfir.online" className="block rounded-lg px-3 py-2 text-sm hover:bg-soft">Back to roozfir.online</a>
           {auth.mode !== 'none' && <button role="menuitem" onClick={signOut} className="block w-full rounded-lg px-3 py-2 text-left text-sm hover:bg-soft">Sign out</button>}
         </div>
       )}
@@ -91,22 +91,22 @@ function Palette({ onClose }: { onClose: () => void }) {
   const [q, setQ] = useState('')
   const [idx, setIdx] = useState(0)
   const cmds: Cmd[] = useMemo(() => [
-    { label: `Go to ${t('nav.dashboard')}`, hint: 'Page', to: '/app' },
-    { label: `Go to ${t('nav.clients')}`, hint: 'Page', to: '/app/clients' },
-    { label: `Go to ${t('nav.projects')}`, hint: 'Page', to: '/app/projects' },
-    { label: `Go to ${t('nav.time')}`, hint: 'Page', to: '/app/time' },
-    { label: `Go to ${t('nav.invoices')}`, hint: 'Page', to: '/app/invoices' },
-    { label: `Go to ${t('nav.reports')}`, hint: 'Page', to: '/app/reports' },
-    { label: `Go to ${t('nav.automations')}`, hint: 'Page', to: '/app/automations' },
-    { label: `Go to ${t('nav.team')}`, hint: 'Page', to: '/app/team' },
-    { label: `Go to ${t('nav.billing')}`, hint: 'Page', to: '/app/billing' },
-    { label: `Go to ${t('nav.settings')}`, hint: 'Page', to: '/app/settings' },
-    { label: t('invoices.create'), hint: 'Action', to: '/app/invoices/new' },
-    { label: t('clients.import'), hint: 'Action', to: '/app/clients/import' },
-    { label: 'New automation rule', hint: 'Action', to: '/app/automations/new' },
-    { label: 'Weekly timesheet', hint: 'Action', to: '/app/time?tab=timesheet' },
-    { label: 'Team permissions', hint: 'Action', to: '/app/team/permissions' },
-    { label: 'Run the setup wizard', hint: 'Action', to: '/app/onboarding' },
+    { label: `Go to ${t('nav.dashboard')}`, hint: 'Page', to: '/' },
+    { label: `Go to ${t('nav.clients')}`, hint: 'Page', to: '/clients' },
+    { label: `Go to ${t('nav.projects')}`, hint: 'Page', to: '/projects' },
+    { label: `Go to ${t('nav.time')}`, hint: 'Page', to: '/time' },
+    { label: `Go to ${t('nav.invoices')}`, hint: 'Page', to: '/invoices' },
+    { label: `Go to ${t('nav.reports')}`, hint: 'Page', to: '/reports' },
+    { label: `Go to ${t('nav.automations')}`, hint: 'Page', to: '/automations' },
+    { label: `Go to ${t('nav.team')}`, hint: 'Page', to: '/team' },
+    { label: `Go to ${t('nav.billing')}`, hint: 'Page', to: '/billing' },
+    { label: `Go to ${t('nav.settings')}`, hint: 'Page', to: '/settings' },
+    { label: t('invoices.create'), hint: 'Action', to: '/invoices/new' },
+    { label: t('clients.import'), hint: 'Action', to: '/clients/import' },
+    { label: 'New automation rule', hint: 'Action', to: '/automations/new' },
+    { label: 'Weekly timesheet', hint: 'Action', to: '/time?tab=timesheet' },
+    { label: 'Team permissions', hint: 'Action', to: '/team/permissions' },
+    { label: 'Run the setup wizard', hint: 'Action', to: '/onboarding' },
   ], [])
   const results = cmds.filter((c) => c.label.toLowerCase().includes(q.trim().toLowerCase()))
   const go = (c?: Cmd) => { if (c) { navigate(c.to); onClose() } }
@@ -151,7 +151,7 @@ function Shortcuts({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => 
       if (e.key === '?') { setOpen(!open); return }
       if (e.key === 'g') { pending = Date.now(); return }
       if (Date.now() - pending < 1200) {
-        const dest = ({ t: '/app/time', i: '/app/invoices', p: '/app/projects' } as Record<string, string>)[e.key]
+        const dest = ({ t: '/time', i: '/invoices', p: '/projects' } as Record<string, string>)[e.key]
         if (dest) { navigate(dest); pending = 0 }
       }
     }
@@ -186,7 +186,7 @@ function Layout() {
   return (
     <div className="min-h-screen md:grid md:grid-cols-[230px_1fr]">
       <aside className="hidden border-r border-line bg-surface p-4 md:flex md:flex-col">
-        <div className="mb-6 px-2"><Logo to="/app" /></div>
+        <div className="mb-6 px-2"><Logo to="/" /></div>
         <NavList />
         {flags.keyboardShortcuts && <p className="mt-auto px-2 text-xs text-muted">Press <kbd className="rounded border border-line px-1">?</kbd> for keyboard shortcuts</p>}
       </aside>
@@ -198,7 +198,7 @@ function Layout() {
             <span>Search or jump to…</span><kbd className="rounded border border-line px-1 text-xs">⌘K</kbd>
           </button>
           <div className="ml-auto flex items-center gap-3">
-            {timer.startedAt && <Link to="/app/time" className="hidden rounded-full bg-soft px-3 py-1 text-xs font-medium text-brand sm:inline">● Timer running</Link>}
+            {timer.startedAt && <Link to="/time" className="hidden rounded-full bg-soft px-3 py-1 text-xs font-medium text-brand sm:inline">● Timer running</Link>}
             <UserMenu />
           </div>
         </header>
@@ -206,7 +206,7 @@ function Layout() {
       </div>
       {menu && (
         <div className="fixed inset-0 z-50 bg-black/50 md:hidden" onMouseDown={(e) => { if (e.target === e.currentTarget) setMenu(false) }}>
-          <div className="h-full w-64 bg-surface p-4"><div className="mb-4"><Logo to="/app" /></div><NavList onNavigate={() => setMenu(false)} /></div>
+          <div className="h-full w-64 bg-surface p-4"><div className="mb-4"><Logo to="/" /></div><NavList onNavigate={() => setMenu(false)} /></div>
         </div>
       )}
       {palette && <Palette onClose={() => setPalette(false)} />}
@@ -233,12 +233,7 @@ function AppGate() {
 export default function App() {
   return (
     <Routes>
-      <Route element={<MarketingLayout />}>
-        <Route index element={<Home />} />
-        <Route path="pricing" element={<Pricing />} />
-        <Route path="changelog" element={<Changelog />} />
-      </Route>
-      <Route path="app" element={<Blank><AppGate /></Blank>}>
+      <Route path="/" element={<Blank><AppGate /></Blank>}>
         <Route index element={<Dashboard />} />
         <Route path="onboarding" element={<Onboarding />} />
         <Route path="clients" element={<Clients />} />
@@ -263,9 +258,8 @@ export default function App() {
         </Route>
         <Route path="billing" element={<Billing />} />
         <Route path="billing/plans" element={<Plans />} />
-        <Route path="*" element={<Navigate to="/app" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   )
 }

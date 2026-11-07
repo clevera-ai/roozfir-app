@@ -92,7 +92,7 @@ export function seed(): AppState {
   ]
   const x = (id: string, name: string, email: string, role: Role, status: Member['status'] = 'active'): Member => ({ id, name, email, role, status })
   return {
-    profile: { name: 'Dana Whitfield', email: 'demo@tallyfox.test', initials: 'DW', title: 'Studio owner', timezone: 'America/New_York' },
+    profile: { name: 'Dana Whitfield', email: 'demo@roozfir.online', initials: 'DW', title: 'Studio owner', timezone: 'America/New_York' },
     theme: 'light', currency: 'USD', defaultRate: 90,
     notifications: { weeklySummary: true, invoicePaid: true, timerRunning: false, productNews: false, timesheetReminders: false },
     workspace: { name: 'Fernhill Creative', type: 'team', onboarded: false, invoicePrefix: 'FH', accent: 'Orange' },
@@ -110,7 +110,7 @@ export function seed(): AppState {
       actions: [{ id: 'a0', type: 'Send email', target: 'Project manager' }],
     }],
     members: [
-      x('m-1', 'Dana Whitfield', 'demo@tallyfox.test', 'Admin'), x('m-2', 'Marcus Bell', 'marcus@fernhill.test', 'Manager'),
+      x('m-1', 'Dana Whitfield', 'demo@roozfir.online', 'Admin'), x('m-2', 'Marcus Bell', 'marcus@fernhill.test', 'Manager'),
       x('m-3', 'Lena Okafor', 'lena@fernhill.test', 'Member'), x('m-4', 'Sam Ortiz', 'sam@fernhill.test', 'Member', 'invited'),
     ],
     permissions: defaultPermissions(),

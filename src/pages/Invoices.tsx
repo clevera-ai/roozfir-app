@@ -7,7 +7,7 @@ import { addDays, addMonths, formatDuration, money, shortDate, todayIso, uid } f
 import { invoiceTotals, type InvoiceLine } from '../lib/money'
 import type { Schedule } from '../lib/seed'
 
-const tabs = () => [{ to: '/app/invoices', label: 'All invoices', end: true }, { to: '/app/invoices/recurring', label: 'Recurring' }]
+const tabs = () => [{ to: '/invoices', label: 'All invoices', end: true }, { to: '/invoices/recurring', label: 'Recurring' }]
 const tone = { draft: 'gray', sent: 'blue', paid: 'green' } as const
 
 export function Invoices() {
@@ -15,7 +15,7 @@ export function Invoices() {
   const name = (id: string) => clients.find((c) => c.id === id)?.name ?? '—'
   return (
     <>
-      <PageHeader title={t('invoices.heading')} actions={<Link to="/app/invoices/new" className="rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">{t('invoices.create')}</Link>} />
+      <PageHeader title={t('invoices.heading')} actions={<Link to="/invoices/new" className="rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">{t('invoices.create')}</Link>} />
       <Tabs items={tabs()} />
       {invoices.length === 0 ? <Empty>No invoices yet.</Empty> : (
         <div className="overflow-x-auto rounded-xl border border-line bg-surface">
@@ -71,11 +71,11 @@ export function InvoiceEditor() {
       for (const e of st.entries) if (included.includes(e.id)) e.invoiced = true
     })
     toast(status === 'sent' ? `${number} sent to ${client?.name}` : `Saved ${number} as a draft`)
-    navigate('/app/invoices')
+    navigate('/invoices')
   }
   return (
     <>
-      <PageHeader title={t('invoices.create')} sub={`Invoice ${number}`} actions={<Link to="/app/invoices" className="text-sm font-medium text-brand hover:underline">Back to invoices</Link>} />
+      <PageHeader title={t('invoices.create')} sub={`Invoice ${number}`} actions={<Link to="/invoices" className="text-sm font-medium text-brand hover:underline">Back to invoices</Link>} />
       <div className="grid gap-6 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-6">
           <Card className="grid gap-4 sm:grid-cols-2">

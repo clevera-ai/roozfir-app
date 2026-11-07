@@ -54,8 +54,8 @@ export default function Onboarding() {
       if (type === 'team') for (const v of invites) s.members.push({ id: uid('m'), name: v.email.split('@')[0], email: v.email, role: v.role, status: 'invited' })
       if (client.trim()) s.clients.push({ id: uid('c'), name: client.trim(), email: '', contact: '', rate: Number(rate), archived: false })
     })
-    toast('Workspace ready. Welcome to Tallyfox.')
-    navigate('/app')
+    toast('Workspace ready. Welcome to Roozfir.')
+    navigate('/')
   }
   const skip = id === 'first' || id === 'client' || id === 'brand'
 
@@ -68,7 +68,7 @@ export default function Onboarding() {
         {id === 'workspace' && (<>
           <TextField label="Workspace name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Fernhill Creative" autoFocus />
           <fieldset>
-            <legend className="mb-2 text-sm font-medium">How will you use Tallyfox?</legend>
+            <legend className="mb-2 text-sm font-medium">How will you use Roozfir?</legend>
             <div className="grid gap-3 sm:grid-cols-2">
               {([['solo', 'Solo', 'Just me, tracking my own time.'], ['team', 'Team workspace', 'Me and teammates who track time too.']] as const).map(([v, label, desc]) => (
                 <label key={v} className={cx('flex cursor-pointer items-start gap-3 rounded-xl border p-4 text-sm', type === v ? 'border-brand bg-soft' : 'border-line')}>
@@ -118,7 +118,7 @@ export default function Onboarding() {
         {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
       </Card>
       <div className="mt-6 flex items-center justify-between">
-        <Button variant="ghost" onClick={() => { setError(''); i === 0 ? navigate('/app') : setI(i - 1) }}>{i === 0 ? 'Cancel' : 'Back'}</Button>
+        <Button variant="ghost" onClick={() => { setError(''); i === 0 ? navigate('/') : setI(i - 1) }}>{i === 0 ? 'Cancel' : 'Back'}</Button>
         <div className="flex gap-2">
           {skip && <Button onClick={() => { setError(''); setI(i + 1) }}>Skip for now</Button>}
           {id === 'review' ? <Button variant="primary" onClick={finish}>Finish setup</Button> : <Button variant="primary" onClick={next}>Continue</Button>}

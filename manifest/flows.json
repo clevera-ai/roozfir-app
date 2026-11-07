@@ -1,12 +1,12 @@
 {
-  "product": "Tallyfox",
+  "product": "Roozfir",
   "version": "1.0.0",
   "auth_mode": "none",
-  "base_url": "https://clevera-ai.github.io/tallyfox-sandbox/",
-  "app_path": "/app/",
+  "base_url": "https://app.roozfir.online/",
+  "app_path": "/",
   "demo_account": {
-    "email": "demo@tallyfox.test",
-    "password": "TallyfoxDemo!2026",
+    "email": "demo@roozfir.online",
+    "password": "RoozfirDemo!2026",
     "code_password_code": "424242",
     "totp_key": "JBSWY3DPEHPK3PXP"
   },
@@ -28,7 +28,7 @@
       "area": "Getting started",
       "difficulty": "easy",
       "title": "Tour the dashboard",
-      "start_path": "/app/",
+      "start_path": "/",
       "entry_steps": [],
       "steps": [
         {
@@ -58,7 +58,7 @@
       "area": "Getting started",
       "difficulty": "easy",
       "title": "Jump to a page or action with the command palette",
-      "start_path": "/app/",
+      "start_path": "/",
       "entry_steps": [],
       "steps": [
         {
@@ -81,7 +81,7 @@
       "area": "Getting started",
       "difficulty": "hard",
       "title": "Set up your workspace with the 5-step wizard (branches on solo or team)",
-      "start_path": "/app/onboarding",
+      "start_path": "/onboarding",
       "entry_steps": [
         {
           "action": "click",
@@ -171,7 +171,7 @@
       "area": "Clients",
       "difficulty": "easy",
       "title": "Add a client",
-      "start_path": "/app/clients",
+      "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
@@ -204,7 +204,7 @@
       "area": "Clients",
       "difficulty": "medium",
       "title": "Edit a client",
-      "start_path": "/app/clients",
+      "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
@@ -241,7 +241,7 @@
       "area": "Clients",
       "difficulty": "medium",
       "title": "Archive and restore a client",
-      "start_path": "/app/clients",
+      "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
@@ -276,7 +276,7 @@
       "area": "Clients",
       "difficulty": "hard",
       "title": "Import clients from a CSV file with column mapping and row errors",
-      "start_path": "/app/clients/import",
+      "start_path": "/clients/import",
       "entry_steps": [
         {
           "action": "click",
@@ -336,7 +336,7 @@
       "area": "Projects",
       "difficulty": "medium",
       "title": "Create a project with a budget and a client",
-      "start_path": "/app/projects",
+      "start_path": "/projects",
       "entry_steps": [
         {
           "action": "click",
@@ -374,7 +374,7 @@
       "area": "Projects",
       "difficulty": "hard",
       "title": "Move projects across the drag-and-drop stage board",
-      "start_path": "/app/projects?view=board",
+      "start_path": "/projects?view=board",
       "entry_steps": [
         {
           "action": "click",
@@ -399,7 +399,7 @@
       "area": "Time",
       "difficulty": "easy",
       "title": "Start and stop the timer",
-      "start_path": "/app/time",
+      "start_path": "/time",
       "entry_steps": [
         {
           "action": "click",
@@ -436,7 +436,7 @@
       "area": "Time",
       "difficulty": "medium",
       "title": "Edit a time entry",
-      "start_path": "/app/time",
+      "start_path": "/time",
       "entry_steps": [
         {
           "action": "click",
@@ -473,7 +473,7 @@
       "area": "Time",
       "difficulty": "medium",
       "title": "Fill in the weekly timesheet",
-      "start_path": "/app/time?tab=timesheet",
+      "start_path": "/time?tab=timesheet",
       "entry_steps": [
         {
           "action": "click",
@@ -506,7 +506,7 @@
       "area": "Time",
       "difficulty": "hard",
       "title": "Bulk-edit entries from a multi-select table",
-      "start_path": "/app/time",
+      "start_path": "/time",
       "entry_steps": [
         {
           "action": "click",
@@ -547,7 +547,7 @@
       "area": "Invoices",
       "difficulty": "medium",
       "title": "Create an invoice from tracked time, add line items and tax, preview and send",
-      "start_path": "/app/invoices/new",
+      "start_path": "/invoices/new",
       "entry_steps": [
         {
           "action": "click",
@@ -615,7 +615,7 @@
       "area": "Invoices",
       "difficulty": "hard",
       "title": "Set up a recurring invoice schedule with a date picker and a preview of the next 3",
-      "start_path": "/app/invoices/recurring",
+      "start_path": "/invoices/recurring",
       "entry_steps": [
         {
           "action": "click",
@@ -675,7 +675,7 @@
       "area": "Reports",
       "difficulty": "medium",
       "title": "Filter a report by client and date range, export CSV",
-      "start_path": "/app/reports",
+      "start_path": "/reports",
       "entry_steps": [
         {
           "action": "click",
@@ -709,7 +709,7 @@
       "area": "Automations",
       "difficulty": "hard",
       "title": "Build an automation rule: when, if (nested conditions), then",
-      "start_path": "/app/automations/new",
+      "start_path": "/automations/new",
       "entry_steps": [
         {
           "action": "click",
@@ -828,7 +828,7 @@
       "area": "Team",
       "difficulty": "medium",
       "title": "Invite a teammate with a role",
-      "start_path": "/app/team",
+      "start_path": "/team",
       "entry_steps": [
         {
           "action": "click",
@@ -861,7 +861,7 @@
       "area": "Team",
       "difficulty": "hard",
       "title": "Set permissions per role in the permissions matrix",
-      "start_path": "/app/team/permissions",
+      "start_path": "/team/permissions",
       "entry_steps": [
         {
           "action": "click",
@@ -897,7 +897,7 @@
       "area": "Settings",
       "difficulty": "easy",
       "title": "Update your profile",
-      "start_path": "/app/settings/profile",
+      "start_path": "/settings/profile",
       "entry_steps": [
         {
           "action": "click",
@@ -931,7 +931,7 @@
       "area": "Settings",
       "difficulty": "easy",
       "title": "Change notification toggles",
-      "start_path": "/app/settings/notifications",
+      "start_path": "/settings/notifications",
       "entry_steps": [
         {
           "action": "click",
@@ -962,7 +962,7 @@
       "area": "Settings",
       "difficulty": "easy",
       "title": "Change the currency",
-      "start_path": "/app/settings/currency",
+      "start_path": "/settings/currency",
       "entry_steps": [
         {
           "action": "click",
@@ -995,7 +995,7 @@
       "area": "Settings",
       "difficulty": "medium",
       "title": "Edit an email template with variables",
-      "start_path": "/app/settings/templates",
+      "start_path": "/settings/templates",
       "entry_steps": [
         {
           "action": "click",
@@ -1044,7 +1044,7 @@
       "area": "Billing",
       "difficulty": "easy",
       "title": "View your plan",
-      "start_path": "/app/billing",
+      "start_path": "/billing",
       "entry_steps": [],
       "steps": [
         {
@@ -1058,7 +1058,7 @@
       "area": "Billing",
       "difficulty": "medium",
       "title": "Change plan",
-      "start_path": "/app/billing/plans",
+      "start_path": "/billing/plans",
       "entry_steps": [
         {
           "action": "click",
