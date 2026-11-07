@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.10 - 2026-11-07
+
+Faster app loading
+
+- The app now loads its navigation on demand for a quicker first paint.
+
 ## v1.9 - 2026-11-07
 
 Project descriptions
