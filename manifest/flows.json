@@ -1,7 +1,7 @@
 {
   "product": "Roozfir",
   "version": "1.0.0",
-  "auth_mode": "none",
+  "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
   "demo_account": {
@@ -10,19 +10,38 @@
     "code_password_code": "424242",
     "totp_key": "JBSWY3DPEHPK3PXP"
   },
-  "flow_count": 25,
+  "flow_count": 26,
   "by_difficulty": {
-    "easy": 8,
+    "easy": 9,
     "medium": 10,
     "hard": 7
   },
-  "unavailable": [
+  "unavailable": [],
+  "flows": [
     {
       "id": "sign-in",
-      "reason": "Sign-in is switched off (auth mode \"none\")."
-    }
-  ],
-  "flows": [
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Sign in",
+      "start_path": "/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "type",
+          "label": "Email",
+          "value": "demo@roozfir.online"
+        },
+        {
+          "action": "type",
+          "label": "Password",
+          "value": "RoozfirDemo!2026"
+        },
+        {
+          "action": "click",
+          "label": "Sign in"
+        }
+      ]
+    },
     {
       "id": "dashboard-tour",
       "area": "Getting started",
