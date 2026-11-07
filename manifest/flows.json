@@ -1,6 +1,6 @@
 {
   "product": "Roozfir",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
@@ -10,10 +10,10 @@
     "code_password_code": "424242",
     "totp_key": "JBSWY3DPEHPK3PXP"
   },
-  "flow_count": 27,
+  "flow_count": 31,
   "by_difficulty": {
-    "easy": 9,
-    "medium": 11,
+    "easy": 12,
+    "medium": 12,
     "hard": 7
   },
   "unavailable": [],
@@ -539,6 +539,11 @@
           "value": "Homepage wireframes, round 2"
         },
         {
+          "action": "type",
+          "label": "Tags",
+          "value": "design, review"
+        },
+        {
           "action": "click",
           "label": "Save entry"
         }
@@ -615,6 +620,69 @@
         {
           "action": "click",
           "label": "Apply changes"
+        }
+      ]
+    },
+    {
+      "id": "time-tags",
+      "area": "Time",
+      "difficulty": "easy",
+      "title": "Filter time entries by tag",
+      "start_path": "/time",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "select",
+          "label": "Filter by tag",
+          "value": "design"
+        }
+      ]
+    },
+    {
+      "id": "time-saved-views",
+      "area": "Time",
+      "difficulty": "medium",
+      "title": "Save a filtered view of the time table",
+      "start_path": "/time",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "select",
+          "label": "Filter by project",
+          "value": "Website redesign"
+        },
+        {
+          "action": "select",
+          "label": "Filter by billing",
+          "value": "Billable only"
+        },
+        {
+          "action": "click",
+          "label": "Save view"
+        },
+        {
+          "action": "type",
+          "label": "View name",
+          "value": "Website billable"
+        },
+        {
+          "action": "click",
+          "label": "Save"
+        },
+        {
+          "action": "select",
+          "label": "Saved views",
+          "value": "Website billable"
         }
       ]
     },
@@ -1112,6 +1180,48 @@
         {
           "action": "click",
           "label": "Save template"
+        }
+      ]
+    },
+    {
+      "id": "dark-mode",
+      "area": "Settings",
+      "difficulty": "easy",
+      "title": "Switch to dark mode",
+      "start_path": "/settings/profile",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        }
+      ],
+      "steps": [
+        {
+          "action": "select",
+          "label": "Appearance",
+          "value": "Dark"
+        }
+      ]
+    },
+    {
+      "id": "keyboard-shortcuts",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "See and use the keyboard shortcuts",
+      "start_path": "/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "press",
+          "label": "?"
+        },
+        {
+          "action": "click",
+          "label": "Close"
+        },
+        {
+          "action": "press",
+          "label": "g then t"
         }
       ]
     },

@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.5 - 2026-11-07
+
+Tags, saved views, dark mode and keyboard shortcuts
+
+- Tag time entries and filter the time table by tag.
+- Save a filtered view of the time table and come back to it later from "Saved views".
+- Dark mode: choose Appearance in Settings > Profile.
+- Keyboard shortcuts: press ? anywhere in the app to see them.
+
 ## v1.4 - 2026-11-07
 
 A fresh look for Roozfir
