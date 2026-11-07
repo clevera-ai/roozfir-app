@@ -47,7 +47,7 @@ export function buildManifest() {
     [click('Start setup')],
     [
       type('Workspace name', 'Fernhill Creative'),
-      click('Solo', { branch: 'solo' }), click('Team', { branch: 'team' }),
+      click('Solo', { branch: 'solo' }), click('Team workspace', { branch: 'team' }),
       click('Continue'),
       select('Currency', 'USD'), type('Default hourly rate', '90'), click('Continue'),
       { ...type('Project name', 'Website redesign'), branch: 'solo' },

@@ -193,7 +193,7 @@ function Layout() {
       <div className="min-w-0">
         <header className="flex items-center justify-between gap-3 border-b border-line bg-surface px-4 py-3 md:px-[var(--page-pad)]">
           <button aria-label="Open menu" className="rounded-ui border border-line px-2 py-1 md:hidden" onClick={() => setMenu(true)}>☰</button>
-          <button onClick={() => setPalette(true)} aria-label="Search or jump to (command palette)"
+          <button onClick={() => setPalette(true)}
             className="flex w-full max-w-xs items-center justify-between rounded-ui border border-line bg-bg px-3 py-1.5 text-sm text-muted hover:border-brand">
             <span>Search or jump to…</span><kbd className="rounded border border-line px-1 text-xs">⌘K</kbd>
           </button>

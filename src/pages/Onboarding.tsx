@@ -70,7 +70,7 @@ export default function Onboarding() {
           <fieldset>
             <legend className="mb-2 text-sm font-medium">How will you use Tallyfox?</legend>
             <div className="grid gap-3 sm:grid-cols-2">
-              {([['solo', 'Solo', 'Just me, tracking my own time.'], ['team', 'Team', 'Me and teammates who track time too.']] as const).map(([v, label, desc]) => (
+              {([['solo', 'Solo', 'Just me, tracking my own time.'], ['team', 'Team workspace', 'Me and teammates who track time too.']] as const).map(([v, label, desc]) => (
                 <label key={v} className={cx('flex cursor-pointer items-start gap-3 rounded-xl border p-4 text-sm', type === v ? 'border-brand bg-soft' : 'border-line')}>
                   <input type="radio" name="workspace-type" aria-label={label} checked={type === v} onChange={() => setType(v)} className="mt-1 accent-[var(--c-brand)]" />
                   <span><span className="block font-semibold">{label}</span><span className="text-muted">{desc}</span></span>

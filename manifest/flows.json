@@ -101,7 +101,7 @@
         },
         {
           "action": "click",
-          "label": "Team",
+          "label": "Team workspace",
           "branch": "team"
         },
         {
