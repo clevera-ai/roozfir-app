@@ -7,7 +7,7 @@
   "keyboardShortcuts": true,
   "reportsExportCsv": true,
   "wizardBrandStep": false,
-  "timesheetReminders": false,
+  "timesheetReminders": true,
   "projectDescription": false,
   "brokenDeploy": false
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.8 - 2026-11-07
+
+Timesheet reminders
+
+- New "Timesheet reminders" toggle in Settings > Notifications sends you a nudge on Friday afternoon.
+
 ## v1.7 - 2026-11-07
 
 CSV export is back in Reports

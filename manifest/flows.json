@@ -1,6 +1,6 @@
 {
   "product": "Roozfir",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
@@ -1094,6 +1094,10 @@
         {
           "action": "click",
           "label": "Timer left running"
+        },
+        {
+          "action": "click",
+          "label": "Timesheet reminders"
         },
         {
           "action": "click",
