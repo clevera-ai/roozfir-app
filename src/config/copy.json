@@ -15,15 +15,15 @@
   "clients.add": "Add customer",
   "clients.import": "Import customers",
   "projects.heading": "Projects",
-  "projects.create": "New project",
+  "projects.create": "Add project",
   "time.heading": "Time",
-  "time.start": "Start timer",
-  "time.stop": "Stop timer",
+  "time.start": "Start tracking",
+  "time.stop": "Stop tracking",
   "invoices.heading": "Invoices",
-  "invoices.create": "New invoice",
-  "invoices.send": "Send invoice",
+  "invoices.create": "Create invoice",
+  "invoices.send": "Send to client",
   "reports.heading": "Reports",
-  "team.invite": "Invite teammate",
-  "settings.save": "Save profile",
-  "billing.change": "Change plan"
+  "team.invite": "Invite someone",
+  "settings.save": "Save changes",
+  "billing.change": "Switch plan"
 }

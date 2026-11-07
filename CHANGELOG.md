@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.3 - 2026-11-07
+
+Clearer button labels
+
+- "Start timer" and "Stop timer" are now "Start tracking" and "Stop tracking".
+- "New invoice" is now "Create invoice", and "Send invoice" is now "Send to client".
+- "New project" is now "Add project".
+- "Invite teammate" is now "Invite someone".
+- "Save profile" is now "Save changes".
+- "Change plan" is now "Switch plan".
+
 ## v1.2 - 2026-11-07
 
 Clients are now Customers, under Contacts
