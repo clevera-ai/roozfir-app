@@ -1,7 +1,7 @@
 {
   "product": "Roozfir",
   "version": "1.3.0",
-  "auth_mode": "password_totp",
+  "auth_mode": "password_code",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
   "demo_account": {
@@ -43,7 +43,7 @@
         {
           "action": "type",
           "label": "6-digit code",
-          "value": "current code from the authenticator key"
+          "value": "424242"
         },
         {
           "action": "click",
