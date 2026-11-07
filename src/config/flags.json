@@ -8,6 +8,6 @@
   "reportsExportCsv": true,
   "wizardBrandStep": false,
   "timesheetReminders": true,
-  "projectDescription": false,
+  "projectDescription": true,
   "brokenDeploy": false
 }

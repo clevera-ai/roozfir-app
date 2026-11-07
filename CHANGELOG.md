@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.9 - 2026-11-07
+
+Project descriptions
+
+- Add a description when you create a project. It shows at the top of the project page.
+
 ## v1.8 - 2026-11-07
 
 Timesheet reminders

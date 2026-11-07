@@ -1,6 +1,6 @@
 {
   "product": "Roozfir",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
@@ -397,6 +397,11 @@
           "action": "type",
           "label": "Budget (USD)",
           "value": "5000"
+        },
+        {
+          "action": "type",
+          "label": "Project description",
+          "value": "Social and email campaign for the spring menu."
         },
         {
           "action": "click",
