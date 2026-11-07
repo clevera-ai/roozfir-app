@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4 - 2026-11-07
+
+A fresh look for Roozfir
+
+- New teal accent colour, rounder corners and more breathing room across the app.
+
 ## v1.3 - 2026-11-07
 
 Clearer button labels
