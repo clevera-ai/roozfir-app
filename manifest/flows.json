@@ -10,10 +10,10 @@
     "code_password_code": "424242",
     "totp_key": "JBSWY3DPEHPK3PXP"
   },
-  "flow_count": 26,
+  "flow_count": 27,
   "by_difficulty": {
     "easy": 9,
-    "medium": 10,
+    "medium": 11,
     "hard": 7
   },
   "unavailable": [],
@@ -412,6 +412,47 @@
         }
       ],
       "notes": "Keyboard alternative: focus the card, press Space, use the arrow keys, press Space again."
+    },
+    {
+      "id": "project-expense",
+      "area": "Projects",
+      "difficulty": "medium",
+      "title": "Track an expense on a project",
+      "start_path": "/projects/p-website",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Projects"
+        },
+        {
+          "action": "click",
+          "label": "Website redesign"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Add expense"
+        },
+        {
+          "action": "type",
+          "label": "Description",
+          "value": "Domain renewal"
+        },
+        {
+          "action": "type",
+          "label": "Amount",
+          "value": "45"
+        },
+        {
+          "action": "check",
+          "label": "Billable to the client"
+        },
+        {
+          "action": "click",
+          "label": "Save expense"
+        }
+      ]
     },
     {
       "id": "timer-start-stop",

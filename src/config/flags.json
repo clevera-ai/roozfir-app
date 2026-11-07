@@ -1,5 +1,5 @@
 {
-  "expenses": false,
+  "expenses": true,
   "contactsMenu": false,
   "tags": false,
   "savedViews": false,
