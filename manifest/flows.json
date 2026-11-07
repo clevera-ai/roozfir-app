@@ -1,6 +1,6 @@
 {
   "product": "Roozfir",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
@@ -170,7 +170,7 @@
         },
         {
           "action": "type",
-          "label": "Client name",
+          "label": "Customer name",
           "value": "Northwind Studio"
         },
         {
@@ -189,18 +189,22 @@
       "id": "client-add",
       "area": "Clients",
       "difficulty": "easy",
-      "title": "Add a client",
+      "title": "Add a customer",
       "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Clients"
+          "label": "Contacts"
+        },
+        {
+          "action": "click",
+          "label": "Customers"
         }
       ],
       "steps": [
         {
           "action": "click",
-          "label": "Add client"
+          "label": "Add customer"
         },
         {
           "action": "type",
@@ -214,7 +218,7 @@
         },
         {
           "action": "click",
-          "label": "Save client"
+          "label": "Save customer"
         }
       ]
     },
@@ -222,12 +226,16 @@
       "id": "client-edit",
       "area": "Clients",
       "difficulty": "medium",
-      "title": "Edit a client",
+      "title": "Edit a customer",
       "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Clients"
+          "label": "Contacts"
+        },
+        {
+          "action": "click",
+          "label": "Customers"
         }
       ],
       "steps": [
@@ -251,7 +259,7 @@
         },
         {
           "action": "click",
-          "label": "Save client"
+          "label": "Save customer"
         }
       ]
     },
@@ -259,12 +267,16 @@
       "id": "client-archive-restore",
       "area": "Clients",
       "difficulty": "medium",
-      "title": "Archive and restore a client",
+      "title": "Archive and restore a customer",
       "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Clients"
+          "label": "Contacts"
+        },
+        {
+          "action": "click",
+          "label": "Customers"
         }
       ],
       "steps": [
@@ -294,16 +306,20 @@
       "id": "clients-import-csv",
       "area": "Clients",
       "difficulty": "hard",
-      "title": "Import clients from a CSV file with column mapping and row errors",
+      "title": "Import customers from a CSV file with column mapping and row errors",
       "start_path": "/clients/import",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Clients"
+          "label": "Contacts"
         },
         {
           "action": "click",
-          "label": "Import clients"
+          "label": "Customers"
+        },
+        {
+          "action": "click",
+          "label": "Import customers"
         }
       ],
       "steps": [
@@ -374,7 +390,7 @@
         },
         {
           "action": "select",
-          "label": "Client",
+          "label": "Customer",
           "value": "Bluebird Coffee"
         },
         {
@@ -621,7 +637,7 @@
       "steps": [
         {
           "action": "select",
-          "label": "Client",
+          "label": "Customer",
           "value": "Northwind Studio"
         },
         {
@@ -693,7 +709,7 @@
         },
         {
           "action": "select",
-          "label": "Client",
+          "label": "Customer",
           "value": "Bluebird Coffee"
         },
         {
@@ -745,7 +761,7 @@
       "steps": [
         {
           "action": "select",
-          "label": "Client",
+          "label": "Customer",
           "value": "Northwind Studio"
         },
         {

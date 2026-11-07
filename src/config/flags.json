@@ -1,6 +1,6 @@
 {
   "expenses": true,
-  "contactsMenu": false,
+  "contactsMenu": true,
   "tags": false,
   "savedViews": false,
   "darkMode": false,

@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2 - 2026-11-07
+
+Clients are now Customers, under Contacts
+
+- "Clients" is now called "Customers" everywhere in Roozfir, including buttons, forms and reports.
+- Customers moved into a new "Contacts" menu in the sidebar.
+
 ## v1.1 - 2026-11-07
 
 Track expenses on projects
