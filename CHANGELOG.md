@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.13 - 2026-11-08
+
+Fix: app not loading after sign-in
+
+- Fixed an issue that could leave the app blank after signing in.
+
 ## v1.12 - 2026-11-07
 
 A clearer title on the Reports page

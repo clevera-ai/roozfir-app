@@ -9,5 +9,5 @@
   "wizardBrandStep": true,
   "timesheetReminders": true,
   "projectDescription": true,
-  "brokenDeploy": true
+  "brokenDeploy": false
 }
