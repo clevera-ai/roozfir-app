@@ -14,5 +14,9 @@
       "from": "Reports",
       "to": "Profitability reports"
     }
+  ],
+  "revertTitle": "The Reports page is called Reports again",
+  "revertChangelog": [
+    "The Reports page heading reads \"Reports\" again."
   ]
 }

@@ -50,5 +50,9 @@
       "from": "1.25rem",
       "to": "1.75rem"
     }
+  ],
+  "revertTitle": "Back to the classic orange look",
+  "revertChangelog": [
+    "The orange accent colour, tighter corners and spacing are back across the app."
   ]
 }
