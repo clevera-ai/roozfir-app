@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.15 - 2026-11-08
+
+Back to the classic orange look
+
+- The orange accent colour, tighter corners and spacing are back across the app.
+
 ## v1.14 - 2026-11-08
 
 The Reports page is called Reports again
