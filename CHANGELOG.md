@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.14 - 2026-11-08
+
+The Reports page is called Reports again
+
+- The Reports page heading reads "Reports" again.
+
 ## v1.13 - 2026-11-08
 
 Fix: app not loading after sign-in
