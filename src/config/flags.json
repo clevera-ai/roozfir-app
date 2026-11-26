@@ -10,9 +10,9 @@
   "timesheetReminders": true,
   "projectDescription": true,
   "brokenDeploy": false,
-  "numericIds": false,
-  "integrations": false,
-  "embeds": false,
+  "numericIds": true,
+  "integrations": true,
+  "embeds": true,
   "groupedNav": false,
   "connectedAppsInSettings": false
 }

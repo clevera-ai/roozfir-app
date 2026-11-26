@@ -10,10 +10,10 @@
     "code_password_code": "424242",
     "totp_key": "JBSWY3DPEHPK3PXP"
   },
-  "flow_count": 31,
+  "flow_count": 37,
   "by_difficulty": {
-    "easy": 12,
-    "medium": 12,
+    "easy": 14,
+    "medium": 16,
     "hard": 7
   },
   "unavailable": [],
@@ -1286,6 +1286,163 @@
         {
           "action": "click",
           "label": "Confirm switch"
+        }
+      ]
+    },
+    {
+      "id": "integration-connect",
+      "area": "Integrations",
+      "difficulty": "easy",
+      "title": "Connect a third-party account (Slack, Google Calendar or Xero)",
+      "start_path": "/integrations",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Integrations"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Connect Slack"
+        }
+      ],
+      "notes": "The button leaves Roozfir for the vendor's own sign-in page. The demo uses a placeholder client id, so the connection can never be completed."
+    },
+    {
+      "id": "calendar-import",
+      "area": "Time",
+      "difficulty": "medium",
+      "title": "Import calendar events as time entries (needs Google Calendar)",
+      "start_path": "/time?tab=calendar",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Import calendar events"
+        },
+        {
+          "action": "click",
+          "label": "Open Integrations"
+        }
+      ],
+      "notes": "Without a connected Google Calendar the tab shows \"Connect Google Calendar first\"."
+    },
+    {
+      "id": "slack-notifications",
+      "area": "Settings",
+      "difficulty": "medium",
+      "title": "Choose the Slack channel for notifications (needs Slack)",
+      "start_path": "/settings/slack",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Slack notifications"
+        },
+        {
+          "action": "click",
+          "label": "Open Integrations"
+        }
+      ],
+      "notes": "Without a connected Slack the tab shows \"Connect Slack first\"."
+    },
+    {
+      "id": "xero-sync",
+      "area": "Invoices",
+      "difficulty": "medium",
+      "title": "Sync invoices to Xero (needs Xero)",
+      "start_path": "/invoices/xero",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Invoices"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Sync to Xero"
+        },
+        {
+          "action": "click",
+          "label": "Open Integrations"
+        }
+      ],
+      "notes": "Without a connected Xero the tab shows \"Connect Xero first\"."
+    },
+    {
+      "id": "embed-code",
+      "area": "Embeds",
+      "difficulty": "medium",
+      "title": "Pick something to embed on your website, set options and copy the embed code",
+      "start_path": "/embeds",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Embeds"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Public timesheet"
+        },
+        {
+          "action": "select",
+          "label": "Theme",
+          "value": "Dark"
+        },
+        {
+          "action": "select",
+          "label": "Size",
+          "value": "Large"
+        },
+        {
+          "action": "click",
+          "label": "Copy code"
+        }
+      ]
+    },
+    {
+      "id": "project-share-embed",
+      "area": "Projects",
+      "difficulty": "easy",
+      "title": "Embed a project status badge from the project page",
+      "start_path": "/projects",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Projects"
+        },
+        {
+          "action": "click",
+          "label": "Website redesign"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Embed on your website"
+        },
+        {
+          "action": "select",
+          "label": "Project",
+          "value": "Website redesign"
+        },
+        {
+          "action": "click",
+          "label": "Copy code"
         }
       ]
     }

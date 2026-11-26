@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.16 - 2026-11-26
+
+Integrations and website embeds
+
+- New Integrations page: connect Google Calendar, Slack and Xero.
+- Time > Import calendar events turns Google Calendar meetings into time entries.
+- Settings > Slack notifications picks the channel that gets project and invoice messages.
+- Invoices > Sync to Xero sends your invoices to Xero.
+- New Embeds page: embed your public timesheet, a project status badge or a booking button on your website, with a live preview and a Copy code button.
+- Projects, customers, invoices and time entries you create now get a 7-digit number that shows in the page address.
+
 ## v1.15 - 2026-11-08
 
 Back to the classic orange look
