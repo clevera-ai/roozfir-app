@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.19 - 2026-11-26
+
+Expenses retired
+
+- Expense tracking has been retired. Projects no longer have an Add expense button; existing expenses are no longer shown.
+
 ## v1.18 - 2026-11-26
 
 Edge cases
