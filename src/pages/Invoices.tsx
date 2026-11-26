@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import flags from '../config/flags.json'
 import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
 import { Badge, Button, Card, Checkbox, DatePicker, Empty, Modal, PageHeader, RowActions, SelectField, Tabs, TextField, toast } from '../components/ui'
@@ -7,7 +8,7 @@ import { addDays, addMonths, formatDuration, money, shortDate, todayIso, uid } f
 import { invoiceTotals, type InvoiceLine } from '../lib/money'
 import type { Schedule } from '../lib/seed'
 
-const tabs = () => [{ to: '/invoices', label: 'All invoices', end: true }, { to: '/invoices/recurring', label: 'Recurring' }]
+export const tabs = () => [{ to: '/invoices', label: 'All invoices', end: true }, { to: '/invoices/recurring', label: 'Recurring' }, ...(flags.integrations ? [{ to: '/invoices/xero', label: t('invoices.xero') }] : [])]
 const tone = { draft: 'gray', sent: 'blue', paid: 'green' } as const
 
 export function Invoices() {

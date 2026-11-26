@@ -1,7 +1,10 @@
 // Date and formatting helpers.
+import flags from '../config/flags.json'
+
 export const DEMO_EMAIL = 'demo@roozfir.online'
 
-export const uid = (p = 'id') => `${p}-${Math.random().toString(36).slice(2, 9)}`
+/** New ids: 7 digits (e.g. 4826133) when flags.numericIds is on, otherwise a prefixed random string. Seeded demo data keeps its own ids. */
+export const uid = (p = 'id') => flags.numericIds ? String(1000000 + Math.floor(Math.random() * 9000000)) : `${p}-${Math.random().toString(36).slice(2, 9)}`
 export const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('') || '?'
 
 export const iso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`

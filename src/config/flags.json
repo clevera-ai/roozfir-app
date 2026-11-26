@@ -9,5 +9,10 @@
   "wizardBrandStep": true,
   "timesheetReminders": true,
   "projectDescription": true,
-  "brokenDeploy": false
+  "brokenDeploy": false,
+  "numericIds": false,
+  "integrations": false,
+  "embeds": false,
+  "groupedNav": false,
+  "connectedAppsInSettings": false
 }

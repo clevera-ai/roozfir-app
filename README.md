@@ -90,3 +90,5 @@ Each set is a list of exact edits (`ops`) to config files, so the diff is small.
 | t11 | The onboarding wizard gains a step ("Brand your invoices", 6 steps) | yes |
 | t12 | On-screen-only heading rename: Reports page heading becomes "Profitability reports" | yes |
 | t13 | Site-only: a changelog page entry in the site repo, nothing in the app repo | no: site changelog entry and commit only |
+| t14 | Integrations page (Google Calendar, Slack, Xero), features that need a connected account, Embeds page, 7-digit ids for new items | yes |
+| t15 | A fresh new navigation: grouped sidebar, renamed labels, Integrations under Settings > Connected apps, indigo theme | yes |

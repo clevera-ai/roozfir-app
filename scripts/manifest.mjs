@@ -24,7 +24,9 @@ export function buildManifest() {
   const hover = (label) => ({ action: 'hover', label })
 
   const nav = (key) => [click(c(key))]
-  const clientsNav = flags.contactsMenu ? [click(c('nav.contacts')), click(c('nav.clients'))] : [click(c('nav.clients'))]
+  const clientsNav = flags.contactsMenu && !flags.groupedNav ? [click(c('nav.contacts')), click(c('nav.clients'))] : [click(c('nav.clients'))]
+  const appsPath = flags.connectedAppsInSettings ? '/settings/connected-apps' : '/integrations'
+  const appsEntry = flags.connectedAppsInSettings ? [click(c('nav.settings')), click(c('settings.connectedApps'))] : [click(c('nav.integrations'))]
   const settingsTab = (tab) => [click(c('nav.settings')), click(tab)]
 
   const flows = []
@@ -144,6 +146,25 @@ export function buildManifest() {
     [click(c('nav.billing'))])
   add('billing-change-plan', 'Billing', 'medium', 'Change plan', '/billing/plans', nav('nav.billing'),
     [click(c('billing.change')), click('Upgrade to Agency'), click('Confirm switch')])
+
+  // ---- Integrations and embeds ----
+  if (flags.integrations) {
+    add('integration-connect', 'Integrations', 'easy', 'Connect a third-party account (Slack, Google Calendar or Xero)', appsPath, appsEntry,
+      [click(`${c('integrations.connect')} Slack`)],
+      { notes: 'The button leaves Roozfir for the vendor\'s own sign-in page. The demo uses a placeholder client id, so the connection can never be completed.' })
+    add('calendar-import', 'Time', 'medium', 'Import calendar events as time entries (needs Google Calendar)', '/time?tab=calendar', nav('nav.time'),
+      [click(c('time.importCalendar')), click(c('integrations.open'))], { notes: 'Without a connected Google Calendar the tab shows "Connect Google Calendar first".' })
+    add('slack-notifications', 'Settings', 'medium', 'Choose the Slack channel for notifications (needs Slack)', '/settings/slack', nav('nav.settings'),
+      [click(c('settings.slack')), click(c('integrations.open'))], { notes: 'Without a connected Slack the tab shows "Connect Slack first".' })
+    add('xero-sync', 'Invoices', 'medium', 'Sync invoices to Xero (needs Xero)', '/invoices/xero', nav('nav.invoices'),
+      [click(c('invoices.xero')), click(c('integrations.open'))], { notes: 'Without a connected Xero the tab shows "Connect Xero first".' })
+  }
+  if (flags.embeds) {
+    add('embed-code', 'Embeds', 'medium', 'Pick something to embed on your website, set options and copy the embed code', '/embeds', nav('nav.embeds'),
+      [click('Public timesheet'), select('Theme', 'Dark'), select('Size', 'Large'), click(c('embeds.copy'))])
+    add('project-share-embed', 'Projects', 'easy', 'Embed a project status badge from the project page', '/projects', [...nav('nav.projects'), click('Website redesign')],
+      [click(c('embeds.share')), select('Project', 'Website redesign'), click(c('embeds.copy'))])
+  }
 
   const counts = { easy: 0, medium: 0, hard: 0 }
   for (const f of flows) counts[f.difficulty]++

@@ -25,5 +25,17 @@
   "reports.heading": "Reports",
   "team.invite": "Invite someone",
   "settings.save": "Save changes",
-  "billing.change": "Switch plan"
+  "billing.change": "Switch plan",
+  "nav.integrations": "Integrations",
+  "nav.embeds": "Embeds",
+  "integrations.heading": "Integrations",
+  "integrations.connect": "Connect",
+  "integrations.open": "Open Integrations",
+  "embeds.heading": "Embeds",
+  "embeds.share": "Embed on your website",
+  "embeds.copy": "Copy code",
+  "time.importCalendar": "Import calendar events",
+  "settings.slack": "Slack notifications",
+  "invoices.xero": "Sync to Xero",
+  "settings.connectedApps": "Connected apps"
 }

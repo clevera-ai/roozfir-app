@@ -6,7 +6,8 @@ copyFileSync(html, 'dist/404.html')
 const routes = [
   'onboarding', 'clients', 'clients/import', 'projects', 'time', 'invoices', 'invoices/new', 'invoices/recurring',
   'reports', 'automations', 'automations/new', 'team', 'team/permissions', 'settings', 'settings/profile', 'settings/notifications',
-  'settings/currency', 'settings/templates', 'billing', 'billing/plans',
+  'settings/currency', 'settings/templates', 'settings/slack', 'settings/connected-apps', 'billing', 'billing/plans',
+  'integrations', 'integrations/callback', 'embeds', 'invoices/xero', 'embed/timesheet', 'embed/badge', 'embed/booking',
   'projects/p-website', 'projects/p-brand', 'projects/p-app', 'projects/p-menu', 'projects/p-launch',
 ]
 for (const dir of routes) {

@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import flags from '../config/flags.json'
 import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
+import { CalendarImport } from './ConnectedFeatures'
 import { Badge, Button, Card, Checkbox, Empty, Modal, PageHeader, RowActions, SelectField, TextField, toast, cx } from '../components/ui'
 import { addDays, dayName, formatDuration, mondayOf, parseDuration, shortDate, todayIso, uid } from '../lib/util'
 import type { Entry } from '../lib/seed'
@@ -157,7 +158,7 @@ function Timesheet() {
 export default function Time() {
   const { entries, projects, savedViews } = useStore()
   const [params, setParams] = useSearchParams()
-  const tab = params.get('tab') === 'timesheet' ? 'timesheet' : 'entries'
+  const tab = params.get('tab') === 'timesheet' ? 'timesheet' : params.get('tab') === 'calendar' && flags.integrations ? 'calendar' : 'entries'
   const [selected, setSelected] = useState<string[]>([])
   const [dialog, setDialog] = useState<{ entry?: Entry } | null>(null)
   const [bulk, setBulk] = useState(false)
@@ -177,11 +178,11 @@ export default function Time() {
       <PageHeader title={t('time.heading')} actions={tab === 'entries' ? <Button onClick={() => setDialog({})}>Add time entry</Button> : undefined} />
       <TimerCard />
       <div role="tablist" aria-label="Time views" className="mb-4 flex gap-1 border-b border-line">
-        {([['entries', 'Entries'], ['timesheet', 'Weekly timesheet']] as const).map(([k, label]) => (
+        {([['entries', 'Entries'], ['timesheet', 'Weekly timesheet'], ...(flags.integrations ? [['calendar', t('time.importCalendar')]] : [])] as [string, string][]).map(([k, label]) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => setParams(k === 'entries' ? {} : { tab: k })}
             className={cx('-mb-px border-b-2 px-3 py-2 text-sm font-medium', tab === k ? 'border-brand text-brand' : 'border-transparent text-muted hover:text-ink')}>{label}</button>))}
       </div>
-      {tab === 'timesheet' ? <Timesheet /> : (<>
+      {tab === 'calendar' ? <CalendarImport /> : tab === 'timesheet' ? <Timesheet /> : (<>
         <div className="mb-4 flex flex-wrap items-end gap-3">
           <SelectField label="Filter by project" value={fProject} onChange={(e) => setFProject(e.target.value)}><option value="">All projects</option>{projects.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</SelectField>
           <SelectField label="Filter by billing" value={fBillable} onChange={(e) => setFBillable(e.target.value)}><option value="">Billable and non-billable</option><option value="yes">Billable only</option><option value="no">Non-billable only</option></SelectField>

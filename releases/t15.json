@@ -1,0 +1,264 @@
+{
+  "id": "t15",
+  "title": "A fresh new navigation",
+  "changelog": [
+    "The sidebar is regrouped into Work, People, Grow and Account, with a new indigo look.",
+    "\"Customers\" are now \"Accounts\", \"Embeds\" is \"Share on your site\", \"Reports\" is \"Insights\", \"Automations\" is \"Workflows\", \"Team\" is \"People\".",
+    "Integrations moved to Settings > Connected apps.",
+    "Clearer button names: \"Create project\" is now \"Start new project\", \"Start tracking\" is \"Start timer\", \"Create invoice\" is \"New invoice\"."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "groupedNav"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "connectedAppsInSettings"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "contactsMenu"
+      ],
+      "from": true,
+      "to": false
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "nav.clients"
+      ],
+      "from": "Customers",
+      "to": "Accounts"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "label.client"
+      ],
+      "from": "Customer",
+      "to": "Account"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "clients.heading"
+      ],
+      "from": "Customers",
+      "to": "Accounts"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "clients.add"
+      ],
+      "from": "Add customer",
+      "to": "Add account"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "clients.import"
+      ],
+      "from": "Import customers",
+      "to": "Import accounts"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "projects.create"
+      ],
+      "from": "Add project",
+      "to": "Start new project"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "time.start"
+      ],
+      "from": "Start tracking",
+      "to": "Start timer"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "time.stop"
+      ],
+      "from": "Stop tracking",
+      "to": "Stop timer"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "invoices.create"
+      ],
+      "from": "Create invoice",
+      "to": "New invoice"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "nav.reports"
+      ],
+      "from": "Reports",
+      "to": "Insights"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "reports.heading"
+      ],
+      "from": "Reports",
+      "to": "Insights"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "nav.automations"
+      ],
+      "from": "Automations",
+      "to": "Workflows"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "nav.team"
+      ],
+      "from": "Team",
+      "to": "People"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "team.invite"
+      ],
+      "from": "Invite someone",
+      "to": "Add teammate"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "nav.billing"
+      ],
+      "from": "Billing",
+      "to": "Plan and billing"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "settings.save"
+      ],
+      "from": "Save changes",
+      "to": "Save"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "nav.embeds"
+      ],
+      "from": "Embeds",
+      "to": "Share on your site"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "embeds.heading"
+      ],
+      "from": "Embeds",
+      "to": "Share on your site"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "embeds.share"
+      ],
+      "from": "Embed on your website",
+      "to": "Share on your site"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "embeds.copy"
+      ],
+      "from": "Copy code",
+      "to": "Copy embed code"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "integrations.connect"
+      ],
+      "from": "Connect",
+      "to": "Link account"
+    },
+    {
+      "type": "json",
+      "file": "src/config/copy.json",
+      "path": [
+        "integrations.open"
+      ],
+      "from": "Open Integrations",
+      "to": "Open Connected apps"
+    },
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "brand"
+      ],
+      "from": "#ea580c",
+      "to": "#4f46e5"
+    },
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "brandHover"
+      ],
+      "from": "#c2410c",
+      "to": "#4338ca"
+    },
+    {
+      "type": "json",
+      "file": "src/config/theme.json",
+      "path": [
+        "radius"
+      ],
+      "from": "10px",
+      "to": "6px"
+    }
+  ]
+}

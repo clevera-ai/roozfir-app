@@ -5,15 +5,22 @@ import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
 import { Button, Card, PageHeader, SelectField, Tabs, TextField, Toggle, toast, cx } from '../components/ui'
 import { initials, money } from '../lib/util'
+import { IntegrationCards } from './Integrations'
 
 export function SettingsLayout() {
   return (
     <>
       <PageHeader title={t('nav.settings')} />
-      <Tabs items={[{ to: '/settings/profile', label: 'Profile' }, { to: '/settings/notifications', label: 'Notifications' }, { to: '/settings/currency', label: 'Currency' }, { to: '/settings/templates', label: 'Email templates' }]} />
+      <Tabs items={[{ to: '/settings/profile', label: 'Profile' }, { to: '/settings/notifications', label: 'Notifications' }, { to: '/settings/currency', label: 'Currency' }, { to: '/settings/templates', label: 'Email templates' },
+        ...(flags.integrations ? [{ to: '/settings/slack', label: t('settings.slack') }] : []),
+        ...(flags.integrations && flags.connectedAppsInSettings ? [{ to: '/settings/connected-apps', label: t('settings.connectedApps') }] : [])]} />
       <Outlet />
     </>
   )
+}
+
+export function ConnectedApps() {
+  return (<><p className="mb-4 max-w-2xl text-sm text-muted">Connect the tools you already use. Roozfir only asks for the access each feature needs.</p><IntegrationCards /></>)
 }
 
 export function Profile() {

@@ -16,42 +16,66 @@ import { InvoiceEditor, Invoices, Recurring } from './pages/Invoices'
 import Reports from './pages/Reports'
 import { RuleBuilder, Automations } from './pages/Automations'
 import { Permissions, Team } from './pages/Team'
-import { SettingsLayout, Profile, Notifications, Currency, Templates } from './pages/Settings'
+import { SettingsLayout, Profile, Notifications, Currency, Templates, ConnectedApps } from './pages/Settings'
 import { Billing, Plans } from './pages/Billing'
+import { IntegrationCallback, Integrations } from './pages/Integrations'
+import { Embeds, EmbedFrame } from './pages/Embeds'
+import { SlackSettings, XeroSync } from './pages/ConnectedFeatures'
 
 interface NavItem { to: string; label: string }
-function navItems() {
-  const core: NavItem[] = [{ to: '/', label: t('nav.dashboard') }]
-  const clients: NavItem = { to: '/clients', label: t('nav.clients') }
-  const rest: NavItem[] = [
-    { to: '/projects', label: t('nav.projects') }, { to: '/time', label: t('nav.time') }, { to: '/invoices', label: t('nav.invoices') },
-    { to: '/reports', label: t('nav.reports') }, { to: '/automations', label: t('nav.automations') }, { to: '/team', label: t('nav.team') },
-    { to: '/billing', label: t('nav.billing') }, { to: '/settings', label: t('nav.settings') },
-  ]
-  return { core, clients, rest }
+interface NavSection { title?: string; items: NavItem[] }
+const showIntegrationsInNav = () => flags.integrations && !flags.connectedAppsInSettings
+
+/** Sidebar content. groupedNav: sections with headings and a different order; otherwise the classic flat list. */
+function navSections(): NavSection[] {
+  const item = (to: string, key: string): NavItem => ({ to, label: t(key) })
+  const dash = item('/', 'nav.dashboard')
+  const integrations = showIntegrationsInNav() ? [item('/integrations', 'nav.integrations')] : []
+  const embeds = flags.embeds ? [item('/embeds', 'nav.embeds')] : []
+  if (flags.groupedNav) {
+    return [
+      { items: [dash] },
+      { title: 'Work', items: [item('/projects', 'nav.projects'), item('/time', 'nav.time'), item('/invoices', 'nav.invoices')] },
+      { title: 'People', items: [item('/clients', 'nav.clients'), item('/team', 'nav.team')] },
+      { title: 'Grow', items: [item('/reports', 'nav.reports'), item('/automations', 'nav.automations'), ...embeds, ...integrations] },
+      { title: 'Account', items: [item('/settings', 'nav.settings'), item('/billing', 'nav.billing')] },
+    ]
+  }
+  return [{ items: [
+    dash, item('/clients', 'nav.clients'),
+    item('/projects', 'nav.projects'), item('/time', 'nav.time'), item('/invoices', 'nav.invoices'),
+    item('/reports', 'nav.reports'), item('/automations', 'nav.automations'), ...integrations, ...embeds, item('/team', 'nav.team'),
+    item('/billing', 'nav.billing'), item('/settings', 'nav.settings'),
+  ] }]
 }
 
 function NavList({ onNavigate }: { onNavigate?: () => void }) {
   const { pathname } = useLocation()
-  const { core, clients, rest } = flags.brokenDeploy ? ({} as ReturnType<typeof navItems>) : navItems()
+  const sections = flags.brokenDeploy ? (undefined as unknown as NavSection[]) : navSections()
   const [contactsOpen, setContactsOpen] = useState(false)
   const link = ({ isActive }: { isActive: boolean }) =>
     cx('block rounded-ui px-3 py-2 text-sm font-medium', isActive ? 'bg-soft text-brand' : 'text-muted hover:bg-soft hover:text-ink')
   const show = (n: NavItem) => <NavLink key={n.to} to={n.to} end={n.to === '/'} className={link} onClick={onNavigate}>{n.label}</NavLink>
   const inContacts = pathname.startsWith('/clients')
+  const contactsMenu = flags.contactsMenu && !flags.groupedNav
   return (
-    <nav aria-label="Main" className="space-y-1">
-      {core.map(show)}
-      {flags.contactsMenu ? (
-        <div>
-          <button aria-expanded={contactsOpen || inContacts} aria-controls="contacts-menu" onClick={() => setContactsOpen(!(contactsOpen || inContacts))}
-            className={cx('flex w-full items-center justify-between rounded-ui px-3 py-2 text-left text-sm font-medium hover:bg-soft', inContacts ? 'text-brand' : 'text-muted hover:text-ink')}>
-            {t('nav.contacts')}<span aria-hidden className={cx('text-xs', contactsOpen || inContacts ? "after:content-['▾']" : "after:content-['▸']")} />
-          </button>
-          {(contactsOpen || inContacts) && <div id="contacts-menu" className="ml-3 mt-1 space-y-1 border-l border-line pl-2">{show(clients)}</div>}
+    <nav aria-label="Main" className={cx(flags.groupedNav ? 'space-y-4' : 'space-y-1')}>
+      {sections.map((sec, si) => (
+        <div key={si} className="space-y-1">
+          {sec.title && <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-wide text-muted">{sec.title}</p>}
+          {sec.items.map((n) => {
+            if (n.to === '/clients' && contactsMenu) return (
+              <div key={n.to}>
+                <button aria-expanded={contactsOpen || inContacts} aria-controls="contacts-menu" onClick={() => setContactsOpen(!(contactsOpen || inContacts))}
+                  className={cx('flex w-full items-center justify-between rounded-ui px-3 py-2 text-left text-sm font-medium hover:bg-soft', inContacts ? 'text-brand' : 'text-muted hover:text-ink')}>
+                  {t('nav.contacts')}<span aria-hidden className={cx('text-xs', contactsOpen || inContacts ? "after:content-['▾']" : "after:content-['▸']")} />
+                </button>
+                {(contactsOpen || inContacts) && <div id="contacts-menu" className="ml-3 mt-1 space-y-1 border-l border-line pl-2">{show(n)}</div>}
+              </div>)
+            return show(n)
+          })}
         </div>
-      ) : show(clients)}
-      {rest.map(show)}
+      ))}
     </nav>
   )
 }
@@ -101,6 +125,8 @@ function Palette({ onClose }: { onClose: () => void }) {
     { label: `Go to ${t('nav.team')}`, hint: 'Page', to: '/team' },
     { label: `Go to ${t('nav.billing')}`, hint: 'Page', to: '/billing' },
     { label: `Go to ${t('nav.settings')}`, hint: 'Page', to: '/settings' },
+    ...(flags.integrations ? [{ label: `Go to ${t(flags.connectedAppsInSettings ? 'settings.connectedApps' : 'nav.integrations')}`, hint: 'Page', to: flags.connectedAppsInSettings ? '/settings/connected-apps' : '/integrations' }] : []),
+    ...(flags.embeds ? [{ label: `Go to ${t('nav.embeds')}`, hint: 'Page', to: '/embeds' }] : []),
     { label: t('invoices.create'), hint: 'Action', to: '/invoices/new' },
     { label: t('clients.import'), hint: 'Action', to: '/clients/import' },
     { label: 'New automation rule', hint: 'Action', to: '/automations/new' },
@@ -233,6 +259,7 @@ function AppGate() {
 export default function App() {
   return (
     <Routes>
+      {flags.embeds && <Route path="/embed/:kind" element={<EmbedFrame />} />}
       <Route path="/" element={<Blank><AppGate /></Blank>}>
         <Route index element={<Dashboard />} />
         <Route path="onboarding" element={<Onboarding />} />
@@ -244,9 +271,13 @@ export default function App() {
         <Route path="invoices" element={<Invoices />} />
         <Route path="invoices/new" element={<InvoiceEditor />} />
         <Route path="invoices/recurring" element={<Recurring />} />
+        {flags.integrations && <Route path="invoices/xero" element={<XeroSync />} />}
         <Route path="reports" element={<Reports />} />
         <Route path="automations" element={<Automations />} />
         <Route path="automations/new" element={<RuleBuilder />} />
+        {flags.integrations && <Route path="integrations" element={flags.connectedAppsInSettings ? <Navigate to="/settings/connected-apps" replace /> : <Integrations />} />}
+        {flags.integrations && <Route path="integrations/callback" element={<IntegrationCallback />} />}
+        {flags.embeds && <Route path="embeds" element={<Embeds />} />}
         <Route path="team" element={<Team />} />
         <Route path="team/permissions" element={<Permissions />} />
         <Route path="settings" element={<SettingsLayout />}>
@@ -255,6 +286,8 @@ export default function App() {
           <Route path="notifications" element={<Notifications />} />
           <Route path="currency" element={<Currency />} />
           <Route path="templates" element={<Templates />} />
+          {flags.integrations && <Route path="slack" element={<SlackSettings />} />}
+          {flags.integrations && flags.connectedAppsInSettings && <Route path="connected-apps" element={<ConnectedApps />} />}
         </Route>
         <Route path="billing" element={<Billing />} />
         <Route path="billing/plans" element={<Plans />} />

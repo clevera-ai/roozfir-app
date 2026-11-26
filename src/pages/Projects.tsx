@@ -145,7 +145,7 @@ export function ProjectDetail() {
   return (
     <>
       <PageHeader title={p.name} sub={client ? `${t('label.client')}: ${client.name}` : undefined}
-        actions={<>{flags.expenses && <Button variant="primary" onClick={() => setExpDialog(true)}>Add expense</Button>}<Link to="/projects" className="text-sm font-medium text-brand hover:underline">All projects</Link></>} />
+        actions={<>{flags.embeds && <Link to={`/embeds?project=${p.id}`} className="rounded-ui border border-line bg-surface px-4 py-2 text-sm font-medium hover:bg-soft">{t('embeds.share')}</Link>}{flags.expenses && <Button variant="primary" onClick={() => setExpDialog(true)}>Add expense</Button>}<Link to="/projects" className="text-sm font-medium text-brand hover:underline">All projects</Link></>} />
       {flags.projectDescription && p.description && <p className="mb-4 max-w-2xl text-sm text-muted">{p.description}</p>}
       <div className="grid gap-4 md:grid-cols-3">
         <Card><p className="text-sm text-muted">Stage</p><p className="mt-1 text-xl font-semibold">{STAGES.find((x) => x.id === p.stage)!.label}</p></Card>
