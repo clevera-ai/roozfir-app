@@ -1,6 +1,6 @@
 {
   "product": "Roozfir",
-  "version": "1.15.0",
+  "version": "1.16.0",
   "auth_mode": "password",
   "base_url": "https://app.roozfir.online/",
   "app_path": "/",
@@ -91,7 +91,7 @@
         },
         {
           "action": "click",
-          "label": "Create invoice"
+          "label": "New invoice"
         }
       ]
     },
@@ -170,7 +170,7 @@
         },
         {
           "action": "type",
-          "label": "Customer name",
+          "label": "Account name",
           "value": "Northwind Studio"
         },
         {
@@ -203,22 +203,18 @@
       "id": "client-add",
       "area": "Clients",
       "difficulty": "easy",
-      "title": "Add a customer",
+      "title": "Add a account",
       "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Contacts"
-        },
-        {
-          "action": "click",
-          "label": "Customers"
+          "label": "Accounts"
         }
       ],
       "steps": [
         {
           "action": "click",
-          "label": "Add customer"
+          "label": "Add account"
         },
         {
           "action": "type",
@@ -232,7 +228,7 @@
         },
         {
           "action": "click",
-          "label": "Save customer"
+          "label": "Save account"
         }
       ]
     },
@@ -240,16 +236,12 @@
       "id": "client-edit",
       "area": "Clients",
       "difficulty": "medium",
-      "title": "Edit a customer",
+      "title": "Edit a account",
       "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Contacts"
-        },
-        {
-          "action": "click",
-          "label": "Customers"
+          "label": "Accounts"
         }
       ],
       "steps": [
@@ -273,7 +265,7 @@
         },
         {
           "action": "click",
-          "label": "Save customer"
+          "label": "Save account"
         }
       ]
     },
@@ -281,16 +273,12 @@
       "id": "client-archive-restore",
       "area": "Clients",
       "difficulty": "medium",
-      "title": "Archive and restore a customer",
+      "title": "Archive and restore a account",
       "start_path": "/clients",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Contacts"
-        },
-        {
-          "action": "click",
-          "label": "Customers"
+          "label": "Accounts"
         }
       ],
       "steps": [
@@ -320,20 +308,16 @@
       "id": "clients-import-csv",
       "area": "Clients",
       "difficulty": "hard",
-      "title": "Import customers from a CSV file with column mapping and row errors",
+      "title": "Import accounts from a CSV file with column mapping and row errors",
       "start_path": "/clients/import",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Contacts"
+          "label": "Accounts"
         },
         {
           "action": "click",
-          "label": "Customers"
-        },
-        {
-          "action": "click",
-          "label": "Import customers"
+          "label": "Import accounts"
         }
       ],
       "steps": [
@@ -395,7 +379,7 @@
       "steps": [
         {
           "action": "click",
-          "label": "Add project"
+          "label": "Start new project"
         },
         {
           "action": "type",
@@ -404,7 +388,7 @@
         },
         {
           "action": "select",
-          "label": "Customer",
+          "label": "Account",
           "value": "Bluebird Coffee"
         },
         {
@@ -514,7 +498,7 @@
         },
         {
           "action": "click",
-          "label": "Start tracking"
+          "label": "Start timer"
         },
         {
           "action": "wait",
@@ -522,7 +506,7 @@
         },
         {
           "action": "click",
-          "label": "Stop tracking"
+          "label": "Stop timer"
         }
       ]
     },
@@ -718,13 +702,13 @@
         },
         {
           "action": "click",
-          "label": "Create invoice"
+          "label": "New invoice"
         }
       ],
       "steps": [
         {
           "action": "select",
-          "label": "Customer",
+          "label": "Account",
           "value": "Northwind Studio"
         },
         {
@@ -796,7 +780,7 @@
         },
         {
           "action": "select",
-          "label": "Customer",
+          "label": "Account",
           "value": "Bluebird Coffee"
         },
         {
@@ -842,13 +826,13 @@
       "entry_steps": [
         {
           "action": "click",
-          "label": "Reports"
+          "label": "Insights"
         }
       ],
       "steps": [
         {
           "action": "select",
-          "label": "Customer",
+          "label": "Account",
           "value": "Northwind Studio"
         },
         {
@@ -876,7 +860,7 @@
       "entry_steps": [
         {
           "action": "click",
-          "label": "Automations"
+          "label": "Workflows"
         },
         {
           "action": "click",
@@ -995,13 +979,13 @@
       "entry_steps": [
         {
           "action": "click",
-          "label": "Team"
+          "label": "People"
         }
       ],
       "steps": [
         {
           "action": "click",
-          "label": "Invite someone"
+          "label": "Add teammate"
         },
         {
           "action": "type",
@@ -1028,7 +1012,7 @@
       "entry_steps": [
         {
           "action": "click",
-          "label": "Team"
+          "label": "People"
         },
         {
           "action": "click",
@@ -1085,7 +1069,7 @@
         },
         {
           "action": "click",
-          "label": "Save changes"
+          "label": "Save"
         }
       ]
     },
@@ -1258,7 +1242,7 @@
       "steps": [
         {
           "action": "click",
-          "label": "Billing"
+          "label": "Plan and billing"
         }
       ]
     },
@@ -1271,7 +1255,7 @@
       "entry_steps": [
         {
           "action": "click",
-          "label": "Billing"
+          "label": "Plan and billing"
         }
       ],
       "steps": [
@@ -1294,17 +1278,21 @@
       "area": "Integrations",
       "difficulty": "easy",
       "title": "Connect a third-party account (Slack, Google Calendar or Xero)",
-      "start_path": "/integrations",
+      "start_path": "/settings/connected-apps",
       "entry_steps": [
         {
           "action": "click",
-          "label": "Integrations"
+          "label": "Settings"
+        },
+        {
+          "action": "click",
+          "label": "Connected apps"
         }
       ],
       "steps": [
         {
           "action": "click",
-          "label": "Connect Slack"
+          "label": "Link account Slack"
         }
       ],
       "notes": "The button leaves Roozfir for the vendor's own sign-in page. The demo uses a placeholder client id, so the connection can never be completed."
@@ -1328,7 +1316,7 @@
         },
         {
           "action": "click",
-          "label": "Open Integrations"
+          "label": "Open Connected apps"
         }
       ],
       "notes": "Without a connected Google Calendar the tab shows \"Connect Google Calendar first\"."
@@ -1352,7 +1340,7 @@
         },
         {
           "action": "click",
-          "label": "Open Integrations"
+          "label": "Open Connected apps"
         }
       ],
       "notes": "Without a connected Slack the tab shows \"Connect Slack first\"."
@@ -1376,7 +1364,7 @@
         },
         {
           "action": "click",
-          "label": "Open Integrations"
+          "label": "Open Connected apps"
         }
       ],
       "notes": "Without a connected Xero the tab shows \"Connect Xero first\"."
@@ -1390,7 +1378,7 @@
       "entry_steps": [
         {
           "action": "click",
-          "label": "Embeds"
+          "label": "Share on your site"
         }
       ],
       "steps": [
@@ -1410,7 +1398,7 @@
         },
         {
           "action": "click",
-          "label": "Copy code"
+          "label": "Copy embed code"
         }
       ]
     },
@@ -1433,7 +1421,7 @@
       "steps": [
         {
           "action": "click",
-          "label": "Embed on your website"
+          "label": "Share on your site"
         },
         {
           "action": "select",
@@ -1442,7 +1430,7 @@
         },
         {
           "action": "click",
-          "label": "Copy code"
+          "label": "Copy embed code"
         }
       ]
     }

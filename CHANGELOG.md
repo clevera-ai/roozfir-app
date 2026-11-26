@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.17 - 2026-11-26
+
+A fresh new navigation
+
+- The sidebar is regrouped into Work, People, Grow and Account, with a new indigo look.
+- "Customers" are now "Accounts", "Embeds" is "Share on your site", "Reports" is "Insights", "Automations" is "Workflows", "Team" is "People".
+- Integrations moved to Settings > Connected apps.
+- Clearer button names: "Create project" is now "Start new project", "Start tracking" is "Start timer", "Create invoice" is "New invoice".
+
 ## v1.16 - 2026-11-26
 
 Integrations and website embeds

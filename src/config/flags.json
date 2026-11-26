@@ -1,6 +1,6 @@
 {
   "expenses": true,
-  "contactsMenu": true,
+  "contactsMenu": false,
   "tags": true,
   "savedViews": true,
   "darkMode": true,
@@ -13,6 +13,6 @@
   "numericIds": true,
   "integrations": true,
   "embeds": true,
-  "groupedNav": false,
-  "connectedAppsInSettings": false
+  "groupedNav": true,
+  "connectedAppsInSettings": true
 }

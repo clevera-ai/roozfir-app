@@ -1,7 +1,7 @@
 {
-  "brand": "#ea580c",
-  "brandHover": "#c2410c",
-  "radius": "10px",
+  "brand": "#4f46e5",
+  "brandHover": "#4338ca",
+  "radius": "6px",
   "pagePadding": "2rem",
   "cardPadding": "1.25rem"
 }
