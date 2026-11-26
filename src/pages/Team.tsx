@@ -1,11 +1,12 @@
 import { useState, type FormEvent } from 'react'
+import flags from '../config/flags.json'
 import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
-import { Badge, Button, Checkbox, Modal, PageHeader, RowActions, SelectField, Tabs, TextField, toast } from '../components/ui'
+import { Badge, Button, Checkbox, Empty, Modal, PageHeader, RowActions, SelectField, Tabs, TextField, toast } from '../components/ui'
 import { EMAIL_RE, uid } from '../lib/util'
 import { PERMISSIONS, ROLES, type Role } from '../lib/seed'
 
-const tabs = [{ to: '/team', label: 'Members', end: true }, { to: '/team/permissions', label: 'Permissions' }]
+const tabs = [{ to: '/team', label: 'Members', end: true }, { to: '/team/permissions', label: 'Permissions' }, ...(flags.approveTimesheets ? [{ to: '/team/approvals', label: 'Approve timesheets' }] : [])]
 
 export function Team() {
   const { members } = useStore()
@@ -63,6 +64,18 @@ export function Permissions() {
             {ROLES.map((r) => (
               <td key={r} className="px-4 py-3 text-center"><Checkbox hideLabel label={`${r}: ${p}`} disabled={r === 'Admin'} checked={draft[r][p]}
                 onChange={(e) => setDraft({ ...draft, [r]: { ...draft[r], [p]: e.target.checked } })} /></td>))}</tr>))}</tbody></table></div>
+    </>
+  )
+}
+
+/** People > Approve timesheets: timesheets teammates submitted. The demo account has none, so this is always the empty state. */
+export function Approvals() {
+  return (
+    <>
+      <PageHeader title="Team" />
+      <Tabs items={tabs} />
+      <h2 className="mb-3 font-semibold">Timesheets waiting for approval</h2>
+      <Empty>No timesheets to approve. When a teammate submits their week, it will show up here.</Empty>
     </>
   )
 }

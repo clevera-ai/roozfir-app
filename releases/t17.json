@@ -1,0 +1,18 @@
+{
+  "id": "t17",
+  "title": "Expenses retired",
+  "changelog": [
+    "Expense tracking has been retired. Projects no longer have an Add expense button; existing expenses are no longer shown."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "expenses"
+      ],
+      "from": true,
+      "to": false
+    }
+  ]
+}

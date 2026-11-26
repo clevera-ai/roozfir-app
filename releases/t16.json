@@ -1,0 +1,139 @@
+{
+  "id": "t16",
+  "title": "Edge cases",
+  "changelog": [
+    "A cookie banner on every page, a What's new message and a short tour on the dashboard, and a chat bubble for support.",
+    "Workflows and Sync to Xero now need the Business plan; the Pro plan shows an upgrade page.",
+    "New: Approve timesheets, project sharing settings, a 3-step new project wizard, Tags, Privacy and an Activity page.",
+    "Creating a project now takes a few seconds and asks for a billing contact once you choose a client.",
+    "Settings can delete the workspace and Plan and billing can cancel the plan (both ask you to confirm). Insights loads its numbers after a short wait."
+  ],
+  "ops": [
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "cookieBanner"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "cfIframe"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "whatsNew"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "dashboardTour"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "chatBubble"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "planGates"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "approveTimesheets"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "sharingPage"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "projectWizard"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "slowSave"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "untitledItems"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "destructiveFlows"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "lazyInsights"
+      ],
+      "from": false,
+      "to": true
+    },
+    {
+      "type": "json",
+      "file": "src/config/flags.json",
+      "path": [
+        "activityFeed"
+      ],
+      "from": false,
+      "to": true
+    }
+  ]
+}

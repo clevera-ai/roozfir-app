@@ -14,5 +14,20 @@
   "integrations": true,
   "embeds": true,
   "groupedNav": true,
-  "connectedAppsInSettings": true
+  "connectedAppsInSettings": true,
+  "cookieBanner": false,
+  "cfIframe": false,
+  "whatsNew": false,
+  "dashboardTour": false,
+  "chatBubble": false,
+  "planGates": false,
+  "approveTimesheets": false,
+  "sharingPage": false,
+  "projectWizard": false,
+  "slowSave": false,
+  "untitledItems": false,
+  "destructiveFlows": false,
+  "lazyInsights": false,
+  "activityFeed": false,
+  "sessionExpiry": false
 }

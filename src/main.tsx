@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import theme from './config/theme.json'
+import { ChatBubble, CookieBanner } from './components/Overlays'
 import App from './App'
 import { Toaster } from './components/ui'
 
@@ -19,6 +20,8 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter basename={import.meta.env.BASE_URL.replace(/\/$/, '')}>
       <App />
       <Toaster />
+      <ChatBubble />
+      <CookieBanner />
     </BrowserRouter>
   </StrictMode>,
 )

@@ -1,5 +1,7 @@
 import { useState, type FormEvent } from 'react'
-import { signIn } from '../lib/store'
+import { signIn, useExpired } from '../lib/store'
+import flags from '../config/flags.json'
+import { CfIframe } from '../components/Overlays'
 import { DEMO_EMAIL } from '../lib/util'
 import { Button, TextField } from '../components/ui'
 import { verifyTotp } from '../lib/totp'
@@ -8,18 +10,25 @@ import { Logo } from '../components/Logo'
 const PASSWORD = 'RoozfirDemo!2026'
 const CODE = '424242'
 
-export default function Login({ mode }: { mode: 'password' | 'password_code' | 'password_totp' }) {
-  const [step, setStep] = useState<'credentials' | 'code'>('credentials')
+export default function Login({ mode }: { mode: 'password' | 'password_code' | 'password_totp' | 'password_two_step' }) {
+  const twoStep = mode === 'password_two_step'
+  const expired = useExpired()
+  const [step, setStep] = useState<'email' | 'credentials' | 'code'>(twoStep ? 'email' : 'credentials')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
 
+  const submitEmail = (e: FormEvent) => {
+    e.preventDefault()
+    if (email.trim().toLowerCase() !== DEMO_EMAIL) return setError("We couldn't find an account with that email.")
+    setError(''); setStep('credentials')
+  }
   const submitCredentials = (e: FormEvent) => {
     e.preventDefault()
     if (email.trim().toLowerCase() !== DEMO_EMAIL || password !== PASSWORD) return setError('Incorrect email or password.')
     setError('')
-    if (mode !== 'password') setStep('code')
+    if (mode === 'password_code' || mode === 'password_totp') setStep('code')
     else signIn(DEMO_EMAIL)
   }
   const submitCode = async (e: FormEvent) => {
@@ -33,14 +42,27 @@ export default function Login({ mode }: { mode: 'password' | 'password_code' | '
     <div className="flex min-h-screen items-center justify-center bg-bg p-4">
       <div className="w-full max-w-sm rounded-2xl border border-line bg-surface p-8 shadow-xl">
         <div className="mb-6"><Logo /></div>
-        {step === 'credentials' ? (
-          <form onSubmit={submitCredentials} noValidate className="space-y-4">
+        <CfIframe />
+        {step === 'email' ? (
+          <form onSubmit={submitEmail} noValidate className="space-y-4">
             <div>
               <h1 className="text-xl font-semibold">Sign in to Roozfir</h1>
-              <p className="mt-1 text-sm text-muted">Welcome back. Enter your details to continue.</p>
+              <p className="mt-1 text-sm text-muted">Enter your email to continue.</p>
             </div>
+            {flags.sessionExpiry && expired && <p role="alert" className="rounded-ui bg-soft px-3 py-2 text-sm">Your session expired. Sign in again to continue.</p>}
             <TextField label="Email" type="email" autoComplete="username" value={email} autoFocus onChange={(e) => setEmail(e.target.value)} />
-            <TextField label="Password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
+            <Button type="submit" variant="primary" className="w-full">Continue</Button>
+          </form>
+        ) : step === 'credentials' ? (
+          <form onSubmit={submitCredentials} noValidate className="space-y-4">
+            <div>
+              <h1 className="text-xl font-semibold">{twoStep ? 'Enter your password' : 'Sign in to Roozfir'}</h1>
+              <p className="mt-1 text-sm text-muted">{twoStep ? `Signing in as ${email.trim()}.` : 'Welcome back. Enter your details to continue.'}</p>
+            </div>
+            {flags.sessionExpiry && expired && <p role="alert" className="rounded-ui bg-soft px-3 py-2 text-sm">Your session expired. Sign in again to continue.</p>}
+            {!twoStep && <TextField label="Email" type="email" autoComplete="username" value={email} autoFocus onChange={(e) => setEmail(e.target.value)} />}
+            <TextField label="Password" type="password" autoComplete="current-password" autoFocus={twoStep} value={password} onChange={(e) => setPassword(e.target.value)} />
             {error && <p role="alert" className="text-sm text-red-600">{error}</p>}
             <Button type="submit" variant="primary" className="w-full">Sign in</Button>
           </form>

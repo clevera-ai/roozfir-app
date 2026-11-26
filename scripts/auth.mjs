@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Usage: npm run auth -- <none|password|password_code|password_totp> [--no-push]
+// Usage: npm run auth -- <none|password|password_code|password_totp|password_two_step> [--no-push]
 // Sets src/config/auth.json, refreshes manifest/flows.json, commits ("Auth mode: <mode>") and pushes. No version bump or release.
 import { ensureClean, git, push, readJson, writeJson } from './lib.mjs'
 import { writeManifest } from './manifest.mjs'
@@ -7,7 +7,7 @@ import { writeManifest } from './manifest.mjs'
 const args = process.argv.slice(2)
 const noPush = args.includes('--no-push')
 const mode = args.find((a) => !a.startsWith('--'))
-const MODES = ['none', 'password', 'password_code', 'password_totp']
+const MODES = ['none', 'password', 'password_code', 'password_totp', 'password_two_step']
 if (!MODES.includes(mode)) { console.error(`Usage: npm run auth -- <${MODES.join('|')}> [--no-push]`); process.exit(1) }
 
 try {

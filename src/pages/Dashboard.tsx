@@ -5,6 +5,7 @@ import { t } from '../lib/copy'
 import { Button, Card, PageHeader } from '../components/ui'
 import { formatDuration, mondayOf, money, todayIso } from '../lib/util'
 import { invoiceTotals } from '../lib/money'
+import { DashboardTour } from '../components/Overlays'
 
 const TOUR = [
   ['Your week at a glance', 'These cards show the hours you tracked this week, what is waiting to be billed, and what clients still owe you.'],
@@ -26,7 +27,7 @@ export default function Dashboard() {
     <>
       <PageHeader title={`Welcome back, ${first}`} sub={s.workspace.name}
         actions={<Button onClick={() => setStep(0)}>Take the tour</Button>} />
-      <div className="grid gap-4 sm:grid-cols-3">
+      <div data-tour="stats" className="grid gap-4 sm:grid-cols-3">
         <Card><p className="text-sm text-muted">Hours this week</p><p className="mt-1 text-3xl font-semibold">{formatDuration(week.reduce((n, e) => n + e.minutes, 0))}</p></Card>
         <Card><p className="text-sm text-muted">Unbilled time</p><p className="mt-1 text-3xl font-semibold">{money(unbilled, s.currency)}</p></Card>
         <Card><p className="text-sm text-muted">Outstanding invoices</p><p className="mt-1 text-3xl font-semibold">{money(outstanding, s.currency)}</p></Card>
@@ -47,6 +48,7 @@ export default function Dashboard() {
           <Link to="/time" className="mt-3 inline-block text-sm font-medium text-brand hover:underline">Open {t('nav.time')}</Link>
         </Card>
       </div>
+      <DashboardTour />
       {step !== null && (
         <div role="dialog" aria-label="Dashboard tour" className="fixed bottom-6 left-1/2 z-50 w-[22rem] max-w-[calc(100vw-2rem)] -translate-x-1/2 rounded-2xl border border-brand bg-surface p-5 shadow-2xl">
           <p className="text-xs font-semibold uppercase text-brand">Step {step + 1} of {TOUR.length}</p>

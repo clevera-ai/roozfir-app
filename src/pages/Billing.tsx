@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import flags from '../config/flags.json'
 import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
 import { Badge, Button, Card, Modal, PageHeader, toast, cx } from '../components/ui'
@@ -9,6 +10,8 @@ import { money } from '../lib/util'
 export function Billing() {
   const { plan, members, projects, clients } = useStore()
   const cur = PLANS.find((p) => p.name === plan)!
+  const { planCancelled } = useStore()
+  const [confirm, setConfirm] = useState(false)
   return (
     <>
       <PageHeader title={t('nav.billing')} sub="Your Roozfir plan" actions={<Link to="/billing/plans" className="rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">{t('billing.change')}</Link>} />
@@ -21,8 +24,15 @@ export function Billing() {
           <div><dt className="text-muted">Projects</dt><dd className="text-lg font-semibold">{projects.length}</dd></div>
           <div><dt className="text-muted">Clients</dt><dd className="text-lg font-semibold">{clients.filter((c) => !c.archived).length}</dd></div>
         </dl>
+        {planCancelled && <p role="status" className="mt-4 rounded-ui bg-soft px-3 py-2 text-sm">Your plan is set to cancel at the end of this billing period. <button className="font-medium text-brand hover:underline" onClick={() => update((s) => { s.planCancelled = false })}>Keep my plan</button></p>}
         <p className="mt-4 text-xs text-muted">Next renewal on the 1st of the month. Billing is managed by Roozfir; no card details are stored in this demo.</p>
+        {flags.destructiveFlows && !planCancelled && <Button variant="danger" className="mt-4" onClick={() => setConfirm(true)}>Cancel plan</Button>}
       </Card>
+      {confirm && (
+        <Modal title="Cancel your plan?" onClose={() => setConfirm(false)} footer={<><Button onClick={() => setConfirm(false)}>Keep my plan</Button>
+          <Button variant="danger" onClick={() => { update((s) => { s.planCancelled = true }); toast('Plan set to cancel'); setConfirm(false) }}>Yes, cancel plan</Button></>}>
+          <p className="text-sm">Your {cur.name} plan stays active until the next renewal, then your workspace becomes read-only. (Demo: nothing is really cancelled.)</p>
+        </Modal>)}
     </>
   )
 }

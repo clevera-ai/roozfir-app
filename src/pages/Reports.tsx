@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import flags from '../config/flags.json'
 import { t } from '../lib/copy'
 import { useStore } from '../lib/store'
@@ -7,6 +7,8 @@ import { addDays, download, formatDuration, money, shortDate, todayIso, toCsv } 
 
 export default function Reports() {
   const { entries, projects, clients, currency } = useStore()
+  const [ready, setReady] = useState(!flags.lazyInsights)
+  useEffect(() => { if (flags.lazyInsights) { const id = setTimeout(() => setReady(true), 3000); return () => clearTimeout(id) } }, [])
   const [clientId, setClientId] = useState('')
   const [from, setFrom] = useState(addDays(todayIso(), -30))
   const [to, setTo] = useState(todayIso())
@@ -32,6 +34,8 @@ export default function Reports() {
         <TextField label="From" type="date" value={from} max={to} onChange={(e) => setFrom(e.target.value)} />
         <TextField label="To" type="date" value={to} min={from} onChange={(e) => setTo(e.target.value)} />
       </div>
+      {!ready ? <div aria-busy="true" aria-label="Loading insights"><div className="mb-6 grid gap-4 sm:grid-cols-3">{[0, 1, 2].map((i) => <div key={i} className="h-24 animate-pulse rounded-xl bg-soft" />)}</div>
+        <div className="h-64 animate-pulse rounded-xl bg-soft" /></div> : (<>
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
         <Card><p className="text-sm text-muted">Total hours</p><p className="mt-1 text-2xl font-semibold">{formatDuration(total)}</p></Card>
         <Card><p className="text-sm text-muted">Billable hours</p><p className="mt-1 text-2xl font-semibold">{formatDuration(billable)}</p></Card>
@@ -41,6 +45,7 @@ export default function Reports() {
         <div className="overflow-x-auto rounded-xl border border-line bg-surface"><table className="w-full text-sm">
           <thead className="border-b border-line bg-soft text-left text-xs uppercase text-muted"><tr><th className="px-4 py-3">Date</th><th className="px-4 py-3">{t('label.client')}</th><th className="px-4 py-3">Project</th><th className="px-4 py-3">Note</th><th className="px-4 py-3">Hours</th><th className="px-4 py-3 text-right">Amount</th></tr></thead>
           <tbody>{rows.map((e) => <tr key={e.id} className="border-b border-line last:border-0"><td className="px-4 py-2">{shortDate(e.date)}</td><td className="px-4 py-2">{info(e.projectId).client?.name}</td><td className="px-4 py-2">{info(e.projectId).project}</td><td className="px-4 py-2">{e.note}</td><td className="px-4 py-2">{formatDuration(e.minutes)}</td><td className="px-4 py-2 text-right">{e.billable ? money(amount(e), currency) : '—'}</td></tr>)}</tbody></table></div>)}
+      </>)}
     </>
   )
 }

@@ -3,7 +3,7 @@ import { Link, Navigate, NavLink, Outlet, Route, Routes, useLocation, useNavigat
 import auth from './config/auth.json'
 import flags from './config/flags.json'
 import { t } from './lib/copy'
-import { signOut, useSession, useStore } from './lib/store'
+import { checkSessionExpiry, signOut, update, useSession, useStore } from './lib/store'
 import { Avatar, Button, Modal, cx } from './components/ui'
 import { Logo } from './components/Logo'
 import Login from './pages/Login'
@@ -15,12 +15,15 @@ import Time from './pages/Time'
 import { InvoiceEditor, Invoices, Recurring } from './pages/Invoices'
 import Reports from './pages/Reports'
 import { RuleBuilder, Automations } from './pages/Automations'
-import { Permissions, Team } from './pages/Team'
-import { SettingsLayout, Profile, Notifications, Currency, Templates, ConnectedApps } from './pages/Settings'
+import { Approvals, Permissions, Team } from './pages/Team'
+import { SettingsLayout, Profile, Notifications, Currency, Templates, ConnectedApps, DeleteWorkspace, Privacy, Tags } from './pages/Settings'
 import { Billing, Plans } from './pages/Billing'
 import { IntegrationCallback, Integrations } from './pages/Integrations'
 import { Embeds, EmbedFrame } from './pages/Embeds'
 import { SlackSettings, XeroSync } from './pages/ConnectedFeatures'
+import { Activity } from './pages/Activity'
+import { ProjectSharing, WizardBudget, WizardDetails, WizardReview } from './pages/ProjectFlows'
+import { WhatsNew } from './components/Overlays'
 
 interface NavItem { to: string; label: string }
 interface NavSection { title?: string; items: NavItem[] }
@@ -32,10 +35,11 @@ function navSections(): NavSection[] {
   const dash = item('/', 'nav.dashboard')
   const integrations = showIntegrationsInNav() ? [item('/integrations', 'nav.integrations')] : []
   const embeds = flags.embeds ? [item('/embeds', 'nav.embeds')] : []
+  const activity = flags.activityFeed ? [item('/activity', 'nav.activity')] : []
   if (flags.groupedNav) {
     return [
       { items: [dash] },
-      { title: 'Work', items: [item('/projects', 'nav.projects'), item('/time', 'nav.time'), item('/invoices', 'nav.invoices')] },
+      { title: 'Work', items: [item('/projects', 'nav.projects'), item('/time', 'nav.time'), item('/invoices', 'nav.invoices'), ...activity] },
       { title: 'People', items: [item('/clients', 'nav.clients'), item('/team', 'nav.team')] },
       { title: 'Grow', items: [item('/reports', 'nav.reports'), item('/automations', 'nav.automations'), ...embeds, ...integrations] },
       { title: 'Account', items: [item('/settings', 'nav.settings'), item('/billing', 'nav.billing')] },
@@ -44,7 +48,7 @@ function navSections(): NavSection[] {
   return [{ items: [
     dash, item('/clients', 'nav.clients'),
     item('/projects', 'nav.projects'), item('/time', 'nav.time'), item('/invoices', 'nav.invoices'),
-    item('/reports', 'nav.reports'), item('/automations', 'nav.automations'), ...integrations, ...embeds, item('/team', 'nav.team'),
+    item('/reports', 'nav.reports'), ...activity, item('/automations', 'nav.automations'), ...integrations, ...embeds, item('/team', 'nav.team'),
     item('/billing', 'nav.billing'), item('/settings', 'nav.settings'),
   ] }]
 }
@@ -127,6 +131,7 @@ function Palette({ onClose }: { onClose: () => void }) {
     { label: `Go to ${t('nav.settings')}`, hint: 'Page', to: '/settings' },
     ...(flags.integrations ? [{ label: `Go to ${t(flags.connectedAppsInSettings ? 'settings.connectedApps' : 'nav.integrations')}`, hint: 'Page', to: flags.connectedAppsInSettings ? '/settings/connected-apps' : '/integrations' }] : []),
     ...(flags.embeds ? [{ label: `Go to ${t('nav.embeds')}`, hint: 'Page', to: '/embeds' }] : []),
+    ...(flags.activityFeed ? [{ label: `Go to ${t('nav.activity')}`, hint: 'Page', to: '/activity' }] : []),
     { label: t('invoices.create'), hint: 'Action', to: '/invoices/new' },
     { label: t('clients.import'), hint: 'Action', to: '/clients/import' },
     { label: 'New automation rule', hint: 'Action', to: '/automations/new' },
@@ -203,7 +208,7 @@ function Layout() {
   const [menu, setMenu] = useState(false)
   const [palette, setPalette] = useState(false)
   const [help, setHelp] = useState(false)
-  const { timer } = useStore()
+  const { timer, workspaceDeleted, workspace } = useStore()
   useEffect(() => {
     const h = (e: KeyboardEvent) => { if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); setPalette((p) => !p) } }
     window.addEventListener('keydown', h)
@@ -219,7 +224,7 @@ function Layout() {
       <div className="min-w-0">
         <header className="flex items-center justify-between gap-3 border-b border-line bg-surface px-4 py-3 md:px-[var(--page-pad)]">
           <button aria-label="Open menu" className="rounded-ui border border-line px-2 py-1 md:hidden" onClick={() => setMenu(true)}>☰</button>
-          <button onClick={() => setPalette(true)}
+          <button data-tour="search" onClick={() => setPalette(true)}
             className="flex w-full max-w-xs items-center justify-between rounded-ui border border-line bg-bg px-3 py-1.5 text-sm text-muted hover:border-brand">
             <span>Search or jump to…</span><kbd className="rounded border border-line px-1 text-xs">⌘K</kbd>
           </button>
@@ -228,6 +233,11 @@ function Layout() {
             <UserMenu />
           </div>
         </header>
+        {flags.destructiveFlows && workspaceDeleted && (
+          <div role="status" className="flex flex-wrap items-center justify-between gap-3 border-b border-red-300 bg-red-50 px-4 py-2 text-sm text-red-800 md:px-[var(--page-pad)]">
+            <span><strong>{workspace.name}</strong> is scheduled for deletion. (Demo: nothing has been removed.)</span>
+            <Button size="sm" onClick={() => update((s) => { s.workspaceDeleted = false })}>Restore workspace</Button>
+          </div>)}
         <main className="p-4 md:p-[var(--page-pad)]"><Outlet /></main>
       </div>
       {menu && (
@@ -236,6 +246,7 @@ function Layout() {
         </div>
       )}
       {palette && <Palette onClose={() => setPalette(false)} />}
+      <WhatsNew />
       {flags.keyboardShortcuts && <Shortcuts open={help} setOpen={setHelp} />}
     </div>
   )
@@ -252,7 +263,8 @@ function AppGate() {
   const { theme } = useStore()
   useEffect(() => { document.documentElement.dataset.theme = flags.darkMode && theme === 'dark' ? 'dark' : 'light' }, [theme])
   useEffect(() => () => { delete document.documentElement.dataset.theme }, [])
-  if (auth.mode !== 'none' && !session) return <Login mode={auth.mode as 'password' | 'password_code' | 'password_totp'} />
+  useEffect(() => { if (!flags.sessionExpiry) return; const i = setInterval(checkSessionExpiry, 5000); return () => clearInterval(i) }, [])
+  if (auth.mode !== 'none' && !session) return <Login mode={auth.mode as 'password' | 'password_code' | 'password_totp' | 'password_two_step'} />
   return <Layout />
 }
 
@@ -266,7 +278,12 @@ export default function App() {
         <Route path="clients" element={<Clients />} />
         <Route path="clients/import" element={<ClientImport />} />
         <Route path="projects" element={<Projects />} />
+        {flags.projectWizard && <Route path="projects/new/details" element={<WizardDetails />} />}
+        {flags.projectWizard && <Route path="projects/new/budget" element={<WizardBudget />} />}
+        {flags.projectWizard && <Route path="projects/new/review" element={<WizardReview />} />}
         <Route path="projects/:id" element={<ProjectDetail />} />
+        {flags.sharingPage && <Route path="projects/:id/sharing" element={<ProjectSharing />} />}
+        {flags.activityFeed && <Route path="activity" element={<Activity />} />}
         <Route path="time" element={<Time />} />
         <Route path="invoices" element={<Invoices />} />
         <Route path="invoices/new" element={<InvoiceEditor />} />
@@ -280,12 +297,16 @@ export default function App() {
         {flags.embeds && <Route path="embeds" element={<Embeds />} />}
         <Route path="team" element={<Team />} />
         <Route path="team/permissions" element={<Permissions />} />
+        {flags.approveTimesheets && <Route path="team/approvals" element={<Approvals />} />}
         <Route path="settings" element={<SettingsLayout />}>
           <Route index element={<Navigate to="profile" replace />} />
           <Route path="profile" element={<Profile />} />
           <Route path="notifications" element={<Notifications />} />
           <Route path="currency" element={<Currency />} />
           <Route path="templates" element={<Templates />} />
+          {flags.destructiveFlows && <Route path="delete" element={<DeleteWorkspace />} />}
+          {flags.untitledItems && <Route path="tags" element={<Tags />} />}
+          {flags.cookieBanner && <Route path="privacy" element={<Privacy />} />}
           {flags.integrations && <Route path="slack" element={<SlackSettings />} />}
           {flags.integrations && flags.connectedAppsInSettings && <Route path="connected-apps" element={<ConnectedApps />} />}
         </Route>

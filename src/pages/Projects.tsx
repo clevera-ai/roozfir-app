@@ -4,7 +4,8 @@ import flags from '../config/flags.json'
 import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
 import { Badge, Button, Card, Checkbox, Empty, Modal, PageHeader, TextArea, TextField, toast, cx } from '../components/ui'
-import { formatDuration, money, shortDate, todayIso, uid, PROJECT_COLORS } from '../lib/util'
+import { formatDuration, money, shortDate, todayIso, uid } from '../lib/util'
+import { createProject } from '../lib/projects'
 import { STAGES, type Stage } from '../lib/seed'
 
 function ProjectDialog({ onClose }: { onClose: () => void }) {
@@ -14,27 +15,33 @@ function ProjectDialog({ onClose }: { onClose: () => void }) {
   const [clientId, setClientId] = useState('')
   const [budget, setBudget] = useState('')
   const [description, setDescription] = useState('')
+  const [contact, setContact] = useState('')
+  const [saving, setSaving] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
-  const submit = (e: FormEvent) => {
+  const submit = async (e: FormEvent) => {
     e.preventDefault()
+    if (saving) return
     const er: Record<string, string> = {}
     if (!name.trim()) er.name = 'Enter a project name.'
     if (!clientId) er.client = `Choose a ${t('label.client').toLowerCase()}.`
+    else if (flags.slowSave && !contact.trim()) er.contact = 'Enter a billing contact.'
     if (budget.trim() && (Number.isNaN(Number(budget)) || Number(budget) < 0)) er.budget = 'Enter a budget as a number.'
     setErrors(er)
     if (Object.keys(er).length) return
-    update((s) => { s.projects.push({ id: uid('p'), name: name.trim(), clientId, budget: Number(budget || 0), stage: 'planned', color: PROJECT_COLORS[s.projects.length % PROJECT_COLORS.length], description: description.trim(), expenses: [] }) })
+    setSaving(true)
+    await createProject({ name: name.trim(), clientId, budget: Number(budget || 0), description: description.trim(), billingContact: flags.slowSave ? contact.trim() : '' })
     toast(`Created ${name.trim()}`)
     onClose()
   }
   return (
     <Modal title={t('projects.create')} onClose={onClose} onSubmit={submit}
-      footer={<><Button onClick={onClose}>Cancel</Button><Button type="submit" variant="primary">Create project</Button></>}>
+      footer={<><Button onClick={onClose}>Cancel</Button><Button type="submit" variant="primary" disabled={saving}>{saving ? (<><span aria-hidden className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" />Creating…</>) : 'Create project'}</Button></>}>
       <TextField label="Project name" value={name} onChange={(e) => setName(e.target.value)} error={errors.name} />
       <label className="block text-sm"><span className="mb-1 block font-medium">{t('label.client')}</span>
         <select value={clientId} onChange={(e) => setClientId(e.target.value)} className="w-full rounded-ui border border-line bg-surface px-3 py-2 text-sm">
           <option value="">Choose…</option>{active.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}</select>
         {errors.client && <span role="alert" className="mt-1 block text-xs text-red-600">{errors.client}</span>}</label>
+      {flags.slowSave && clientId && <TextField label="Billing contact" value={contact} onChange={(e) => setContact(e.target.value)} error={errors.contact} hint="Who receives the invoices for this project." />}
       <TextField label={`Budget (${currency})`} inputMode="decimal" value={budget} onChange={(e) => setBudget(e.target.value)} error={errors.budget} hint="Optional. Roozfir warns you as the budget runs out." />
       {flags.projectDescription && <TextArea label="Project description" value={description} onChange={(e) => setDescription(e.target.value)} />}
     </Modal>
@@ -108,6 +115,7 @@ export function Projects() {
             <button key={v} aria-pressed={view === v} onClick={() => setParams(v === 'board' ? { view: 'board' } : {})}
               className={cx('rounded-lg px-3 py-1.5 text-sm font-medium', view === v ? 'bg-brand text-white' : 'text-muted hover:text-ink')}>{v === 'list' ? 'List' : 'Board'}</button>))}
         </div>
+        {flags.projectWizard && <Link to="/projects/new/details" className="rounded-ui border border-line bg-surface px-4 py-2 text-sm font-medium hover:bg-soft">Guided setup</Link>}
         <Button variant="primary" onClick={() => setDialog(true)}>{t('projects.create')}</Button></>} />
       {view === 'board' ? <Board /> : projects.length === 0 ? <Empty>No projects yet.</Empty> : (
         <div className="overflow-x-auto rounded-xl border border-line bg-surface">
@@ -145,7 +153,8 @@ export function ProjectDetail() {
   return (
     <>
       <PageHeader title={p.name} sub={client ? `${t('label.client')}: ${client.name}` : undefined}
-        actions={<>{flags.embeds && <Link to={`/embeds?project=${p.id}`} className="rounded-ui border border-line bg-surface px-4 py-2 text-sm font-medium hover:bg-soft">{t('embeds.share')}</Link>}{flags.expenses && <Button variant="primary" onClick={() => setExpDialog(true)}>Add expense</Button>}<Link to="/projects" className="text-sm font-medium text-brand hover:underline">All projects</Link></>} />
+        actions={<>{flags.sharingPage && <Link to={`/projects/${p.id}/sharing`} className="rounded-ui border border-line bg-surface px-4 py-2 text-sm font-medium hover:bg-soft">Sharing settings</Link>}{flags.embeds && <Link to={`/embeds?project=${p.id}`} className="rounded-ui border border-line bg-surface px-4 py-2 text-sm font-medium hover:bg-soft">{t('embeds.share')}</Link>}{flags.expenses && <Button variant="primary" onClick={() => setExpDialog(true)}>Add expense</Button>}<Link to="/projects" className="text-sm font-medium text-brand hover:underline">All projects</Link></>} />
+      {p.billingContact && <p className="mb-2 text-sm text-muted">Billing contact: {p.billingContact}</p>}
       {flags.projectDescription && p.description && <p className="mb-4 max-w-2xl text-sm text-muted">{p.description}</p>}
       <div className="grid gap-4 md:grid-cols-3">
         <Card><p className="text-sm text-muted">Stage</p><p className="mt-1 text-xl font-semibold">{STAGES.find((x) => x.id === p.stage)!.label}</p></Card>

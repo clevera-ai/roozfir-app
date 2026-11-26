@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import flags from '../config/flags.json'
 import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
-import { Button, Card, PageHeader, SelectField, Tabs, TextField, Toggle, toast, cx } from '../components/ui'
+import { Badge, Button, Card, Checkbox, Empty, PageHeader, SelectField, Tabs, TextField, Toggle, toast, cx } from '../components/ui'
+import { openPrefs, useConsent } from '../lib/consent'
 import { initials, money } from '../lib/util'
 import { IntegrationCards } from './Integrations'
 
@@ -13,7 +14,10 @@ export function SettingsLayout() {
       <PageHeader title={t('nav.settings')} />
       <Tabs items={[{ to: '/settings/profile', label: 'Profile' }, { to: '/settings/notifications', label: 'Notifications' }, { to: '/settings/currency', label: 'Currency' }, { to: '/settings/templates', label: 'Email templates' },
         ...(flags.integrations ? [{ to: '/settings/slack', label: t('settings.slack') }] : []),
-        ...(flags.integrations && flags.connectedAppsInSettings ? [{ to: '/settings/connected-apps', label: t('settings.connectedApps') }] : [])]} />
+        ...(flags.integrations && flags.connectedAppsInSettings ? [{ to: '/settings/connected-apps', label: t('settings.connectedApps') }] : []),
+        ...(flags.untitledItems ? [{ to: '/settings/tags', label: 'Tags' }] : []),
+        ...(flags.cookieBanner ? [{ to: '/settings/privacy', label: 'Privacy' }] : []),
+        ...(flags.destructiveFlows ? [{ to: '/settings/delete', label: 'Delete workspace' }] : [])]} />
       <Outlet />
     </>
   )
@@ -133,5 +137,65 @@ export function Templates() {
         <div className="space-y-3 text-sm [&_ul]:list-disc [&_ul]:pl-5" dangerouslySetInnerHTML={{ __html: fill(html) }} />
       </Card>
     </div>
+  )
+}
+
+/** Settings > Privacy: reopen the cookie preferences. */
+export function Privacy() {
+  const { consent } = useConsent()
+  return (
+    <Card className="max-w-xl space-y-3">
+      <h2 className="font-semibold">Cookie preferences</h2>
+      <p className="text-sm text-muted">Analytics cookies: {consent?.analytics ? 'allowed' : 'off'}. Marketing cookies: {consent?.marketing ? 'allowed' : 'off'}.</p>
+      <Button variant="primary" onClick={openPrefs}>Change cookie preferences</Button>
+    </Card>
+  )
+}
+
+/** Settings > Delete workspace: type the workspace name to confirm. It only pretends: `?reset` brings everything back. */
+export function DeleteWorkspace() {
+  const { workspace, workspaceDeleted } = useStore()
+  const [typed, setTyped] = useState('')
+  const navigate = useNavigate()
+  return (
+    <Card className="max-w-xl space-y-4 border-red-300">
+      <h2 className="font-semibold text-red-700">Delete this workspace</h2>
+      <p className="text-sm text-muted">Deleting <strong>{workspace.name}</strong> removes its projects, time entries and invoices for everyone on the team. This cannot be undone.</p>
+      <TextField label={`Type ${workspace.name} to confirm`} value={typed} onChange={(e) => setTyped(e.target.value)} />
+      <Button variant="danger" disabled={typed !== workspace.name || !!workspaceDeleted}
+        onClick={() => { update((s) => { s.workspaceDeleted = true }); toast('Workspace scheduled for deletion'); navigate('/') }}>Delete workspace</Button>
+      {workspaceDeleted && <p className="text-sm text-muted">This workspace is already scheduled for deletion.</p>}
+    </Card>
+  )
+}
+
+/** Settings > Tags: tags are created inline in a table cell and have no page of their own. Delete only through multi-select. */
+export function Tags() {
+  const { tagList, entries } = useStore()
+  const [sel, setSel] = useState<string[]>([])
+  const used = (n: string) => entries.filter((e) => e.tags.includes(n)).length
+  return (
+    <>
+      <p className="mb-3 max-w-2xl text-sm text-muted">Tags label time entries. Click a name cell to rename a tag. Tick tags to delete them in bulk.</p>
+      {sel.length > 0 && (
+        <div role="region" aria-label="Bulk actions" className="mb-3 flex items-center gap-3 rounded-xl border border-brand bg-soft px-4 py-2 text-sm">
+          <strong>{sel.length} selected</strong>
+          <Button size="sm" variant="danger" onClick={() => { update((s) => { s.tagList = s.tagList.filter((x) => !sel.includes(x.id)) }); setSel([]); toast('Tags deleted') }}>Delete</Button>
+          <Button size="sm" variant="ghost" onClick={() => setSel([])}>Clear selection</Button>
+        </div>)}
+      <div className="overflow-x-auto rounded-xl border border-line bg-surface"><table className="w-full text-sm">
+        <thead className="border-b border-line bg-soft text-left text-xs uppercase text-muted"><tr><th className="w-10 px-4 py-3"><Checkbox hideLabel label="Select all tags" checked={tagList.length > 0 && sel.length === tagList.length} onChange={(e) => setSel(e.target.checked ? tagList.map((x) => x.id) : [])} /></th><th className="px-4 py-3">Tag</th><th className="px-4 py-3">Entries</th></tr></thead>
+        <tbody>
+          {tagList.map((tg, i) => (
+            <tr key={tg.id} className="border-b border-line">
+              <td className="px-4 py-2"><Checkbox hideLabel label={`Select tag ${i + 1}`} checked={sel.includes(tg.id)} onChange={(e) => setSel(e.target.checked ? [...sel, tg.id] : sel.filter((x) => x !== tg.id))} /></td>
+              <td className="px-4 py-2"><input aria-label={`Tag name ${i + 1}`} placeholder="Name this tag" value={tg.name} onChange={(e) => update((s) => { s.tagList.find((x) => x.id === tg.id)!.name = e.target.value })} className="w-full rounded-ui border border-transparent bg-transparent px-2 py-1 hover:border-line focus:border-brand focus:outline-none" /></td>
+              <td className="px-4 py-2">{tg.name ? <Badge>{used(tg.name)}</Badge> : <span className="text-muted">0</span>}</td>
+            </tr>))}
+          <tr><td className="px-4 py-2" /><td className="px-4 py-2" colSpan={2}>
+            <button onClick={() => update((s) => { s.tagList.push({ id: String(1000000 + Math.floor(Math.random() * 9000000)), name: '' }) })} className="text-sm font-medium text-brand hover:underline">+ Add tag</button></td></tr>
+        </tbody></table></div>
+      {tagList.length === 0 && <div className="mt-3"><Empty>No tags yet.</Empty></div>}
+    </>
   )
 }

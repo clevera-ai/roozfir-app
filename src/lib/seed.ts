@@ -1,5 +1,6 @@
 import { addDays, mondayOf, todayIso } from './util'
 import type { InvoiceLine } from './money'
+import flags from '../config/flags.json'
 
 export type Stage = 'planned' | 'active' | 'review' | 'done'
 export const STAGES: { id: Stage; label: string }[] = [
@@ -10,16 +11,19 @@ export const ROLES: Role[] = ['Admin', 'Manager', 'Member', 'Viewer']
 export const PERMISSIONS = [
   'View all projects', 'Track time', 'Edit others\' time', 'Create invoices', 'Send invoices', 'Manage clients', 'View reports', 'Manage team', 'Manage billing',
 ] as const
-export type PlanName = 'Solo' | 'Studio' | 'Agency'
+export type PlanName = string
+/** planGates renames the middle and top plans (Studio/Agency become Pro/Business). */
+export const MID_PLAN = flags.planGates ? 'Pro' : 'Studio'
+export const TOP_PLAN = flags.planGates ? 'Business' : 'Agency'
 export const PLANS: { name: PlanName; price: number; seats: string; blurb: string; features: string[] }[] = [
   { name: 'Solo', price: 12, seats: '1 seat', blurb: 'For freelancers.', features: ['Unlimited clients', 'Timer and timesheets', '5 invoices a month'] },
-  { name: 'Studio', price: 29, seats: 'Up to 5 seats', blurb: 'For small studios.', features: ['Everything in Solo', 'Unlimited invoices', 'Recurring invoices', 'Automations'] },
-  { name: 'Agency', price: 79, seats: 'Up to 25 seats', blurb: 'For growing agencies.', features: ['Everything in Studio', 'Permissions matrix', 'Priority support'] },
+  { name: MID_PLAN, price: 29, seats: 'Up to 5 seats', blurb: 'For small studios.', features: ['Everything in Solo', 'Unlimited invoices', 'Recurring invoices', ...(flags.planGates ? [] : ['Automations'])] },
+  { name: TOP_PLAN, price: 79, seats: 'Up to 25 seats', blurb: 'For growing agencies.', features: [`Everything in ${MID_PLAN}`, ...(flags.planGates ? ['Workflows', 'Sync to Xero'] : []), 'Permissions matrix', 'Priority support'] },
 ]
 
 export interface Client { id: string; name: string; email: string; contact: string; rate: number; archived: boolean }
 export interface Expense { id: string; description: string; amount: number; date: string; billable: boolean }
-export interface Project { id: string; name: string; clientId: string; budget: number; stage: Stage; color: string; description?: string; expenses: Expense[] }
+export interface Project { id: string; name: string; clientId: string; budget: number; stage: Stage; color: string; description?: string; billingContact?: string; expenses: Expense[] }
 export interface Entry { id: string; projectId: string; date: string; minutes: number; note: string; billable: boolean; tags: string[]; invoiced?: boolean }
 export interface Invoice { id: string; number: string; clientId: string; issued: string; due: string; status: 'draft' | 'sent' | 'paid'; lines: InvoiceLine[]; taxRate: number }
 export interface Schedule { id: string; clientId: string; title: string; amount: number; every: 'weekly' | 'biweekly' | 'monthly'; start: string; active: boolean }
@@ -27,6 +31,7 @@ export type Condition = { kind: 'cond'; id: string; field: string; op: string; v
 export type Group = { kind: 'group'; id: string; match: 'all' | 'any'; items: (Condition | Group)[] }
 export interface Rule { id: string; name: string; trigger: string; group: Group; actions: { id: string; type: string; target: string }[]; enabled: boolean }
 export interface Member { id: string; name: string; email: string; role: Role; status: 'active' | 'invited' }
+export interface Tag { id: string; name: string }
 export interface SavedView { id: string; name: string; project: string; billable: string; tag: string }
 
 export interface AppState {
@@ -48,6 +53,9 @@ export interface AppState {
   permissions: Record<Role, Record<string, boolean>>
   templates: Record<string, { name: string; subject: string; body: string }>
   savedViews: SavedView[]
+  tagList: Tag[]
+  workspaceDeleted?: boolean
+  planCancelled?: boolean
 }
 
 export function defaultPermissions(): AppState['permissions'] {
@@ -80,6 +88,7 @@ export function seed(): AppState {
   ]
   const e = (id: string, projectId: string, d: number, minutes: number, note: string, billable = true, tags: string[] = []): Entry => ({ id, projectId, date: day(d), minutes, note, billable, tags })
   const entries: Entry[] = [
+    ...(flags.untitledItems ? [e('e10', 'p-website', 2, 45, '', true, []), e('e11', 'p-app', 3, 30, '', true, [])] : []),
     e('e1', 'p-website', 0, 150, 'Homepage wireframes', true, ['design']),
     e('e2', 'p-website', 1, 195, 'Homepage visual design', true, ['design']),
     e('e3', 'p-app', 1, 240, 'Onboarding screens', true, ['design']),
@@ -96,7 +105,7 @@ export function seed(): AppState {
     theme: 'light', currency: 'USD', defaultRate: 90,
     notifications: { weeklySummary: true, invoicePaid: true, timerRunning: false, productNews: false, timesheetReminders: false },
     workspace: { name: 'Fernhill Creative', type: 'team', onboarded: false, invoicePrefix: 'FH', accent: 'Orange' },
-    plan: 'Studio', clients, projects, entries,
+    plan: MID_PLAN, clients, projects, entries,
     timer: { startedAt: null, projectId: 'p-website', note: '' },
     invoices: [
       { id: 'i-1', number: 'FH-0001', clientId: 'c-harbor', issued: addDays(today, -40), due: addDays(today, -10), status: 'paid', taxRate: 8, lines: [{ id: 'l1', description: 'Launch campaign, design hours', qty: 20, rate: 110 }] },
@@ -120,5 +129,6 @@ export function seed(): AppState {
       timesheet: { name: 'Timesheet request', subject: 'Please submit your timesheet', body: '<p>Hi {{client.contact}},</p><p>Could you submit your timesheet for this week?</p><p>{{sender.name}}</p>' },
     },
     savedViews: [],
+    tagList: [{ id: 't-1', name: 'Design' }, { id: 't-2', name: 'Review' }, ...(flags.untitledItems ? [{ id: 't-3', name: '' }] : [])],
   }
 }

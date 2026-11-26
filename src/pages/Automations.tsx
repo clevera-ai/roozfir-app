@@ -1,5 +1,9 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import flags from '../config/flags.json'
+import { t } from '../lib/copy'
+import { UpgradeWall } from '../components/Overlays'
+import { TOP_PLAN } from '../lib/seed'
 import { update, useStore } from '../lib/store'
 import { Button, Card, Empty, PageHeader, RowActions, SelectField, TextField, Toggle, toast, cx } from '../components/ui'
 import { uid } from '../lib/util'
@@ -10,9 +14,15 @@ const FIELDS = ['Client', 'Project', 'Budget used', 'Hours logged', 'Invoice tot
 const OPS = ['is', 'is not', 'is more than', 'is less than', 'contains']
 const ACTIONS = ['Send email', 'Notify in Slack', 'Add a tag', 'Pause the schedule']
 
+function Gated({ children }: { children: React.ReactNode }) {
+  const { plan } = useStore()
+  if (flags.planGates && plan !== TOP_PLAN) return <UpgradeWall feature={t('nav.automations')} needs={TOP_PLAN} blurb={`You are on the ${plan} plan. Building workflows is part of ${TOP_PLAN}.`} />
+  return <>{children}</>
+}
+
 export function Automations() {
   const { rules } = useStore()
-  return (
+  return (<Gated>
     <>
       <PageHeader title="Automations" actions={<Link to="/automations/new" className="rounded-ui bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-hover">New rule</Link>} />
       {rules.length === 0 ? <Empty>No rules yet.</Empty> : (
@@ -24,7 +34,7 @@ export function Automations() {
               <Toggle label={`Enable ${r.name}`} checked={r.enabled} onChange={(v) => update((s) => { s.rules.find((x) => x.id === r.id)!.enabled = v })} />
             </div></Card></li>))}</ul>)}
     </>
-  )
+  </Gated>)
 }
 
 const newCond = (): Condition => ({ kind: 'cond', id: uid('c'), field: FIELDS[0], op: OPS[0], value: '' })
@@ -60,7 +70,8 @@ function GroupEditor({ group, depth, onChange, onRemove }: { group: Group; depth
 
 const countConds = (g: Group): number => g.items.reduce((n, i) => n + (i.kind === 'group' ? countConds(i) : 1), 0)
 
-export function RuleBuilder() {
+export const RuleBuilder = () => <Gated><RuleBuilderInner /></Gated>
+function RuleBuilderInner() {
   const navigate = useNavigate()
   const [name, setName] = useState('')
   const [trigger, setTrigger] = useState(TRIGGERS[0])

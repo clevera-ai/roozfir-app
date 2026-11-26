@@ -36,7 +36,9 @@ export function buildManifest() {
   // ---- Getting started ----
   const unavailable = []
   if (auth.mode !== 'none') {
-    const s = [type('Email', DEMO.email), type('Password', DEMO.password), click('Sign in')]
+    const s = auth.mode === 'password_two_step'
+      ? [type('Email', DEMO.email), click('Continue'), type('Password', DEMO.password), click('Sign in')]
+      : [type('Email', DEMO.email), type('Password', DEMO.password), click('Sign in')]
     if (auth.mode !== 'password') s.push(type('6-digit code', auth.mode === 'password_code' ? DEMO.code : 'current code from the authenticator key'), click('Verify and continue'))
     add('sign-in', 'Getting started', 'easy', 'Sign in', '/', [], s)
   } else unavailable.push({ id: 'sign-in', reason: 'Sign-in is switched off (auth mode "none").' })
@@ -145,7 +147,7 @@ export function buildManifest() {
   add('billing-view-plan', 'Billing', 'easy', 'View your plan', '/billing', [],
     [click(c('nav.billing'))])
   add('billing-change-plan', 'Billing', 'medium', 'Change plan', '/billing/plans', nav('nav.billing'),
-    [click(c('billing.change')), click('Upgrade to Agency'), click('Confirm switch')])
+    [click(c('billing.change')), click(`Upgrade to ${flags.planGates ? 'Business' : 'Agency'}`), click('Confirm switch')])
 
   // ---- Integrations and embeds ----
   if (flags.integrations) {
@@ -165,6 +167,36 @@ export function buildManifest() {
     add('project-share-embed', 'Projects', 'easy', 'Embed a project status badge from the project page', '/projects', [...nav('nav.projects'), click('Website redesign')],
       [click(c('embeds.share')), select('Project', 'Website redesign'), click(c('embeds.copy'))])
   }
+
+  // ---- Edge cases (t16) ----
+  if (flags.cookieBanner) add('cookie-consent', 'Getting started', 'easy', 'Answer the cookie banner (Accept all, Reject all or Customise)', '/', [],
+    [click('Customise'), click('Analytics'), click('Save preferences')], { notes: 'The bar covers the bottom of every page, sign-in included, until it is answered. ?reset brings it back. Settings > Privacy reopens the preferences.' })
+  if (flags.whatsNew) add('whats-new', 'Getting started', 'easy', 'Dismiss the "What\'s new in Roozfir" modal', '/', [], [click('Got it')])
+  if (flags.dashboardTour) add('dashboard-quick-tour', 'Getting started', 'easy', 'Take the 3-step tooltip tour on the dashboard', '/', [], [click('Next'), click('Next'), click('Done')],
+    { notes: 'Shown once; "Skip" ends it early.' })
+  if (flags.chatBubble) add('support-chat', 'Getting started', 'easy', 'Send a message from the support chat bubble (bottom-right)', '/', [],
+    [click('Open chat'), type('Your name', 'Dana'), type('Email', 'dana@fernhill.test'), type('How can we help?', 'Question about invoices'), click('Send message')])
+  if (flags.planGates) add('plan-gated-pages', 'Billing', 'medium', `Workflows and ${c('invoices.xero')} need the Business plan; the Pro plan shows an upgrade wall`, '/automations', nav('nav.automations'),
+    [click('Upgrade')], { notes: 'The demo account is on Pro. The Upgrade button opens Plan and billing.' })
+  if (flags.approveTimesheets) add('approve-timesheets', 'Team', 'easy', 'Open Approve timesheets (empty: no teammate has submitted a timesheet)', '/team/approvals', [...nav('nav.team'), click('Approve timesheets')], [])
+  if (flags.sharingPage) add('project-sharing', 'Projects', 'medium', 'Change a project\'s sharing settings (button-only page, /projects/<id>/sharing)', '/projects/p-website/sharing', [...nav('nav.projects'), click('Website redesign')],
+    [click('Sharing settings'), click('Public status page'), select('Who can view', 'Only people I invite'), click('Save sharing settings')])
+  if (flags.projectWizard) add('project-wizard', 'Projects', 'hard', 'Create a project with the 3-step wizard (/projects/new/details, /budget, /review)', '/projects/new/details', [...nav('nav.projects'), click('Guided setup')],
+    [type('Project name', 'Autumn launch'), select(L, 'Bluebird Coffee'), type('Billing contact', 'Tom Lindqvist'), click('Next'), type('Budget', '4000'), click('Next'), click('Create project')],
+    { notes: 'Billing contact only appears after a client is chosen. Creating takes about 3 seconds.' })
+  if (flags.slowSave) add('project-create-slow', 'Projects', 'medium', 'Create a project (billing contact appears after choosing a client; saving takes about 3 seconds)', '/projects', nav('nav.projects'),
+    [click(c('projects.create')), type('Project name', 'Autumn launch'), select(L, 'Bluebird Coffee'), type('Billing contact', 'Tom Lindqvist'), click('Create project')])
+  if (flags.untitledItems) add('untitled-bulk-delete', 'Time', 'hard', 'Delete time entries that have no description (only through multi-select and the bulk Delete button)', '/time', nav('nav.time'),
+    [check('Select '), click('Delete')], { notes: 'Entries without a description have no row Delete button. Tags (Settings > Tags) are created inline in a table cell and are also deleted only with multi-select and Delete.' })
+  if (flags.untitledItems) add('tags-inline', 'Settings', 'medium', 'Add and delete tags in the Tags table', '/settings/tags', settingsTab('Tags'),
+    [click('+ Add tag'), type('Tag name 4', 'Urgent'), check('Select tag 4'), click('Delete')])
+  if (flags.destructiveFlows) {
+    add('delete-workspace', 'Settings', 'medium', 'Delete the workspace (type its name to confirm; only pretends)', '/settings/delete', settingsTab('Delete workspace'),
+      [type('Type Fernhill Creative to confirm', 'Fernhill Creative'), click('Delete workspace')])
+    add('cancel-plan', 'Billing', 'medium', 'Cancel the plan (confirm dialog; only pretends)', '/billing', nav('nav.billing'), [click('Cancel plan'), click('Yes, cancel plan')])
+  }
+  if (flags.lazyInsights) add('insights-loading', 'Reports', 'easy', `Wait for ${c('nav.reports')} to finish loading (skeletons for about 3 seconds)`, '/reports', nav('nav.reports'), [{ action: 'wait', label: '3 seconds' }])
+  if (flags.activityFeed) add('activity-feed', 'Getting started', 'easy', 'Scroll the Activity page (infinite scroll, 15 more rows each time)', '/activity', nav('nav.activity'), [{ action: 'scroll', label: 'to the bottom of the list' }])
 
   const counts = { easy: 0, medium: 0, hard: 0 }
   for (const f of flows) counts[f.difficulty]++

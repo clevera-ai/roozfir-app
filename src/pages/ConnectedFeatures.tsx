@@ -7,6 +7,9 @@ import { addDays, formatDuration, money, shortDate, todayIso, uid } from '../lib
 import { invoiceTotals } from '../lib/money'
 import { Badge, Button, Card, Checkbox, PageHeader, SelectField, Tabs, Toggle, toast } from '../components/ui'
 import { tabs } from './Invoices'
+import flags from '../config/flags.json'
+import { UpgradeWall } from '../components/Overlays'
+import { TOP_PLAN } from '../lib/seed'
 
 /** Shown instead of a feature while its third-party account is not connected. */
 function NeedsConnection({ id, what }: { id: VendorId; what: string }) {
@@ -96,6 +99,9 @@ function SlackForm() {
 
 // ---- Invoices: sync to Xero ----
 export function XeroSync() {
+  const { plan } = useStore()
+  if (flags.planGates && plan !== TOP_PLAN) return (<><PageHeader title={t('invoices.heading')} /><Tabs items={tabs()} />
+    <UpgradeWall feature={t('invoices.xero')} needs={TOP_PLAN} blurb={`You are on the ${plan} plan. Sending invoices to Xero is part of ${TOP_PLAN}.`} /></>)
   return (
     <>
       <PageHeader title={t('invoices.heading')} />

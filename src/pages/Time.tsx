@@ -20,7 +20,7 @@ function TimerCard() {
     const ms = Date.now() - (timer.startedAt ?? Date.now())
     const minutes = Math.max(1, Math.round(ms / 60000))
     update((s) => {
-      s.entries.push({ id: uid('e'), projectId: timer.projectId, date: todayIso(), minutes, note: timer.note.trim() || 'Untitled work', billable: true, tags: [] })
+      s.entries.push({ id: uid('e'), projectId: timer.projectId, date: todayIso(), minutes, note: timer.note.trim() || (flags.untitledItems ? '' : 'Untitled work'), billable: true, tags: [] })
       s.timer = { startedAt: null, projectId: timer.projectId, note: '' }
     })
     toast(`Logged ${formatDuration(minutes)}`)
@@ -56,7 +56,7 @@ function EntryDialog({ entry, onClose }: { entry?: Entry; onClose: () => void })
     const tagList = tags.split(',').map((x) => x.trim()).filter(Boolean)
     update((s) => {
       if (entry) Object.assign(s.entries.find((x) => x.id === entry.id)!, { projectId, date, minutes, note: note.trim(), billable, ...(flags.tags ? { tags: tagList } : {}) })
-      else s.entries.push({ id: uid('e'), projectId, date, minutes, note: note.trim() || 'Untitled work', billable, tags: flags.tags ? tagList : [] })
+      else s.entries.push({ id: uid('e'), projectId, date, minutes, note: note.trim() || (flags.untitledItems ? '' : 'Untitled work'), billable, tags: flags.tags ? tagList : [] })
     })
     toast(entry ? 'Entry saved' : 'Entry added'); onClose()
   }
@@ -196,7 +196,7 @@ export default function Time() {
           <div role="region" aria-label="Bulk actions" className="mb-3 flex flex-wrap items-center gap-3 rounded-xl border border-brand bg-soft px-4 py-2 text-sm">
             <strong>{visibleSelected.length} selected</strong>
             <Button size="sm" variant="primary" onClick={() => setBulk(true)}>Bulk edit</Button>
-            <Button size="sm" variant="danger" onClick={() => { const gone = entries.filter((e) => visibleSelected.includes(e.id)); update((s) => { s.entries = s.entries.filter((e) => !visibleSelected.includes(e.id)) }); setSelected([]); toast(`Deleted ${gone.length} entries`, () => update((s) => { s.entries.push(...gone) })) }}>Delete selected</Button>
+            <Button size="sm" variant="danger" onClick={() => { const gone = entries.filter((e) => visibleSelected.includes(e.id)); update((s) => { s.entries = s.entries.filter((e) => !visibleSelected.includes(e.id)) }); setSelected([]); toast(`Deleted ${gone.length} entries`, () => update((s) => { s.entries.push(...gone) })) }}>{flags.untitledItems ? 'Delete' : 'Delete selected'}</Button>
             <Button size="sm" variant="ghost" onClick={() => setSelected([])}>Clear selection</Button>
           </div>)}
         {rows.length === 0 ? <Empty>No time entries match.</Empty> : (
@@ -211,7 +211,7 @@ export default function Time() {
                   <td className="whitespace-nowrap px-4 py-3">{shortDate(e.date)}</td><td className="px-4 py-3">{proj(e.projectId)}</td>
                   <td className="px-4 py-3">{e.note}{flags.tags && e.tags.map((x) => <span key={x} className="ml-2"><Badge>{x}</Badge></span>)}</td>
                   <td className="px-4 py-3">{formatDuration(e.minutes)}</td><td className="px-4 py-3">{e.billable ? <Badge tone="green">Billable</Badge> : <Badge>Non-billable</Badge>}</td>
-                  <td className="px-4 py-3"><RowActions><Button size="sm" aria-label={`Edit entry ${e.note}`} onClick={() => setDialog({ entry: e })}>Edit</Button><Button size="sm" variant="ghost" aria-label={`Delete entry ${e.note}`} onClick={() => remove(e)}>Delete</Button></RowActions></td>
+                  <td className="px-4 py-3"><RowActions><Button size="sm" aria-label={`Edit entry ${e.note}`} onClick={() => setDialog({ entry: e })}>Edit</Button>{!(flags.untitledItems && !e.note) && <Button size="sm" variant="ghost" aria-label={`Delete entry ${e.note}`} onClick={() => remove(e)}>Delete</Button>}</RowActions></td>
                 </tr>))}</tbody>
             </table>
           </div>)}

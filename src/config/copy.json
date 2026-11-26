@@ -37,5 +37,6 @@
   "time.importCalendar": "Import calendar events",
   "settings.slack": "Slack notifications",
   "invoices.xero": "Sync to Xero",
-  "settings.connectedApps": "Connected apps"
+  "settings.connectedApps": "Connected apps",
+  "nav.activity": "Activity"
 }
