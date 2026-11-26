@@ -10,11 +10,11 @@
     "code_password_code": "424242",
     "totp_key": "JBSWY3DPEHPK3PXP"
   },
-  "flow_count": 37,
+  "flow_count": 52,
   "by_difficulty": {
-    "easy": 14,
-    "medium": 16,
-    "hard": 7
+    "easy": 21,
+    "medium": 22,
+    "hard": 9
   },
   "unavailable": [],
   "flows": [
@@ -1265,7 +1265,7 @@
         },
         {
           "action": "click",
-          "label": "Upgrade to Agency"
+          "label": "Upgrade to Business"
         },
         {
           "action": "click",
@@ -1431,6 +1431,412 @@
         {
           "action": "click",
           "label": "Copy embed code"
+        }
+      ]
+    },
+    {
+      "id": "cookie-consent",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Answer the cookie banner (Accept all, Reject all or Customise)",
+      "start_path": "/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Customise"
+        },
+        {
+          "action": "click",
+          "label": "Analytics"
+        },
+        {
+          "action": "click",
+          "label": "Save preferences"
+        }
+      ],
+      "notes": "The bar covers the bottom of every page, sign-in included, until it is answered. ?reset brings it back. Settings > Privacy reopens the preferences."
+    },
+    {
+      "id": "whats-new",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Dismiss the \"What's new in Roozfir\" modal",
+      "start_path": "/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Got it"
+        }
+      ]
+    },
+    {
+      "id": "dashboard-quick-tour",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Take the 3-step tooltip tour on the dashboard",
+      "start_path": "/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Next"
+        },
+        {
+          "action": "click",
+          "label": "Next"
+        },
+        {
+          "action": "click",
+          "label": "Done"
+        }
+      ],
+      "notes": "Shown once; \"Skip\" ends it early."
+    },
+    {
+      "id": "support-chat",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Send a message from the support chat bubble (bottom-right)",
+      "start_path": "/",
+      "entry_steps": [],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Open chat"
+        },
+        {
+          "action": "type",
+          "label": "Your name",
+          "value": "Dana"
+        },
+        {
+          "action": "type",
+          "label": "Email",
+          "value": "dana@fernhill.test"
+        },
+        {
+          "action": "type",
+          "label": "How can we help?",
+          "value": "Question about invoices"
+        },
+        {
+          "action": "click",
+          "label": "Send message"
+        }
+      ]
+    },
+    {
+      "id": "plan-gated-pages",
+      "area": "Billing",
+      "difficulty": "medium",
+      "title": "Workflows and Sync to Xero need the Business plan; the Pro plan shows an upgrade wall",
+      "start_path": "/automations",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Workflows"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Upgrade"
+        }
+      ],
+      "notes": "The demo account is on Pro. The Upgrade button opens Plan and billing."
+    },
+    {
+      "id": "approve-timesheets",
+      "area": "Team",
+      "difficulty": "easy",
+      "title": "Open Approve timesheets (empty: no teammate has submitted a timesheet)",
+      "start_path": "/team/approvals",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "People"
+        },
+        {
+          "action": "click",
+          "label": "Approve timesheets"
+        }
+      ],
+      "steps": []
+    },
+    {
+      "id": "project-sharing",
+      "area": "Projects",
+      "difficulty": "medium",
+      "title": "Change a project's sharing settings (button-only page, /projects/<id>/sharing)",
+      "start_path": "/projects/p-website/sharing",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Projects"
+        },
+        {
+          "action": "click",
+          "label": "Website redesign"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Sharing settings"
+        },
+        {
+          "action": "click",
+          "label": "Public status page"
+        },
+        {
+          "action": "select",
+          "label": "Who can view",
+          "value": "Only people I invite"
+        },
+        {
+          "action": "click",
+          "label": "Save sharing settings"
+        }
+      ]
+    },
+    {
+      "id": "project-wizard",
+      "area": "Projects",
+      "difficulty": "hard",
+      "title": "Create a project with the 3-step wizard (/projects/new/details, /budget, /review)",
+      "start_path": "/projects/new/details",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Projects"
+        },
+        {
+          "action": "click",
+          "label": "Guided setup"
+        }
+      ],
+      "steps": [
+        {
+          "action": "type",
+          "label": "Project name",
+          "value": "Autumn launch"
+        },
+        {
+          "action": "select",
+          "label": "Account",
+          "value": "Bluebird Coffee"
+        },
+        {
+          "action": "type",
+          "label": "Billing contact",
+          "value": "Tom Lindqvist"
+        },
+        {
+          "action": "click",
+          "label": "Next"
+        },
+        {
+          "action": "type",
+          "label": "Budget",
+          "value": "4000"
+        },
+        {
+          "action": "click",
+          "label": "Next"
+        },
+        {
+          "action": "click",
+          "label": "Create project"
+        }
+      ],
+      "notes": "Billing contact only appears after a client is chosen. Creating takes about 3 seconds."
+    },
+    {
+      "id": "project-create-slow",
+      "area": "Projects",
+      "difficulty": "medium",
+      "title": "Create a project (billing contact appears after choosing a client; saving takes about 3 seconds)",
+      "start_path": "/projects",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Projects"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Start new project"
+        },
+        {
+          "action": "type",
+          "label": "Project name",
+          "value": "Autumn launch"
+        },
+        {
+          "action": "select",
+          "label": "Account",
+          "value": "Bluebird Coffee"
+        },
+        {
+          "action": "type",
+          "label": "Billing contact",
+          "value": "Tom Lindqvist"
+        },
+        {
+          "action": "click",
+          "label": "Create project"
+        }
+      ]
+    },
+    {
+      "id": "untitled-bulk-delete",
+      "area": "Time",
+      "difficulty": "hard",
+      "title": "Delete time entries that have no description (only through multi-select and the bulk Delete button)",
+      "start_path": "/time",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Time"
+        }
+      ],
+      "steps": [
+        {
+          "action": "check",
+          "label": "Select "
+        },
+        {
+          "action": "click",
+          "label": "Delete"
+        }
+      ],
+      "notes": "Entries without a description have no row Delete button. Tags (Settings > Tags) are created inline in a table cell and are also deleted only with multi-select and Delete."
+    },
+    {
+      "id": "tags-inline",
+      "area": "Settings",
+      "difficulty": "medium",
+      "title": "Add and delete tags in the Tags table",
+      "start_path": "/settings/tags",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        },
+        {
+          "action": "click",
+          "label": "Tags"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "+ Add tag"
+        },
+        {
+          "action": "type",
+          "label": "Tag name 4",
+          "value": "Urgent"
+        },
+        {
+          "action": "check",
+          "label": "Select tag 4"
+        },
+        {
+          "action": "click",
+          "label": "Delete"
+        }
+      ]
+    },
+    {
+      "id": "delete-workspace",
+      "area": "Settings",
+      "difficulty": "medium",
+      "title": "Delete the workspace (type its name to confirm; only pretends)",
+      "start_path": "/settings/delete",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Settings"
+        },
+        {
+          "action": "click",
+          "label": "Delete workspace"
+        }
+      ],
+      "steps": [
+        {
+          "action": "type",
+          "label": "Type Fernhill Creative to confirm",
+          "value": "Fernhill Creative"
+        },
+        {
+          "action": "click",
+          "label": "Delete workspace"
+        }
+      ]
+    },
+    {
+      "id": "cancel-plan",
+      "area": "Billing",
+      "difficulty": "medium",
+      "title": "Cancel the plan (confirm dialog; only pretends)",
+      "start_path": "/billing",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Plan and billing"
+        }
+      ],
+      "steps": [
+        {
+          "action": "click",
+          "label": "Cancel plan"
+        },
+        {
+          "action": "click",
+          "label": "Yes, cancel plan"
+        }
+      ]
+    },
+    {
+      "id": "insights-loading",
+      "area": "Reports",
+      "difficulty": "easy",
+      "title": "Wait for Insights to finish loading (skeletons for about 3 seconds)",
+      "start_path": "/reports",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Insights"
+        }
+      ],
+      "steps": [
+        {
+          "action": "wait",
+          "label": "3 seconds"
+        }
+      ]
+    },
+    {
+      "id": "activity-feed",
+      "area": "Getting started",
+      "difficulty": "easy",
+      "title": "Scroll the Activity page (infinite scroll, 15 more rows each time)",
+      "start_path": "/activity",
+      "entry_steps": [
+        {
+          "action": "click",
+          "label": "Activity"
+        }
+      ],
+      "steps": [
+        {
+          "action": "scroll",
+          "label": "to the bottom of the list"
         }
       ]
     }

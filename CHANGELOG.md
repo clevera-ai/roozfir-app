@@ -1,5 +1,15 @@
 # Changelog
 
+## v1.18 - 2026-11-26
+
+Edge cases
+
+- A cookie banner on every page, a What's new message and a short tour on the dashboard, and a chat bubble for support.
+- Workflows and Sync to Xero now need the Business plan; the Pro plan shows an upgrade page.
+- New: Approve timesheets, project sharing settings, a 3-step new project wizard, Tags, Privacy and an Activity page.
+- Creating a project now takes a few seconds and asks for a billing contact once you choose a client.
+- Settings can delete the workspace and Plan and billing can cancel the plan (both ask you to confirm). Insights loads its numbers after a short wait.
+
 ## v1.17 - 2026-11-26
 
 A fresh new navigation
