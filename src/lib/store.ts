@@ -3,6 +3,7 @@ import { seed, PLANS, MID_PLAN, type AppState } from './seed'
 import flags from '../config/flags.json'
 import { CONSENT_KEY } from './consent'
 import { SEEN_KEY } from './seen'
+import { sendChanges } from './server'
 
 const DATA_KEY = 'roozfir:data:v1'
 const SESSION_KEY = 'roozfir:session:v1'
@@ -56,9 +57,11 @@ const subscribe = (fn: () => void) => { listeners.add(fn); return () => { listen
 const emit = () => listeners.forEach((l) => l())
 
 export function update(fn: (s: AppState) => AppState | void): void {
+  const prev = state
   const draft = structuredClone(state)
   state = fn(draft) ?? draft
   safeSet(DATA_KEY, JSON.stringify(state))
+  sendChanges(prev, state) // flags.serverSaves
   emit()
 }
 export const getState = () => state

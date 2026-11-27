@@ -6,6 +6,7 @@ import theme from './config/theme.json'
 import { ChatBubble, CookieBanner } from './components/Overlays'
 import App from './App'
 import { Toaster } from './components/ui'
+import { startServer } from './lib/server'
 
 // Design tokens come from src/config/theme.json.
 const root = document.documentElement.style
@@ -14,6 +15,8 @@ root.setProperty('--c-brand-hover', theme.brandHover)
 root.setProperty('--ui-radius', theme.radius)
 root.setProperty('--page-pad', theme.pagePadding)
 root.setProperty('--card-pad', theme.cardPadding)
+
+startServer() // flags.serverSaves: public/sw.js answers /api/*
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

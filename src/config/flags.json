@@ -29,5 +29,6 @@
   "destructiveFlows": true,
   "lazyInsights": true,
   "activityFeed": true,
-  "sessionExpiry": false
+  "sessionExpiry": false,
+  "serverSaves": true
 }
