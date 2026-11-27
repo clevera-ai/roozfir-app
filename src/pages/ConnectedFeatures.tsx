@@ -5,6 +5,7 @@ import { integrationsPath, useIsConnected, vendor, type VendorId } from '../lib/
 import { update, useStore } from '../lib/store'
 import { addDays, formatDuration, money, shortDate, todayIso, uid } from '../lib/util'
 import { invoiceTotals } from '../lib/money'
+import { serverAction } from '../lib/server'
 import { Badge, Button, Card, Checkbox, PageHeader, SelectField, Tabs, Toggle, toast } from '../components/ui'
 import { tabs } from './Invoices'
 import flags from '../config/flags.json'
@@ -76,8 +77,9 @@ export function SlackSettings() {
   return <Gate id="slack" what="Roozfir posts to a Slack channel of your choice when an invoice is paid or a project runs over budget."><SlackForm /></Gate>
 }
 function SlackForm() {
-  const [channel, setChannel] = useState('#agency-ops')
-  const [on, setOn] = useState<Record<string, boolean>>({ paid: true, budget: true, timer: false })
+  const { connections } = useStore()
+  const [channel, setChannel] = useState(connections?.slack?.channel ?? '#agency-ops')
+  const [on, setOn] = useState<Record<string, boolean>>(connections?.slack?.on ?? { paid: true, budget: true, timer: false })
   return (
     <Card className="max-w-xl space-y-4">
       <p className="text-sm">Workspace: <strong>Fernhill Creative</strong> <Badge tone="green">Connected</Badge></p>
@@ -90,8 +92,8 @@ function SlackForm() {
         <Toggle label="Timer left running" hint="Post a reminder when a timer runs for more than 4 hours." checked={on.timer} onChange={(v) => setOn({ ...on, timer: v })} />
       </div>
       <div className="flex gap-2">
-        <Button variant="primary" onClick={() => toast(`Slack notifications saved. Posting to ${channel}`)}>Save Slack settings</Button>
-        <Button onClick={() => toast(`Test message sent to ${channel}`)}>Send test message</Button>
+        <Button variant="primary" onClick={() => { update((s) => { s.connections = { ...s.connections, slack: { channel, on } } }); toast(`Slack notifications saved. Posting to ${channel}`) }}>Save Slack settings</Button>
+        <Button onClick={() => { serverAction('POST', '/api/connections/slack/test', { channel }); toast(`Test message sent to ${channel}`) }}>Send test message</Button>
       </div>
     </Card>
   )
@@ -111,9 +113,9 @@ export function XeroSync() {
   )
 }
 function XeroForm() {
-  const { invoices, clients, currency } = useStore()
-  const [account, setAccount] = useState('200 - Sales')
-  const [auto, setAuto] = useState(true)
+  const { invoices, clients, currency, connections } = useStore()
+  const [account, setAccount] = useState(connections?.xero?.account ?? '200 - Sales')
+  const [auto, setAuto] = useState(connections?.xero?.auto ?? true)
   const [synced, setSynced] = useState<string[]>([invoices[0]?.id ?? ''])
   const name = (id: string) => clients.find((c) => c.id === id)?.name ?? '—'
   return (
@@ -122,7 +124,7 @@ function XeroForm() {
         <p className="text-sm">Organisation: <strong>Fernhill Creative Ltd</strong> <Badge tone="green">Connected</Badge></p>
         <SelectField label="Sales account" value={account} onChange={(e) => setAccount(e.target.value)}>{['200 - Sales', '260 - Other revenue', '270 - Interest income'].map((a) => <option key={a}>{a}</option>)}</SelectField>
         <Toggle label="Sync new invoices automatically" hint="Send each invoice to Xero as soon as you send it to the customer." checked={auto} onChange={setAuto} />
-        <Button variant="primary" onClick={() => toast('Xero sync settings saved')}>Save sync settings</Button>
+        <Button variant="primary" onClick={() => { update((s) => { s.connections = { ...s.connections, xero: { account, auto } } }); toast('Xero sync settings saved') }}>Save sync settings</Button>
       </Card>
       <div className="overflow-x-auto rounded-xl border border-line bg-surface">
         <table className="w-full text-sm">

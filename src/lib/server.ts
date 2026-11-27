@@ -57,6 +57,14 @@ function controlled(): Promise<void> {
   })
 }
 
+/** An action that changes no data (resend an invitation, send a test message): one request, when flags.serverSaves is on. */
+export function serverAction(method: 'POST' | 'PATCH', path: string, body?: unknown): void {
+  if (!flags.serverSaves) return
+  void controlled()
+    .then(() => fetch(path, { method, ...(body === undefined ? {} : { headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) }) }))
+    .catch(() => { /* nothing to keep */ })
+}
+
 /** Sends one change (the state before and after one `update`) to the server, in order. */
 export function sendChanges(prev: AppState, next: AppState): void {
   if (!flags.serverSaves) return

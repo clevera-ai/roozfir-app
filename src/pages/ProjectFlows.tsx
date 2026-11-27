@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link, Navigate, useNavigate, useParams } from 'react-router-dom'
 import { createProject } from '../lib/projects'
-import { useStore } from '../lib/store'
+import { update, useStore } from '../lib/store'
 import { Button, Card, Empty, PageHeader, SelectField, TextArea, TextField, Toggle, toast, cx } from '../components/ui'
 import { t } from '../lib/copy'
 import { money } from '../lib/util'
@@ -11,9 +11,9 @@ export function ProjectSharing() {
   const { id } = useParams()
   const { projects } = useStore()
   const p = projects.find((x) => x.id === id)
-  const [pub, setPub] = useState(false)
-  const [who, setWho] = useState('link')
-  const [progress, setProgress] = useState(true)
+  const [pub, setPub] = useState(p?.sharing?.public ?? false)
+  const [who, setWho] = useState<string>(p?.sharing?.who ?? 'link')
+  const [progress, setProgress] = useState(p?.sharing?.showProgress ?? true)
   if (!p) return <Empty>That project does not exist. <Link to="/projects" className="font-medium text-brand">Back to projects</Link></Empty>
   const link = `https://app.roozfir.online/share/${p.id}`
   return (
@@ -26,7 +26,7 @@ export function ProjectSharing() {
         <Toggle label="Show budget progress" hint="Adds the percentage of the budget used to the page." checked={progress} onChange={setProgress} />
         {pub && <TextField label="Share link" readOnly value={link} onFocus={(e) => e.currentTarget.select()} />}
         <div className="flex gap-2">
-          <Button variant="primary" onClick={() => toast('Sharing settings saved')}>Save sharing settings</Button>
+          <Button variant="primary" onClick={() => { update((s) => { const x = s.projects.find((y) => y.id === p.id); if (x) x.sharing = { public: pub, who: who === 'invited' ? 'invited' : 'link', showProgress: progress } }); toast('Sharing settings saved') }}>Save sharing settings</Button>
           {pub && <Button onClick={() => { navigator.clipboard?.writeText(link).catch(() => undefined); toast('Link copied') }}>Copy link</Button>}
         </div>
       </Card>

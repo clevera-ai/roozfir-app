@@ -4,6 +4,7 @@ import { t } from '../lib/copy'
 import { update, useStore } from '../lib/store'
 import { Badge, Button, Checkbox, Empty, Modal, PageHeader, RowActions, SelectField, Tabs, TextField, toast } from '../components/ui'
 import { EMAIL_RE, uid } from '../lib/util'
+import { serverAction } from '../lib/server'
 import { PERMISSIONS, ROLES, type Role } from '../lib/seed'
 
 const tabs = [{ to: '/team', label: 'Members', end: true }, { to: '/team/permissions', label: 'Permissions' }, ...(flags.approveTimesheets ? [{ to: '/team/approvals', label: 'Approve timesheets' }] : [])]
@@ -34,7 +35,7 @@ export function Team() {
               <select aria-label={`Role for ${m.name}`} value={m.role} onChange={(e) => update((s) => { s.members.find((x) => x.id === m.id)!.role = e.target.value as Role })} className="rounded-ui border border-line bg-surface px-2 py-1">{ROLES.filter((r) => r !== 'Admin').map((r) => <option key={r}>{r}</option>)}</select>)}</td>
             <td className="px-4 py-3"><Badge tone={m.status === 'active' ? 'green' : 'amber'}>{m.status === 'active' ? 'Active' : 'Invited'}</Badge></td>
             <td className="px-4 py-3"><RowActions>
-              {m.status === 'invited' && <Button size="sm" aria-label={`Resend invitation to ${m.name}`} onClick={() => toast(`Invitation resent to ${m.email}`)}>Resend</Button>}
+              {m.status === 'invited' && <Button size="sm" aria-label={`Resend invitation to ${m.name}`} onClick={() => { serverAction('POST', `/api/members/${encodeURIComponent(m.id)}/resend`); toast(`Invitation resent to ${m.email}`) }}>Resend</Button>}
               {m.role !== 'Admin' && <Button size="sm" variant="ghost" aria-label={`Remove ${m.name}`} onClick={() => { update((s) => { s.members = s.members.filter((x) => x.id !== m.id) }); toast(`Removed ${m.name}`, () => update((s) => { s.members.push(m) })) }}>Remove</Button>}
             </RowActions></td>
           </tr>))}</tbody></table></div>

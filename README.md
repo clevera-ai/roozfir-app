@@ -97,7 +97,7 @@ Each set is a list of exact edits (`ops`) to config files, so the diff is small.
 
 ## Server saves (`serverSaves`, on)
 
-GitHub Pages only serves files, so with `serverSaves` on the app also sends every change to its own `/api`, the way a product with a backend does: `POST /api/<collection>` for a new item, `PATCH /api/<collection>/<id>` for an edit, `DELETE /api/<collection>/<id>` for a removal, `PATCH /api/<key>` for a setting (`src/lib/server.ts`, called from `update()` in `src/lib/store.ts`). The service worker `public/sw.js` answers them after 150 ms: 201 for a POST, 200 otherwise. The data still lives in `localStorage`. Turning the flag off unregisters the service worker; the app works the same, only without the requests.
+GitHub Pages only serves files, so with `serverSaves` on the app also sends every change to its own `/api`, the way a product with a backend does: `POST /api/<collection>` for a new item, `PATCH /api/<collection>/<id>` for an edit, `DELETE /api/<collection>/<id>` for a removal, `PATCH /api/<key>` for a setting (`src/lib/server.ts`, called from `update()` in `src/lib/store.ts`). The service worker `public/sw.js` answers them after 150 ms: 201 for a POST, 200 otherwise. The data still lives in `localStorage`. Actions that change no data (Resend an invitation, Send test message) send one `POST` of their own. Every Save button persists what it saves (sharing settings on the project, Slack and Xero settings in `connections`), so nothing only shows a toast. Turning the flag off unregisters the service worker; the app works the same, only without the requests.
 
 Why: a recorder that checks a save on the network (a same-site write answered 2xx) could never see one from a `localStorage`-only app.
 

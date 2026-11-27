@@ -23,7 +23,7 @@ export const PLANS: { name: PlanName; price: number; seats: string; blurb: strin
 
 export interface Client { id: string; name: string; email: string; contact: string; rate: number; archived: boolean }
 export interface Expense { id: string; description: string; amount: number; date: string; billable: boolean }
-export interface Project { id: string; name: string; clientId: string; budget: number; stage: Stage; color: string; description?: string; billingContact?: string; expenses: Expense[] }
+export interface Project { id: string; name: string; clientId: string; budget: number; stage: Stage; color: string; description?: string; billingContact?: string; expenses: Expense[]; sharing?: { public: boolean; who: 'link' | 'invited'; showProgress: boolean } }
 export interface Entry { id: string; projectId: string; date: string; minutes: number; note: string; billable: boolean; tags: string[]; invoiced?: boolean }
 export interface Invoice { id: string; number: string; clientId: string; issued: string; due: string; status: 'draft' | 'sent' | 'paid'; lines: InvoiceLine[]; taxRate: number }
 export interface Schedule { id: string; clientId: string; title: string; amount: number; every: 'weekly' | 'biweekly' | 'monthly'; start: string; active: boolean }
@@ -55,6 +55,7 @@ export interface AppState {
   savedViews: SavedView[]
   tagList: Tag[]
   workspaceDeleted?: boolean
+  connections?: { slack?: { channel: string; on: Record<string, boolean> }; xero?: { account: string; auto: boolean } }
   planCancelled?: boolean
 }
 
